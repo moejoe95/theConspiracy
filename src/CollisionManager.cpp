@@ -30,8 +30,9 @@ SDL_Rect CollisionManager::checkCollision(RenderObject *currentObj, const SDL_Re
 			continue;
 		for (auto bb : entry.second->getBoundingBoxes()) {
 			if (SDL_IntersectRect(&currentBB, &bb, &intersection)) {
-				spdlog::debug("collision found " + entry.first + " -> " + currentObj->getId());
+
 				if (int dem = entry.second->demageValue()) {
+					spdlog::debug("collision found " + entry.first + " -> " + currentObj->getId());
 					entry.second->demage(0);
 					currentObj->demage(dem);
 				}

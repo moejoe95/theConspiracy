@@ -29,10 +29,11 @@ const std::vector<SDL_Rect> Entity::getBoundingBoxes() {
 
 bool Entity::gravity(int offset) {
 
-	boundingBox.y += 5;
+	int fallingSpeed = 5;
+	boundingBox.y += fallingSpeed;
 	intersection = collisionManager->checkCollision(this, boundingBox);
-	if (intersection.y > 0) {
-		boundingBox.y = intersection.y - offset;
+	if (intersection.h > 0) {
+		boundingBox.y -= fallingSpeed;
 		return true;
 	}
 	currentTexture = jumpTexture;
