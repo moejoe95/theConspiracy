@@ -110,7 +110,9 @@ void Enemy::render() {
 		SDL_RenderDrawRect(renderer, &playerBB);
 	}
 
-	renderBullets();
+	// renderBullets();
+
+	collisionManager->registerObject(this);
 }
 
 int Enemy::demageValue() {

@@ -45,7 +45,7 @@ void Bullet::render() {
 
 	collisionManager->registerObject(this);
 
-	if (explodeIdx >= 0) {
+	if (explodeIdx >= 0 && !outOfSight) {
 		explodeIdx++;
 		boundingBox.w = BULLET_BLAST_SIZE;
 		boundingBox.h = BULLET_BLAST_SIZE;

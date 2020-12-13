@@ -15,6 +15,12 @@ void CollisionManager::deregisterObject(RenderObject *obj) {
 	objectMap.erase(obj->getId());
 }
 
+void CollisionManager::cleanBullets(std::vector<std::string> ids) {
+	for (auto &bulletId : ids) {
+		objectMap.erase(bulletId);
+	}
+}
+
 void CollisionManager::resetSDLRect(SDL_Rect &rect) {
 	rect.x = 0;
 	rect.y = 0;

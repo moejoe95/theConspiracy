@@ -117,6 +117,8 @@ void Player::render() {
 	}
 
 	renderBullets();
+
+	collisionManager->registerObject(this);
 }
 
 int Player::demageValue() {
