@@ -93,9 +93,13 @@ void Entity::renderBullets() {
 	}
 	collisionManager->cleanBullets(ids);
 
+	std::vector<Bullet> newBullets;
 	for (auto &bullet : firedBullets) {
 		bullet.render();
+		if (!bullet.isOutOfSight())
+			newBullets.push_back(bullet);
 	}
+	firedBullets = newBullets;
 }
 
 void Entity::renderHurt() {

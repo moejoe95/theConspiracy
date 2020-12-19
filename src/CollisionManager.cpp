@@ -16,7 +16,7 @@ void CollisionManager::deregisterObject(RenderObject *obj) {
 }
 
 void CollisionManager::cleanBullets(std::vector<std::string> ids) {
-	for (auto &bulletId : ids) {
+	for (auto bulletId : ids) {
 		objectMap.erase(bulletId);
 	}
 }
