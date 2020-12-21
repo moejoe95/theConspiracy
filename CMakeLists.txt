@@ -37,7 +37,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     include ${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS} ${SDL2TTF_INCLUDE_DIRS} ${})
 
 
-target_compile_options(${PROJECT_NAME} PRIVATE -Werror -Wall -pedantic)
+target_compile_options(${PROJECT_NAME} PRIVATE )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     ${SDL2_LIBRARIES} 

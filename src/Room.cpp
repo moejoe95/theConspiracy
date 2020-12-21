@@ -3,13 +3,8 @@
 #include "headers/Game.hpp"
 #include "headers/Utils.hpp"
 #include "spdlog/spdlog.h"
-#include <SDL.h>
-#include <fstream>
-#include <iostream>
-#include <map>
+#include <filesystem>
 #include <nlohmann/json.hpp>
-#include <string>
-#include <vector>
 
 using nlohmann::json;
 
@@ -18,71 +13,86 @@ Room::Room(const std::string &roomFile, SDL_Renderer *renderer, CollisionManager
 	collisionManager = collisionManager_;
 	id = "room1";
 
-	std::ifstream i(getMapsPath("") + roomFile);
-	json j;
-	i >> j;
-
-	j.at("map").get_to(map);
-	j.at("background").get_to(background);
-	j.at("layout").get_to(layout);
-	j.at("tiles").get_to(tiles);
-	j.at("player").get_to(playerStart);
-	j.at("enemy").get_to(enemyStart);
-
-	drawBoundingBoxes = getArg<bool>("drawBoundingBox");
-	spdlog::info(drawBoundingBoxes);
+	drawBoundingBox = getArg<bool>("drawBoundingBox");
+	drawMode = getArg<std::string>("drawMode");
 
 	loadTextures();
-
 	spdlog::info("room " + roomFile + " initalized");
 }
 
 void Room::loadTextures() {
-	const std::string resPath = getResourcePath();
-	ground_texture = loadTexture(resPath + "ground.png", renderer);
-	platform_texture = loadTexture(resPath + "platform.png", renderer);
-	background_texture = loadTexture(resPath + background, renderer);
 
-	spdlog::info("loaded room textures");
-}
+	tson::Tileson parser;
+	std::string mapPath = getMapsPath() + "map1.json";
 
-void Room::addBoundingBox(int x, int y) {
-	SDL_Rect boundingBox;
-	boundingBox.x = x;
-	boundingBox.y = y;
-	boundingBox.w = CELL_SIZE;
-	boundingBox.h = CELL_SIZE;
-	boundingBoxes.push_back(boundingBox);
-}
+	std::unique_ptr<tson::Map> map = parser.parse(fs::path(mapPath));
 
-void Room::render() {
-	boundingBoxes.clear();
-	renderTexture(background_texture, renderer, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	playerStart[0] = map->get<int>("player.x");
+	playerStart[1] = map->get<int>("player.y");
 
-	int y = 0;
-	for (std::string row : layout) {
-		int x = 0;
-		for (char cell : row) {
-			if (cell == GROUND) {
-				renderTexture(ground_texture, renderer, x, y);
-				addBoundingBox(x, y);
-			} else if (cell == PLAT) {
-				renderTexture(platform_texture, renderer, x, y);
-				addBoundingBox(x, y);
-			}
-			x += CELL_SIZE;
-		}
-		y += CELL_SIZE;
+	if (map->getStatus() == tson::ParseStatus::OK) {
+
+		drawLayer(map, "background");
+		drawLayer(map, "decorations");
+		drawLayer(map, "main");
+
+	} else {
+		spdlog::error("failed to parse map");
 	}
 
-	if (drawBoundingBoxes) {
+	drawBoundingBoxes();
+
+	collisionManager->registerObject(this);
+}
+
+void Room::drawLayer(std::unique_ptr<tson::Map> &map, std::string name) {
+
+	tson::Layer *layer = map->getLayer(name);
+	for (auto &[pos, tileObject] : layer->getTileObjects()) {
+		tson::Rect drawingRect = tileObject.getDrawingRect();
+
+		bool addBB = false;
+		if (name == "main")
+			addBB = true;
+		SDL_Rect rect = getSDLRect(tileObject.getPosition(), tileObject.getTile()->getImageSize(), addBB);
+
+		std::string relPath = tileObject.getTile()->getImage().u8string();
+		relPath.replace(0, 8, "");
+		if (relPath.empty())
+			continue;
+		std::string absPath = getPath("", "data") + relPath;
+
+		if (drawMode != "raw" || name == "main")
+			textureMap.insert({loadTexture(absPath, renderer), rect});
+	}
+}
+
+void Room::drawBoundingBoxes() {
+	if (drawBoundingBox) {
 		for (auto bb : boundingBoxes) {
 			SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 			SDL_RenderDrawRect(renderer, &bb);
 		}
 	}
+}
 
-	collisionManager->registerObject(this);
+SDL_Rect Room::getSDLRect(tson::Vector2f position, tson::Vector2i imageSize, bool addBoundingBox) {
+	SDL_Rect sdlRect;
+	sdlRect.x = (int)(position.x - imageSize.x / 2.0);
+	sdlRect.y = (int)(position.y - imageSize.y / 2.0);
+	sdlRect.w = imageSize.x;
+	sdlRect.h = imageSize.y;
+	if (addBoundingBox)
+		boundingBoxes.push_back(sdlRect);
+	return sdlRect;
+}
+
+void Room::render() {
+
+	for (auto &[tex, rect] : textureMap) {
+		renderTexture(tex, renderer, rect);
+	}
+
 	for (auto bb : boundingBoxes)
 		collisionManager->checkCollision(this, bb);
 }
@@ -96,9 +106,3 @@ int Room::demageValue() {
 }
 
 void Room::demage(int demage) {}
-
-Room::~Room() {
-	SDL_DestroyTexture(background_texture);
-	SDL_DestroyTexture(ground_texture);
-	SDL_DestroyTexture(platform_texture);
-}

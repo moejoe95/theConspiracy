@@ -96,7 +96,7 @@ std::string getResourcePath(const std::string &subDir) {
 }
 
 std::string getMapsPath(const std::string &subDir) {
-	return getPath(subDir, "maps");
+	return getPath(subDir, "tiled");
 }
 
 std::string getBasePath(const std::string &subDir) {

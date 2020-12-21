@@ -3,6 +3,7 @@
 
 #include "CollisionManager.hpp"
 #include "RenderObject.hpp"
+#include "tileson_min.hpp"
 #include <SDL.h>
 #include <array>
 #include <map>
@@ -17,7 +18,6 @@ const char PLAT = 'p';
 class Room : public RenderObject {
 
   public:
-	~Room();
 	Room(const std::string &roomFile, SDL_Renderer *renderer, CollisionManager *collisionManager);
 
 	std::array<int, 2> playerStart;
@@ -30,20 +30,17 @@ class Room : public RenderObject {
 
   private:
 	CollisionManager *collisionManager;
-	std::string map;
-	std::string background;
-	std::map<std::string, std::string> tiles;
-	std::vector<std::string> layout;
-	bool drawBoundingBoxes;
+	std::string drawMode;
+	bool drawBoundingBox;
 
 	SDL_Renderer *renderer;
-	SDL_Texture *ground_texture;
-	SDL_Texture *platform_texture;
-	SDL_Texture *background_texture;
+	std::map<SDL_Texture *, SDL_Rect> textureMap;
 	std::vector<SDL_Rect> boundingBoxes;
 
-	void addBoundingBox(int x, int y);
+	SDL_Rect getSDLRect(tson::Vector2f position, tson::Vector2i imageSize, bool addBoundingBox);
 	void loadTextures();
+	void drawBoundingBoxes();
+	void drawLayer(std::unique_ptr<tson::Map> &map, std::string name);
 };
 
 #endif // ROOM_HPP

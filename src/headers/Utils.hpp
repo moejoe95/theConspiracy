@@ -35,10 +35,12 @@ T getArg(const std::string &name) {
 	namespace po = boost::program_options;
 
 	std::string level;
+	std::string drawMode;
 	po::options_description config("Configuration");
 	config.add_options()("drawBoundingBox", po::value<bool>()->default_value(false))(
 	    "showStatus", po::value<bool>()->default_value(false))("SPDLOG_LEVEL",
-	                                                           po::value<std::string>(&level)->default_value("info"));
+	                                                           po::value<std::string>(&level)->default_value("info"))(
+	    "drawMode", po::value<std::string>(&drawMode)->default_value("full"));
 
 	po::variables_map values;
 	std::string settings = getBasePath("") + "settings.ini";

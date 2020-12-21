@@ -1,0 +1,55 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "map1.tmx",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "Alle Dateien (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "Laboratory.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 0.03,
+            "scaleInEditor": 0.03
+        },
+        "map1.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 512,
+                "y": 454
+            }
+        },
+        "map1.tmx#Laboratory": {
+            "dynamicWrapping": true
+        },
+        "t.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "lastUsedTilesetExportFilter": "JSON tileset files (*.json)",
+    "map.height": 32,
+    "map.lastUsedExportFilter": "All Files (*)",
+    "map.lastUsedFormat": "tmx",
+    "map.width": 32,
+    "openFiles": [
+        "map1.tmx",
+        "Laboratory.tsx"
+    ],
+    "project": "theConspiracy.tiled-project",
+    "property.type": "int",
+    "recentFiles": [
+        "Laboratory.tsx",
+        "map1.tmx",
+        "t.tsx"
+    ],
+    "resizeMap.removeObjects": false,
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.type": 1
+}

@@ -11,8 +11,8 @@ Player::Player(std::array<int, 2> position, SDL_Renderer *renderer_, CollisionMa
 
 	id = "player";
 
-	boundingBox.x = position[0] * CELL_SIZE;
-	boundingBox.y = position[1] * CELL_SIZE - CELL_SIZE / 2;
+	boundingBox.x = position[0];
+	boundingBox.y = position[1];
 	boundingBox.w = PLAYER_WIDTH;
 	boundingBox.h = PLAYER_HEIGTH;
 
@@ -38,14 +38,6 @@ Player::Player(std::array<int, 2> position, SDL_Renderer *renderer_, CollisionMa
 	loadTextures();
 
 	spdlog::info("player initalized");
-}
-
-void Player::jump() {
-	if (!movement.up) {
-		movement.up = true;
-		startHeight = boundingBox.y;
-		spdlog::debug("player jump");
-	}
 }
 
 void Player::loadTextures() {
@@ -78,6 +70,14 @@ void Player::loadTextures() {
 	bulletTexture = loadTexture(getResourcePath("bullet") + "bullet.png", renderer);
 
 	spdlog::info("player textures loaded");
+}
+
+void Player::jump() {
+	if (!movement.up) {
+		movement.up = true;
+		startHeight = boundingBox.y;
+		spdlog::debug("player jump");
+	}
 }
 
 void Player::renderJump() {

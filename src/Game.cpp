@@ -31,15 +31,16 @@ bool Game::renderGame() {
 		spdlog::info("game over - player died");
 		return false;
 	}
-
-	std::vector<Enemy> new_enemies;
-	for (auto &enemy : enemies) {
-		enemy.render();
-		if (enemy.isAlive) {
-			new_enemies.push_back(enemy);
-		}
-	}
-	enemies = new_enemies;
+	/*
+	    std::vector<Enemy> new_enemies;
+	    for (auto &enemy : enemies) {
+	        enemy.render();
+	        if (enemy.isAlive) {
+	            new_enemies.push_back(enemy);
+	        }
+	    }
+	    enemies = new_enemies;
+*/
 
 	// draw life information
 	if (getArg<bool>("showStatus")) {
