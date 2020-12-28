@@ -3,7 +3,6 @@
 
 #include "CollisionManager.hpp"
 #include "RenderObject.hpp"
-#include "SDL_mixer.h"
 #include "tileson_min.hpp"
 #include <SDL.h>
 #include <array>
@@ -38,8 +37,6 @@ class Room : public RenderObject {
 	SDL_Renderer *renderer;
 	std::vector<std::map<SDL_Texture *, SDL_Rect>> textureMapList;
 	std::vector<SDL_Rect> boundingBoxes;
-
-	Mix_Chunk *sound;
 
 	SDL_Rect getSDLRect(tson::Vector2f position, tson::Vector2i imageSize, bool addBoundingBox);
 	void loadTextures();

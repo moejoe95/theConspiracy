@@ -97,16 +97,34 @@ void Player::renderJump() {
 	currentTexture = jumpTexture;
 }
 
-void Player::render() {
-	currentTexture = idleTexture;
+void Player::collisionAvoidance() {
 	intersection = collisionManager->checkCollision(this, boundingBox);
 
+	if (intersection.w > 0 && movement.right) {
+		boundingBox.x -= intersection.w;
+		// spdlog::debug(intersection.w);
+	}
+	if (intersection.w > 0 && movement.left) {
+		boundingBox.x += intersection.w;
+	}
+	if (intersection.h > 0 && movement.up) {
+		boundingBox.y += intersection.h;
+		movement.up = false;
+	}
+}
+
+void Player::render() {
+	currentTexture = idleTexture;
+
+	// render frame
 	renderMove();
 	renderJump();
 	gravity(PLAYER_HEIGTH);
 	renderShoot();
 	renderHurt();
 	renderDie();
+
+	collisionAvoidance();
 
 	renderTexture(currentTexture, renderer, boundingBox, flip);
 
@@ -141,4 +159,7 @@ Player::~Player() {
 		SDL_DestroyTexture(tex);
 	for (auto tex : dieTextures)
 		SDL_DestroyTexture(tex);
+
+	// Mix_FreeChunk(gunSound);
+	// Mix_FreeChunk(hurtSound);
 }

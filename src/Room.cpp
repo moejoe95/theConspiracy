@@ -1,7 +1,7 @@
 #include "headers/Room.hpp"
 #include "headers/Constants.hpp"
 #include "headers/Game.hpp"
-#include "headers/SDLException.hpp"
+#include "headers/SoundManager.hpp"
 #include "headers/Utils.hpp"
 #include "spdlog/spdlog.h"
 #include <filesystem>
@@ -17,18 +17,10 @@ Room::Room(const std::string &roomFile, SDL_Renderer *renderer, CollisionManager
 	drawBoundingBox = getArg<bool>("drawBoundingBox");
 	drawMode = getArg<std::string>("drawMode");
 
-	// TODO free resources (texture, audio)
 	loadTextures();
 
-	std::string backgroundWav = getResourcePath("sounds") + "background.wav";
-
-	sound = Mix_LoadWAV(backgroundWav.c_str());
-	if (!sound)
-		throw SDLException("Mix_LoadWAV failed.");
-
-	// play endless on channel 0
-	if (Mix_PlayChannel(0, sound, -1) == -1)
-		throw SDLException("Mix_PlayChannel failed.");
+	// play backround
+	SoundManager::getInstance().playBackgroundSound();
 
 	spdlog::info("room " + roomFile + " initalized");
 }
@@ -39,8 +31,6 @@ Room::~Room() {
 			SDL_DestroyTexture(tex);
 		}
 	}
-
-	Mix_FreeChunk(sound);
 }
 
 void Room::loadTextures() {

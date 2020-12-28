@@ -1,4 +1,5 @@
 #include "headers/Entity.hpp"
+#include "headers/SoundManager.hpp"
 #include "spdlog/spdlog.h"
 
 void Entity::moveLeft() {
@@ -52,11 +53,7 @@ void Entity::renderMove() {
 	} else
 		return;
 
-	int old_x = intersection.x;
 	boundingBox.x += step;
-	intersection = collisionManager->checkCollision(this, boundingBox);
-	if (intersection.x > old_x)
-		boundingBox.x -= step;
 
 	currentWalkIdx = currentWalkIdx >= walkAnimSize - 1 ? 0 : currentWalkIdx + 1;
 
@@ -66,6 +63,9 @@ void Entity::renderMove() {
 void Entity::renderShoot() {
 	if (!startShoot && currentShootIdx == 0)
 		return;
+
+	if (currentShootIdx == 0)
+		SoundManager::getInstance().playGunSound();
 
 	currentShootIdx++;
 	if (currentShootIdx >= shootAnimSize - 1) {
@@ -109,6 +109,9 @@ void Entity::renderHurt() {
 			currentHurtIdx = -1;
 		}
 	}
+
+	if (currentHurtIdx == 1)
+		SoundManager::getInstance().playHurtSound();
 }
 
 void Entity::renderDie() {

@@ -28,7 +28,8 @@ set(SOURCE_FILES
     src/Entity.cpp
     src/Enemy.cpp
     src/Bullet.cpp
-    src/CollisionManager.cpp)
+    src/CollisionManager.cpp
+    src/SoundManager.cpp)
 
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
