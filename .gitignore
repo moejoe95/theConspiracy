@@ -3,4 +3,3 @@ data/*
 res/*
 .clang-format
 ps_hints.md
-.vscode/*
