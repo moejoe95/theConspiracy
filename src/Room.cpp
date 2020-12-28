@@ -1,6 +1,7 @@
 #include "headers/Room.hpp"
 #include "headers/Constants.hpp"
 #include "headers/Game.hpp"
+#include "headers/SDLException.hpp"
 #include "headers/Utils.hpp"
 #include "spdlog/spdlog.h"
 #include <filesystem>
@@ -16,8 +17,30 @@ Room::Room(const std::string &roomFile, SDL_Renderer *renderer, CollisionManager
 	drawBoundingBox = getArg<bool>("drawBoundingBox");
 	drawMode = getArg<std::string>("drawMode");
 
+	// TODO free resources (texture, audio)
 	loadTextures();
+
+	std::string backgroundWav = getResourcePath("sounds") + "background.wav";
+
+	sound = Mix_LoadWAV(backgroundWav.c_str());
+	if (!sound)
+		throw SDLException("Mix_LoadWAV failed.");
+
+	// play endless on channel 0
+	if (Mix_PlayChannel(0, sound, -1) == -1)
+		throw SDLException("Mix_PlayChannel failed.");
+
 	spdlog::info("room " + roomFile + " initalized");
+}
+
+Room::~Room() {
+	for (auto &textureMap : textureMapList) {
+		for (auto &[tex, rect] : textureMap) {
+			SDL_DestroyTexture(tex);
+		}
+	}
+
+	Mix_FreeChunk(sound);
 }
 
 void Room::loadTextures() {
@@ -40,13 +63,12 @@ void Room::loadTextures() {
 		spdlog::error("failed to parse map");
 	}
 
-	drawBoundingBoxes();
-
 	collisionManager->registerObject(this);
 }
 
 void Room::drawLayer(std::unique_ptr<tson::Map> &map, std::string name) {
 
+	std::map<SDL_Texture *, SDL_Rect> textureMap;
 	tson::Layer *layer = map->getLayer(name);
 	for (auto &[pos, tileObject] : layer->getTileObjects()) {
 		tson::Rect drawingRect = tileObject.getDrawingRect();
@@ -65,6 +87,7 @@ void Room::drawLayer(std::unique_ptr<tson::Map> &map, std::string name) {
 		if (drawMode != "raw" || name == "main")
 			textureMap.insert({loadTexture(absPath, renderer), rect});
 	}
+	textureMapList.push_back(textureMap);
 }
 
 void Room::drawBoundingBoxes() {
@@ -89,9 +112,13 @@ SDL_Rect Room::getSDLRect(tson::Vector2f position, tson::Vector2i imageSize, boo
 
 void Room::render() {
 
-	for (auto &[tex, rect] : textureMap) {
-		renderTexture(tex, renderer, rect);
+	for (auto &textureMap : textureMapList) {
+		for (auto &[tex, rect] : textureMap) {
+			renderTexture(tex, renderer, rect);
+		}
 	}
+
+	drawBoundingBoxes();
 
 	for (auto bb : boundingBoxes)
 		collisionManager->checkCollision(this, bb);

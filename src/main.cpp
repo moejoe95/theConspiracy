@@ -1,3 +1,4 @@
+#include "SDL_mixer.h"
 #include "headers/Constants.hpp"
 #include "headers/Game.hpp"
 #include "headers/SDLException.hpp"
@@ -16,7 +17,7 @@ int main(int argc, char *argv[]) {
 	setLogLevel();
 
 	// init SDL
-	if (SDL_Init(SDL_INIT_VIDEO) != 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
 		throw SDLException("SDL_Init failed.");
 
 	SDL_Window *window = SDL_CreateWindow("the conspiracy", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -27,6 +28,10 @@ int main(int argc, char *argv[]) {
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (!renderer)
 		throw SDLException("SDL_CreateRenderer failed.");
+
+	// init sound
+	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+		throw SDLException("Mix_OpenAudio failed.");
 
 	// init game
 	Game game{"city.json", renderer};
@@ -51,6 +56,7 @@ int main(int argc, char *argv[]) {
 	SDL_DestroyWindow(window);
 	IMG_Quit();
 	SDL_Quit();
+	Mix_CloseAudio();
 
 	spdlog::info("quit game");
 
