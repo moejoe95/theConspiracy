@@ -20,6 +20,12 @@ SoundManager::SoundManager() {
 		throw SDLException("Mix_LoadWAV failed.");
 }
 
+SoundManager::~SoundManager() {
+	Mix_FreeChunk(gunSound);
+	Mix_FreeChunk(hurtSound);
+	Mix_FreeChunk(backgroundSound);
+}
+
 SoundManager &SoundManager::getInstance() {
 	static SoundManager sm{};
 	return sm;
