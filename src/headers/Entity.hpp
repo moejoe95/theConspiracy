@@ -30,6 +30,7 @@ class Entity : public RenderObject {
 		bool right = false;
 		bool left = false;
 		bool up = false;
+		bool down = false;
 	} movement;
 
 	bool startShoot = false;
@@ -67,7 +68,7 @@ class Entity : public RenderObject {
 
 	CollisionManager *collisionManager;
 
-	bool gravity(int offset);
+	void gravity();
 	void renderMove();
 
 	const std::vector<SDL_Rect> getBoundingBoxes() override;

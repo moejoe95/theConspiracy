@@ -98,7 +98,7 @@ void Enemy::render() {
 	sleep--;
 
 	renderShoot();
-	gravity(ENEMY_HEIGTH);
+	gravity();
 	renderHurt();
 	renderDie();
 

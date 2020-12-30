@@ -73,7 +73,7 @@ void Player::loadTextures() {
 }
 
 void Player::jump() {
-	if (!movement.up) {
+	if (!movement.up && !movement.down) {
 		movement.up = true;
 		startHeight = boundingBox.y;
 		spdlog::debug("player jump");
@@ -91,6 +91,7 @@ void Player::renderJump() {
 
 	if (startHeight - PLAYER_JUMP_HEIGHT > boundingBox.y) {
 		movement.up = false;
+		movement.down = true;
 	}
 
 	boundingBox.y += step;
@@ -109,6 +110,7 @@ void Player::collisionAvoidance() {
 	if (intersection.h > 0 && movement.up) {
 		boundingBox.y += intersection.h;
 		movement.up = false;
+		movement.down = true;
 	}
 }
 
@@ -118,7 +120,7 @@ void Player::render() {
 	// render frame
 	renderMove();
 	renderJump();
-	gravity(PLAYER_HEIGTH);
+	gravity();
 	renderShoot();
 	renderHurt();
 	renderDie();
