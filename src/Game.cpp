@@ -44,8 +44,11 @@ bool Game::renderGame() {
 
 	// draw life information
 	if (getArg<bool>("showStatus")) {
-		std::string life = "Life: " + std::to_string(player.getLife());
-		renderText(life, renderer, 0, 0);
+		std::string text = "Life: " + std::to_string(player.getLife());
+		renderText(text, renderer, 0, 0);
+
+		text = "Ammo: " + std::to_string(player.getAmmo());
+		renderText(text, renderer, 0, 20);
 	}
 
 	return true;

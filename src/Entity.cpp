@@ -75,7 +75,11 @@ void Entity::renderShoot() {
 
 		int y = boundingBox.y + boundingBox.h / 2;
 
-		firedBullets.emplace_back(x, y, flip, renderer, bulletTexture);
+		if (ammo > 0) {
+			firedBullets.emplace_back(x, y, flip, renderer, bulletTexture);
+			ammo--;
+		} else
+			ammo = 0;
 
 		startShoot = false;
 		currentShootIdx = 0;

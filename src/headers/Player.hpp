@@ -23,13 +23,17 @@ class Player : public Entity {
 
 	void render() override;
 	int demageValue() override;
+	void demage(int demage) override;
 	int getLife();
+	int getAmmo();
 
   private:
 	void jump();
 	void loadTextures();
 	void renderJump();
 	void collisionAvoidance();
+
+	bool godMode;
 };
 
 #endif // PLAYER_HPP

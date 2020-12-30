@@ -4,6 +4,7 @@
 #include "spdlog/spdlog.h"
 #include <SDL.h>
 #include <iostream>
+#include <limits>
 
 Player::Player(std::array<int, 2> position, SDL_Renderer *renderer_, CollisionManager *collisionManager_) {
 	renderer = renderer_;
@@ -33,7 +34,7 @@ Player::Player(std::array<int, 2> position, SDL_Renderer *renderer_, CollisionMa
 	keyUpEventMap.insert({SDLK_d, [this]() -> void { this->stopMoveRight(); }});
 
 	drawBoundingBox = getArg<bool>("drawBoundingBox");
-	spdlog::info(drawBoundingBox);
+	godMode = getArg<bool>("godMode");
 
 	loadTextures();
 
@@ -91,7 +92,8 @@ void Player::renderJump() {
 
 	if (startHeight - PLAYER_JUMP_HEIGHT > boundingBox.y) {
 		movement.up = false;
-		movement.down = true;
+		if (!godMode)
+			movement.down = true;
 	}
 
 	boundingBox.y += step;
@@ -138,6 +140,10 @@ void Player::render() {
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderDrawRect(renderer, &playerBB);
 	}
+
+	// reset ammo if god
+	if (godMode)
+		ammo = 20;
 }
 
 int Player::demageValue() {
@@ -146,6 +152,15 @@ int Player::demageValue() {
 
 int Player::getLife() {
 	return life;
+}
+
+int Player::getAmmo() {
+	return ammo;
+}
+
+void Player::demage(int demage) {
+	if (!godMode)
+		Entity::demage(demage);
 }
 
 Player::~Player() {

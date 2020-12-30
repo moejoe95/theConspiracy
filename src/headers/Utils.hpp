@@ -40,8 +40,8 @@ T getArg(const std::string &name) {
 	config.add_options()("drawBoundingBox", po::value<bool>()->default_value(false))(
 	    "showStatus", po::value<bool>()->default_value(false))("SPDLOG_LEVEL",
 	                                                           po::value<std::string>(&level)->default_value("info"))(
-	    "drawMode", po::value<std::string>(&drawMode)->default_value("full"))("sound",
-	                                                                          po::value<bool>()->default_value(true));
+	    "drawMode", po::value<std::string>(&drawMode)->default_value("full"))(
+	    "sound", po::value<bool>()->default_value(true))("godMode", po::value<bool>()->default_value(false));
 
 	po::variables_map values;
 	std::string settings = getBasePath("") + "settings.ini";

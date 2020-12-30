@@ -48,6 +48,7 @@ class Entity : public RenderObject {
 	int hurtAnimSize = 0;
 
 	int life = 100;
+	int ammo = 20;
 
 	bool drawBoundingBox;
 
