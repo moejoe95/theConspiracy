@@ -3,3 +3,10 @@ data/*
 res/*
 .clang-format
 ps_hints.md
+
+# temporary ignored files
+EntityStates.cpp
+PlayerFSM.cpp
+EntityState.hpp
+EntityStates.hpp
+PlayerFSM.hpp

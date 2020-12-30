@@ -102,7 +102,6 @@ void Player::collisionAvoidance() {
 
 	if (intersection.w > 0 && movement.right) {
 		boundingBox.x -= intersection.w;
-		// spdlog::debug(intersection.w);
 	}
 	if (intersection.w > 0 && movement.left) {
 		boundingBox.x += intersection.w;
@@ -124,6 +123,10 @@ void Player::render() {
 	renderHurt();
 	renderDie();
 
+	renderBullets();
+
+	collisionManager->registerObject(this);
+
 	collisionAvoidance();
 
 	renderTexture(currentTexture, renderer, boundingBox, flip);
@@ -133,10 +136,6 @@ void Player::render() {
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 		SDL_RenderDrawRect(renderer, &playerBB);
 	}
-
-	renderBullets();
-
-	collisionManager->registerObject(this);
 }
 
 int Player::demageValue() {
@@ -159,7 +158,4 @@ Player::~Player() {
 		SDL_DestroyTexture(tex);
 	for (auto tex : dieTextures)
 		SDL_DestroyTexture(tex);
-
-	// Mix_FreeChunk(gunSound);
-	// Mix_FreeChunk(hurtSound);
 }

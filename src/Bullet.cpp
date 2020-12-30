@@ -6,9 +6,8 @@
 
 int Bullet::count = 0;
 
-Bullet::Bullet(int x, int y, SDL_RendererFlip flip, SDL_Renderer *renderer, SDL_Texture *texture,
-               CollisionManager *collisionManager)
-    : flip(flip), renderer(renderer), texture(texture), collisionManager(collisionManager) {
+Bullet::Bullet(int x, int y, SDL_RendererFlip flip, SDL_Renderer *renderer, SDL_Texture *texture)
+    : flip(flip), renderer(renderer), texture(texture) {
 
 	id = "bullet_" + std::to_string(count++);
 
@@ -35,24 +34,20 @@ void Bullet::render() {
 
 		if (boundingBox.x > SCREEN_WIDTH || boundingBox.x < 0) {
 			outOfSight = true;
-			collisionManager->deregisterObject(this);
-			spdlog::debug("bullet of of sight");
-			return;
+			spdlog::debug(id + " of of sight");
 		}
 
 		renderTexture(texture, renderer, boundingBox, flip);
 	}
 
-	collisionManager->registerObject(this);
-
-	if (explodeIdx >= 0 && !outOfSight) {
+	if (explodeIdx >= 0) {
 		explodeIdx++;
 		boundingBox.w = BULLET_BLAST_SIZE;
 		boundingBox.h = BULLET_BLAST_SIZE;
 		renderTexture(explodeTextures[explodeIdx], renderer, boundingBox);
 		if (explodeIdx >= BULLET_BLAST_ANIM_SIZE) {
-			collisionManager->deregisterObject(this);
 			outOfSight = true;
+			spdlog::debug(id + " exploded");
 		}
 	}
 }

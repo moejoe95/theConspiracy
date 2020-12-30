@@ -76,7 +76,7 @@ void Entity::renderShoot() {
 
 		int y = boundingBox.y + boundingBox.h / 2;
 
-		firedBullets.emplace_back(x, y, flip, renderer, bulletTexture, collisionManager);
+		firedBullets.emplace_back(x, y, flip, renderer, bulletTexture);
 
 		startShoot = false;
 		currentShootIdx = 0;
@@ -85,21 +85,21 @@ void Entity::renderShoot() {
 }
 
 void Entity::renderBullets() {
-	// delete bullets out of map because location of bullets may have changed
-	// (due to newly inserted bullets)
-	std::vector<std::string> ids;
-	for (auto &bullet : firedBullets) {
-		ids.push_back(bullet.getId());
-	}
-	collisionManager->cleanBullets(ids);
 
 	std::vector<Bullet> newBullets;
 	for (auto &bullet : firedBullets) {
+		collisionManager->deregisterObject(&bullet);
 		bullet.render();
-		if (!bullet.isOutOfSight())
+		if (!bullet.isOutOfSight()) {
 			newBullets.push_back(bullet);
+		}
 	}
+
 	firedBullets = newBullets;
+
+	for (auto &bullet : firedBullets) {
+		collisionManager->registerObject(&bullet);
+	}
 }
 
 void Entity::renderHurt() {
