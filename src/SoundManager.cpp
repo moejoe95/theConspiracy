@@ -18,6 +18,8 @@ SoundManager::SoundManager() {
 	backgroundSound = Mix_LoadWAV(wav.c_str());
 	if (!backgroundSound)
 		throw SDLException("Mix_LoadWAV failed.");
+
+	soundOn = getArg<bool>("sound");
 }
 
 SoundManager::~SoundManager() {
@@ -31,15 +33,20 @@ SoundManager &SoundManager::getInstance() {
 	return sm;
 }
 
+void SoundManager::play(int channel, Mix_Chunk *sound, int times) {
+	if (soundOn)
+		Mix_PlayChannel(channel, sound, times);
+}
+
 void SoundManager::playBackgroundSound() {
 	// play endless on channel 0
-	Mix_PlayChannel(0, backgroundSound, -1);
+	play(0, backgroundSound, -1);
 }
 
 void SoundManager::playGunSound() {
-	Mix_PlayChannel(1, gunSound, 0);
+	play(1, gunSound, 0);
 }
 
 void SoundManager::playHurtSound() {
-	Mix_PlayChannel(1, hurtSound, 0);
+	play(1, hurtSound, 0);
 }
