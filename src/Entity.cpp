@@ -69,9 +69,9 @@ void Entity::renderShoot() {
 	currentShootIdx++;
 	if (currentShootIdx >= shootAnimSize - 1) {
 		// create bullet
-		int x = boundingBox.x;
+		int x = boundingBox.x - 10; // offset to not walk into own bullet
 		if (flip == SDL_FLIP_NONE)
-			x += boundingBox.w;
+			x += boundingBox.w + 10;
 
 		int y = boundingBox.y + boundingBox.h / 2;
 
