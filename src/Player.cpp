@@ -97,27 +97,22 @@ void Player::renderJump() {
 	}
 
 	boundingBox.y += step;
-	currentTexture = jumpTexture;
-}
 
-void Player::collisionAvoidance() {
-	intersection = collisionManager->checkCollision(this, boundingBox);
-
-	if (intersection.w > 0 && movement.right) {
-		boundingBox.x -= intersection.w;
-	}
-	if (intersection.w > 0 && movement.left) {
-		boundingBox.x += intersection.w;
-	}
-	if (intersection.h > 0 && movement.up) {
-		boundingBox.y += intersection.h;
+	// collision avoidance
+	SDL_Rect new_intersection = collisionManager->checkCollision(this, boundingBox);
+	if (new_intersection.h > intersection.h) {
+		boundingBox.y -= step;
 		movement.up = false;
 		movement.down = true;
 	}
+
+	currentTexture = jumpTexture;
 }
 
 void Player::render() {
 	currentTexture = idleTexture;
+
+	intersection = collisionManager->checkCollision(this, boundingBox);
 
 	// render frame
 	renderMove();
@@ -130,8 +125,6 @@ void Player::render() {
 	renderBullets();
 
 	collisionManager->registerObject(this);
-
-	collisionAvoidance();
 
 	renderTexture(currentTexture, renderer, boundingBox, flip);
 

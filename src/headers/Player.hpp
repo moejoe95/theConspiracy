@@ -31,7 +31,6 @@ class Player : public Entity {
 	void jump();
 	void loadTextures();
 	void renderJump();
-	void collisionAvoidance();
 
 	bool godMode;
 };

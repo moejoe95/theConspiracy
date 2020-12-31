@@ -54,6 +54,12 @@ void Entity::renderMove() {
 
 	boundingBox.x += step;
 
+	// collision avoidance
+	SDL_Rect new_intersection = collisionManager->checkCollision(this, boundingBox);
+	if (new_intersection.w > intersection.w) {
+		boundingBox.x -= step;
+	}
+
 	currentWalkIdx = currentWalkIdx >= walkAnimSize - 1 ? 0 : currentWalkIdx + 1;
 
 	currentTexture = walkTextures.at(currentWalkIdx);
