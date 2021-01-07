@@ -24,7 +24,7 @@ bool Game::renderGame() {
 	if (SDL_QUIT == dispatchKeyEvent(player))
 		return false;
 
-	room.render(player.getPosition());
+	room.render();
 
 	player.render();
 	if (!player.isAlive) {
@@ -41,6 +41,12 @@ bool Game::renderGame() {
 	    }
 	    enemies = new_enemies;
 */
+
+	if (player.getPosition().x > SCREEN_WIDTH) {
+		renderer->setXOffset(-SCREEN_WIDTH);
+	} else if (player.getPosition().x < SCREEN_WIDTH) {
+		renderer->setXOffset(0);
+	}
 
 	// draw life information
 	if (getArg<bool>("showStatus")) {

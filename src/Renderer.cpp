@@ -60,7 +60,7 @@ void Renderer::drawRect(SDL_Rect rect) {
 void Renderer::drawTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, int w, int h) {
 	// Setup the destination rectangle to be at the position we want
 	SDL_Rect dst;
-	dst.x = x;
+	dst.x = x + xOffset;
 	dst.y = y;
 	dst.w = w;
 	dst.h = h;
@@ -78,6 +78,7 @@ void Renderer::drawTexture(SDL_Texture *tex, SDL_Rect rect) {
 }
 
 void Renderer::drawTexture(SDL_Texture *tex, SDL_Rect rect, SDL_RendererFlip flip) {
+	rect.x += xOffset;
 	SDL_RenderCopyEx(renderer, tex, NULL, &rect, 0, NULL, flip);
 }
 
@@ -88,6 +89,10 @@ SDL_Texture *Renderer::loadTexture(const std::string &file) {
 		throw SDLException("loadTexture failed.");
 	}
 	return texture;
+}
+
+void Renderer::setXOffset(int offset) {
+	xOffset = offset;
 }
 
 Renderer::~Renderer() {

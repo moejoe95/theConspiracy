@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.4" tiledversion="1.4.3" name="laboratory" tilewidth="3103" tileheight="3069" tilecount="309" columns="0">
+<tileset version="1.4" tiledversion="1.4.3" name="laboratory" tilewidth="3103" tileheight="3069" tilecount="311" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image width="97" height="48" source="../data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/For_Tiled/platform1.png"/>
@@ -936,5 +936,11 @@
  </tile>
  <tile id="308">
   <image width="587" height="1204" source="../data/WorldWarMech_Lava_Station/PNG_Exports_1x_2x_3x/wall2@3x.png"/>
+ </tile>
+ <tile id="309">
+  <image width="378" height="82" source="../data/WorldWarMech_Lava_Station/PNG_Exports_1x_2x_3x/pipe_long_down.png"/>
+ </tile>
+ <tile id="310">
+  <image width="21" height="292" source="../data/WorldWarMech_Lava_Station/PNG_Exports_1x_2x_3x/pipe_mid_vertical.png"/>
  </tile>
 </tileset>

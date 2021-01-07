@@ -20,7 +20,7 @@ class Room : public RenderObject {
 	std::array<int, 2> playerStart;
 	std::array<int, 2> enemyStart;
 
-	void render(SDL_Rect playerBox);
+	void render();
 	void demage(int demage) override;
 	int demageValue() override;
 	const std::vector<SDL_Rect> getBoundingBoxes() override;
