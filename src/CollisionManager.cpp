@@ -4,7 +4,7 @@
 #include "spdlog/spdlog.h"
 #include <string>
 
-CollisionManager::CollisionManager(SDL_Renderer *renderer) : renderer(renderer) {}
+CollisionManager::CollisionManager() {}
 
 void CollisionManager::registerObject(RenderObject *obj) {
 	objectMap.insert({obj->getId(), obj});

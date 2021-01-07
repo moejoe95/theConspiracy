@@ -3,6 +3,7 @@
 
 #include "CollisionManager.hpp"
 #include "RenderObject.hpp"
+#include "Renderer.hpp"
 #include <SDL.h>
 #include <vector>
 
@@ -15,7 +16,7 @@ const int BULLET_VELOCITY = 10;
 class Bullet : public RenderObject {
 
   public:
-	Bullet(int x, int y, SDL_RendererFlip flip, SDL_Renderer *renderer, SDL_Texture *texture);
+	Bullet(int x, int y, SDL_RendererFlip flip, Renderer *renderer, SDL_Texture *texture);
 
 	void render();
 	bool isOutOfSight();
@@ -25,8 +26,8 @@ class Bullet : public RenderObject {
 	static int count;
 
   private:
+	Renderer *renderer;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
-	SDL_Renderer *renderer;
 	SDL_Texture *texture;
 	SDL_Rect boundingBox;
 	std::vector<SDL_Texture *> explodeTextures;

@@ -4,6 +4,7 @@
 #include "Bullet.hpp"
 #include "CollisionManager.hpp"
 #include "RenderObject.hpp"
+#include "Renderer.hpp"
 #include "Room.hpp"
 #include <SDL.h>
 #include <array>
@@ -52,8 +53,9 @@ class Entity : public RenderObject {
 
 	bool drawBoundingBox;
 
+	Renderer *renderer;
+
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
-	SDL_Renderer *renderer;
 	SDL_Rect boundingBox;
 	SDL_Rect intersection;
 	SDL_Texture *currentTexture;

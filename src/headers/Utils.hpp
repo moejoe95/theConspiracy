@@ -2,23 +2,10 @@
 #define UTIL_HPP
 
 #include <SDL.h>
-#include <SDL_image.h>
 #include <array>
 #include <boost/program_options.hpp>
 #include <fstream>
 #include <string>
-
-SDL_Texture *loadTexture(const std::string &file, SDL_Renderer *ren);
-
-void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, int w, int h);
-
-void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y);
-
-void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, SDL_Rect boundingBox, SDL_RendererFlip flip);
-
-void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, SDL_Rect boundingBox);
-
-void renderText(const std::string &text, SDL_Renderer *ren, int x, int y);
 
 std::string getPath(const std::string &subDir, const std::string &dir);
 

@@ -11,8 +11,8 @@
 #include <SDL.h>
 #include <iostream>
 
-Game::Game(const std::string &roomName, SDL_Renderer *renderer)
-    : renderer(renderer), collisionManager(renderer), room(roomName, renderer, &collisionManager),
+Game::Game(const std::string &roomName, Renderer *renderer)
+    : renderer(renderer), collisionManager(), room(roomName, renderer, &collisionManager),
       player(room.playerStart, renderer, &collisionManager) {
 
 	enemies.emplace_back(room.enemyStart, renderer, &collisionManager);
@@ -24,7 +24,7 @@ bool Game::renderGame() {
 	if (SDL_QUIT == dispatchKeyEvent(player))
 		return false;
 
-	room.render();
+	room.render(player.getPosition());
 
 	player.render();
 	if (!player.isAlive) {
@@ -45,10 +45,10 @@ bool Game::renderGame() {
 	// draw life information
 	if (getArg<bool>("showStatus")) {
 		std::string text = "Life: " + std::to_string(player.getLife());
-		renderText(text, renderer, 0, 0);
+		renderer->drawText(text, 0, 0);
 
 		text = "Ammo: " + std::to_string(player.getAmmo());
-		renderText(text, renderer, 0, 20);
+		renderer->drawText(text, 0, 20);
 	}
 
 	return true;

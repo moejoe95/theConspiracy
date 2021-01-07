@@ -2,6 +2,7 @@
 #define COLLISION_MANAGER_HPP
 
 #include "RenderObject.hpp"
+#include "Renderer.hpp"
 #include <SDL.h>
 #include <map>
 #include <string>
@@ -11,7 +12,7 @@ class Bullet;
 class CollisionManager {
 
   public:
-	explicit CollisionManager(SDL_Renderer *renderer);
+	CollisionManager();
 	~CollisionManager();
 
 	// TODO: maybe better to use copy of RenderObjects?
@@ -25,7 +26,6 @@ class CollisionManager {
   private:
 	void resetSDLRect(SDL_Rect &rect);
 
-	SDL_Renderer *renderer;
 	std::map<std::string, RenderObject *> objectMap;
 };
 

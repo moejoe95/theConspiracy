@@ -8,7 +8,7 @@
 
 int Enemy::count = 0;
 
-Enemy::Enemy(std::array<int, 2> position, SDL_Renderer *renderer_, CollisionManager *collisionManger_) {
+Enemy::Enemy(std::array<int, 2> position, Renderer *renderer_, CollisionManager *collisionManger_) {
 	renderer = renderer_;
 	collisionManager = collisionManger_;
 
@@ -41,27 +41,27 @@ void Enemy::loadTextures() {
 
 	std::string walkPath = getResourcePath("enemy/walk");
 	for (int i = 0; i < ENEMY_WALK_ANIM_SIZE; i++) {
-		walkTextures.push_back(loadTexture(walkPath + std::to_string(i + 1) + PNG, renderer));
+		walkTextures.push_back(renderer->loadTexture(walkPath + std::to_string(i + 1) + PNG));
 	}
 
 	std::string shootPath = getResourcePath("enemy/shoot");
 	for (int i = 0; i < ENEMY_SHOOT_ANIM_SIZE; i++) {
-		shootTextures.push_back(loadTexture(shootPath + std::to_string(i + 1) + PNG, renderer));
+		shootTextures.push_back(renderer->loadTexture(shootPath + std::to_string(i + 1) + PNG));
 	}
 
 	std::string hurtPath = getResourcePath("enemy/hurt");
 	for (int i = 0; i < hurtAnimSize; i++) {
-		hurtTextures.push_back(loadTexture(hurtPath + std::to_string(i + 1) + PNG, renderer));
+		hurtTextures.push_back(renderer->loadTexture(hurtPath + std::to_string(i + 1) + PNG));
 	}
 
 	std::string diePath = getResourcePath("enemy/die");
 	for (int i = 0; i < dieAnimSize; i++) {
-		dieTextures.push_back(loadTexture(diePath + std::to_string(i + 1) + PNG, renderer));
+		dieTextures.push_back(renderer->loadTexture(diePath + std::to_string(i + 1) + PNG));
 	}
 
-	bulletTexture = loadTexture(getResourcePath("bullet") + "bullet.png", renderer);
+	bulletTexture = renderer->loadTexture(getResourcePath("bullet") + "bullet.png");
 
-	idleTexture = loadTexture(getResourcePath() + "enemy/idle.png", renderer);
+	idleTexture = renderer->loadTexture(getResourcePath() + "enemy/idle.png");
 	jumpTexture = idleTexture;
 
 	spdlog::info("enemy textures loaded");
@@ -102,12 +102,11 @@ void Enemy::render() {
 	renderHurt();
 	renderDie();
 
-	renderTexture(currentTexture, renderer, boundingBox, flip);
+	renderer->drawTexture(currentTexture, boundingBox, flip);
 
 	if (drawBoundingBox) {
 		const SDL_Rect playerBB = boundingBox;
-		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-		SDL_RenderDrawRect(renderer, &playerBB);
+		renderer->drawRect(playerBB);
 	}
 
 	renderBullets();

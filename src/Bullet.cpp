@@ -6,7 +6,7 @@
 
 int Bullet::count = 0;
 
-Bullet::Bullet(int x, int y, SDL_RendererFlip flip, SDL_Renderer *renderer, SDL_Texture *texture)
+Bullet::Bullet(int x, int y, SDL_RendererFlip flip, Renderer *renderer, SDL_Texture *texture)
     : flip(flip), renderer(renderer), texture(texture) {
 
 	id = "bullet_" + std::to_string(count++);
@@ -18,7 +18,7 @@ Bullet::Bullet(int x, int y, SDL_RendererFlip flip, SDL_Renderer *renderer, SDL_
 
 	std::string explodePath = getResourcePath("bullet/blast");
 	for (int i = 0; i <= BULLET_BLAST_ANIM_SIZE; i++) {
-		explodeTextures.push_back(loadTexture(explodePath + std::to_string(i + 1) + PNG, renderer));
+		explodeTextures.push_back(renderer->loadTexture(explodePath + std::to_string(i + 1) + PNG));
 	}
 
 	spdlog::debug(id + " constructed");
@@ -37,14 +37,14 @@ void Bullet::render() {
 			spdlog::debug(id + " of of sight");
 		}
 
-		renderTexture(texture, renderer, boundingBox, flip);
+		renderer->drawTexture(texture, boundingBox, flip);
 	}
 
 	if (explodeIdx >= 0) {
 		explodeIdx++;
 		boundingBox.w = BULLET_BLAST_SIZE;
 		boundingBox.h = BULLET_BLAST_SIZE;
-		renderTexture(explodeTextures[explodeIdx], renderer, boundingBox);
+		renderer->drawTexture(explodeTextures[explodeIdx], boundingBox);
 		if (explodeIdx >= BULLET_BLAST_ANIM_SIZE) {
 			outOfSight = true;
 			spdlog::debug(id + " exploded");

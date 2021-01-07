@@ -3,6 +3,7 @@
 
 #include "CollisionManager.hpp"
 #include "RenderObject.hpp"
+#include "Renderer.hpp"
 #include "tileson_min.hpp"
 #include <SDL.h>
 #include <array>
@@ -13,13 +14,13 @@
 class Room : public RenderObject {
 
   public:
-	Room(const std::string &roomFile, SDL_Renderer *renderer, CollisionManager *collisionManager);
+	Room(const std::string &roomFile, Renderer *renderer, CollisionManager *collisionManager);
 	~Room();
 
 	std::array<int, 2> playerStart;
 	std::array<int, 2> enemyStart;
 
-	void render();
+	void render(SDL_Rect playerBox);
 	void demage(int demage) override;
 	int demageValue() override;
 	const std::vector<SDL_Rect> getBoundingBoxes() override;
@@ -29,7 +30,7 @@ class Room : public RenderObject {
 	std::string drawMode;
 	bool drawBoundingBox;
 
-	SDL_Renderer *renderer;
+	Renderer *renderer;
 	std::vector<std::map<SDL_Texture *, SDL_Rect>> textureMapList;
 	std::vector<SDL_Rect> boundingBoxes;
 

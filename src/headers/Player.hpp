@@ -3,6 +3,7 @@
 
 #include "CollisionManager.hpp"
 #include "Entity.hpp"
+#include "Renderer.hpp"
 #include <SDL.h>
 #include <map>
 #include <string>
@@ -15,7 +16,7 @@ const int PLAYER_JUMP_HEIGHT = 120;
 class Player : public Entity {
 
   public:
-	Player(std::array<int, 2> position, SDL_Renderer *renderer, CollisionManager *collisionManager);
+	Player(std::array<int, 2> position, Renderer *renderer, CollisionManager *collisionManager);
 	~Player();
 
 	std::map<SDL_Keycode, std::function<void()>> keyUpEventMap;
@@ -26,6 +27,7 @@ class Player : public Entity {
 	void demage(int demage) override;
 	int getLife();
 	int getAmmo();
+	SDL_Rect getPosition();
 
   private:
 	void jump();

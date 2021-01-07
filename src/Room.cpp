@@ -9,8 +9,7 @@
 
 using nlohmann::json;
 
-Room::Room(const std::string &roomFile, SDL_Renderer *renderer, CollisionManager *collisionManager_)
-    : renderer(renderer) {
+Room::Room(const std::string &roomFile, Renderer *renderer, CollisionManager *collisionManager_) : renderer(renderer) {
 	collisionManager = collisionManager_;
 	id = "room1";
 
@@ -75,7 +74,7 @@ void Room::drawLayer(std::unique_ptr<tson::Map> &map, std::string name) {
 		std::string absPath = getPath("", "data") + relPath;
 
 		if (drawMode != "raw" || name == "main")
-			textureMap.insert({loadTexture(absPath, renderer), rect});
+			textureMap.insert({renderer->loadTexture(absPath), rect});
 	}
 	textureMapList.push_back(textureMap);
 }
@@ -83,8 +82,7 @@ void Room::drawLayer(std::unique_ptr<tson::Map> &map, std::string name) {
 void Room::drawBoundingBoxes() {
 	if (drawBoundingBox) {
 		for (auto bb : boundingBoxes) {
-			SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-			SDL_RenderDrawRect(renderer, &bb);
+			renderer->drawRect(bb);
 		}
 	}
 }
@@ -100,11 +98,11 @@ SDL_Rect Room::getSDLRect(tson::Vector2f position, tson::Vector2i imageSize, boo
 	return sdlRect;
 }
 
-void Room::render() {
+void Room::render(SDL_Rect playerBox) {
 
 	for (auto &textureMap : textureMapList) {
 		for (auto &[tex, rect] : textureMap) {
-			renderTexture(tex, renderer, rect);
+			renderer->drawTexture(tex, rect);
 		}
 	}
 

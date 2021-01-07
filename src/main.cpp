@@ -1,12 +1,11 @@
 #include "SDL_mixer.h"
-#include "headers/Constants.hpp"
 #include "headers/Game.hpp"
+#include "headers/Renderer.hpp"
 #include "headers/SDLException.hpp"
 #include "headers/Utils.hpp"
 #include "spdlog/spdlog.h"
+#include <SDL.h>
 #include <boost/program_options.hpp>
-#include <fstream>
-#include <iostream>
 
 namespace po = boost::program_options;
 
@@ -20,26 +19,19 @@ int main(int argc, char *argv[]) {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
 		throw SDLException("SDL_Init failed.");
 
-	SDL_Window *window = SDL_CreateWindow("the conspiracy", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-	                                      SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-	if (!window)
-		throw SDLException("SDL_CreateWindow failed.");
-
-	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (!renderer)
-		throw SDLException("SDL_CreateRenderer failed.");
-
 	// init sound
 	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
 		throw SDLException("Mix_OpenAudio failed.");
 
+	Renderer renderer{};
+
 	// init game
-	Game game{"city.json", renderer};
+	Game game{"city.json", &renderer};
 
 	// game loop
 	bool render = true;
 	while (render) {
-		SDL_RenderClear(renderer);
+		renderer.clear();
 
 		unsigned int renderStart = SDL_GetTicks();
 		render = game.renderGame();
@@ -48,13 +40,11 @@ int main(int argc, char *argv[]) {
 			SDL_Delay(30 - frameTime);
 		}
 
-		SDL_RenderPresent(renderer);
+		renderer.update();
 	}
 
 	// destroy SDL
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-	IMG_Quit();
+
 	SDL_Quit();
 	Mix_CloseAudio();
 

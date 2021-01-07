@@ -3,6 +3,7 @@
 
 #include "CollisionManager.hpp"
 #include "Entity.hpp"
+#include "Renderer.hpp"
 #include <SDL.h>
 
 const int ENEMY_WIDTH = 110;
@@ -15,7 +16,7 @@ const int ENEMY_SHOOT_ANIM_SIZE = 5;
 class Enemy : public Entity {
 
   public:
-	Enemy(std::array<int, 2> position, SDL_Renderer *renderer, CollisionManager *collisionManager);
+	Enemy(std::array<int, 2> position, Renderer *renderer, CollisionManager *collisionManager);
 	~Enemy();
 
 	void render() override;

@@ -5,6 +5,7 @@
 #include "Enemy.hpp"
 #include "Player.hpp"
 #include "RenderObject.hpp"
+#include "Renderer.hpp"
 #include "Room.hpp"
 #include <SDL.h>
 #include <functional>
@@ -14,12 +15,12 @@
 class Game {
 
   public:
-	Game(const std::string &roomName, SDL_Renderer *renderer);
+	Game(const std::string &roomName, Renderer *renderer);
 
 	bool renderGame();
 
   private:
-	SDL_Renderer *renderer;
+	Renderer *renderer;
 	CollisionManager collisionManager;
 	Room room;
 	Player player;

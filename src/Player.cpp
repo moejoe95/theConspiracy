@@ -6,7 +6,7 @@
 #include <iostream>
 #include <limits>
 
-Player::Player(std::array<int, 2> position, SDL_Renderer *renderer_, CollisionManager *collisionManager_) {
+Player::Player(std::array<int, 2> position, Renderer *renderer_, CollisionManager *collisionManager_) {
 	renderer = renderer_;
 	collisionManager = collisionManager_;
 
@@ -46,29 +46,29 @@ void Player::loadTextures() {
 	// walk textures
 	std::string walkPath = getResourcePath("player/walk");
 	for (int i = 0; i < walkAnimSize; i++) {
-		walkTextures.push_back(loadTexture(walkPath + std::to_string(i + 1) + PNG, renderer));
+		walkTextures.push_back(renderer->loadTexture(walkPath + std::to_string(i + 1) + PNG));
 	}
 
 	std::string shootPath = getResourcePath("player/shoot");
 	for (int i = 0; i < shootAnimSize; i++) {
-		shootTextures.push_back(loadTexture(shootPath + std::to_string(i + 1) + PNG, renderer));
+		shootTextures.push_back(renderer->loadTexture(shootPath + std::to_string(i + 1) + PNG));
 	}
 
 	std::string hurtPath = getResourcePath("player/hurt");
 	for (int i = 0; i < hurtAnimSize; i++) {
-		hurtTextures.push_back(loadTexture(hurtPath + std::to_string(i + 1) + PNG, renderer));
+		hurtTextures.push_back(renderer->loadTexture(hurtPath + std::to_string(i + 1) + PNG));
 	}
 
 	std::string diePath = getResourcePath("player/die");
 	for (int i = 0; i < dieAnimSize; i++) {
-		dieTextures.push_back(loadTexture(diePath + std::to_string(i + 1) + PNG, renderer));
+		dieTextures.push_back(renderer->loadTexture(diePath + std::to_string(i + 1) + PNG));
 	}
 
-	jumpTexture = loadTexture(getResourcePath("player") + "jump.png", renderer);
+	jumpTexture = renderer->loadTexture(getResourcePath("player") + "jump.png");
 
-	idleTexture = loadTexture(getResourcePath("player") + "idle.png", renderer);
+	idleTexture = renderer->loadTexture(getResourcePath("player") + "idle.png");
 
-	bulletTexture = loadTexture(getResourcePath("bullet") + "bullet.png", renderer);
+	bulletTexture = renderer->loadTexture(getResourcePath("bullet") + "bullet.png");
 
 	spdlog::info("player textures loaded");
 }
@@ -126,12 +126,11 @@ void Player::render() {
 
 	collisionManager->registerObject(this);
 
-	renderTexture(currentTexture, renderer, boundingBox, flip);
+	renderer->drawTexture(currentTexture, boundingBox, flip);
 
 	if (drawBoundingBox) {
 		const SDL_Rect playerBB = boundingBox;
-		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-		SDL_RenderDrawRect(renderer, &playerBB);
+		renderer->drawRect(playerBB);
 	}
 
 	// reset ammo if god
@@ -154,6 +153,10 @@ int Player::getAmmo() {
 void Player::demage(int demage) {
 	if (!godMode)
 		Entity::demage(demage);
+}
+
+SDL_Rect Player::getPosition() {
+	return boundingBox;
 }
 
 Player::~Player() {
