@@ -10,11 +10,6 @@
 #include <string>
 #include <vector>
 
-const char GROUND = 'g';
-const char WALL = 'w';
-const char CEIL = 'c';
-const char PLAT = 'p';
-
 class Room : public RenderObject {
 
   public:

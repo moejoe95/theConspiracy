@@ -91,8 +91,8 @@ void Room::drawBoundingBoxes() {
 
 SDL_Rect Room::getSDLRect(tson::Vector2f position, tson::Vector2i imageSize, bool addBoundingBox) {
 	SDL_Rect sdlRect;
-	sdlRect.x = (int)(position.x - imageSize.x / 2.0);
-	sdlRect.y = (int)(position.y - imageSize.y / 2.0);
+	sdlRect.x = position.x;
+	sdlRect.y = position.y - imageSize.y;
 	sdlRect.w = imageSize.x;
 	sdlRect.h = imageSize.y;
 	if (addBoundingBox)
