@@ -21,6 +21,9 @@ class Room : public RenderObject {
 	std::array<int, 2> enemyStart;
 
 	void render();
+	bool isOnGoal(int playerX);
+	void nextRoom();
+
 	void demage(int demage) override;
 	int demageValue() override;
 	const std::vector<SDL_Rect> getBoundingBoxes() override;
@@ -29,13 +32,15 @@ class Room : public RenderObject {
 	CollisionManager *collisionManager;
 	std::string drawMode;
 	bool drawBoundingBox;
+	int goalX;
 
 	Renderer *renderer;
 	std::vector<std::map<SDL_Texture *, SDL_Rect>> textureMapList;
 	std::vector<SDL_Rect> boundingBoxes;
+	std::vector<std::string> roomMaps;
 
 	SDL_Rect getSDLRect(tson::Vector2f position, tson::Vector2i imageSize, bool addBoundingBox);
-	void loadTextures();
+	void loadTextures(std::string path);
 	void drawBoundingBoxes();
 	void drawLayer(std::unique_ptr<tson::Map> &map, std::string name);
 };

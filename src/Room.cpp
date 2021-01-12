@@ -16,7 +16,10 @@ Room::Room(const std::string &roomFile, Renderer *renderer, CollisionManager *co
 	drawBoundingBox = getArg<bool>("drawBoundingBox");
 	drawMode = getArg<std::string>("drawMode");
 
-	loadTextures();
+	roomMaps.push_back("map1.json");
+	roomMaps.push_back("map1.json");
+
+	loadTextures(getMapsPath() + roomMaps[0]);
 
 	// play backround
 	SoundManager::getInstance().playBackgroundSound();
@@ -32,22 +35,23 @@ Room::~Room() {
 	}
 }
 
-void Room::loadTextures() {
+void Room::loadTextures(std::string mapPath) {
 
 	tson::Tileson parser;
-	std::string mapPath = getMapsPath() + "map1.json";
-
 	std::unique_ptr<tson::Map> map = parser.parse(fs::path(mapPath));
 
 	playerStart[0] = map->get<int>("player.x");
 	playerStart[1] = map->get<int>("player.y");
+	goalX = map->get<int>("goal");
+
+	textureMapList.clear();
+	boundingBoxes.clear();
 
 	if (map->getStatus() == tson::ParseStatus::OK) {
 
 		drawLayer(map, "background");
 		drawLayer(map, "decorations");
 		drawLayer(map, "main");
-
 	} else {
 		spdlog::error("failed to parse map");
 	}
@@ -110,6 +114,15 @@ void Room::render() {
 
 	for (auto bb : boundingBoxes)
 		collisionManager->checkCollision(this, bb);
+}
+
+bool Room::isOnGoal(int playerXPosition) {
+	return playerXPosition > goalX;
+}
+
+void Room::nextRoom() {
+	// TODO counter
+	loadTextures(getMapsPath() + roomMaps[1]);
 }
 
 const std::vector<SDL_Rect> Room::getBoundingBoxes() {

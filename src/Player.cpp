@@ -159,6 +159,11 @@ SDL_Rect Player::getPosition() {
 	return boundingBox;
 }
 
+void Player::resetPosition(std::array<int, 2> position) {
+	boundingBox.x = position[0];
+	boundingBox.y = position[1];
+}
+
 Player::~Player() {
 	SDL_DestroyTexture(idleTexture);
 	SDL_DestroyTexture(bulletTexture);

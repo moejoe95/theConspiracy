@@ -28,6 +28,7 @@ class Player : public Entity {
 	int getLife();
 	int getAmmo();
 	SDL_Rect getPosition();
+	void resetPosition(std::array<int, 2> position);
 
   private:
 	void jump();

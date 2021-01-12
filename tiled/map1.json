@@ -2390,7 +2390,7 @@
                             0,
                             0,
                             0,
-                            0,
+                            7,
                             0,
                             0,
                             0,
@@ -4662,6 +4662,11 @@
        "orientation": "orthogonal",
        "properties": [
               {
+                     "name": "goal",
+                     "type": "int",
+                     "value": 2024
+              },
+              {
                      "name": "player.x",
                      "type": "int",
                      "value": 50
@@ -4687,7 +4692,7 @@
                      "margin": 0,
                      "name": "laboratory",
                      "spacing": 0,
-                     "tilecount": 311,
+                     "tilecount": 313,
                      "tileheight": 3069,
                      "tiles": [
                             {
@@ -6576,6 +6581,18 @@
                                    "image": "..\/data\/WorldWarMech_Lava_Station\/PNG_Exports_1x_2x_3x\/pipe_mid_vertical.png",
                                    "imageheight": 292,
                                    "imagewidth": 21
+                            },
+                            {
+                                   "id": 311,
+                                   "image": "..\/data\/WorldWarMech_Lava_Station\/PNG_Exports_1x_2x_3x\/building_50.png",
+                                   "imageheight": 384,
+                                   "imagewidth": 213
+                            },
+                            {
+                                   "id": 312,
+                                   "image": "..\/data\/WorldWarMech_Lava_Station\/PNG_Exports_1x_2x_3x\/platform2_50.png",
+                                   "imageheight": 150,
+                                   "imagewidth": 68
                             }
                      ],
                      "tilewidth": 3103

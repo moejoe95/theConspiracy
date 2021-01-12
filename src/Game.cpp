@@ -48,6 +48,11 @@ bool Game::renderGame() {
 		renderer->setXOffset(0);
 	}
 
+	if (room.isOnGoal(player.getPosition().x)) {
+		room.nextRoom();
+		player.resetPosition(room.playerStart);
+	}
+
 	// draw life information
 	if (getArg<bool>("showStatus")) {
 		std::string text = "Life: " + std::to_string(player.getLife());
