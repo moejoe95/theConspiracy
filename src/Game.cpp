@@ -2,14 +2,15 @@
 #include "headers/Game.hpp"
 #include "headers/Bullet.hpp"
 #include "headers/Constants.hpp"
-#include "headers/EventDispatcher.hpp"
 #include "headers/Player.hpp"
 #include "headers/Room.hpp"
 #include "headers/SDLException.hpp"
 #include "headers/Utils.hpp"
 #include "spdlog/spdlog.h"
 #include <SDL.h>
+#include <functional>
 #include <iostream>
+#include <vector>
 
 Game::Game(const std::string &roomName, Renderer *renderer)
     : renderer(renderer), collisionManager(), room(roomName, renderer, &collisionManager),
@@ -21,8 +22,16 @@ Game::Game(const std::string &roomName, Renderer *renderer)
 
 bool Game::renderGame() {
 
-	if (SDL_QUIT == dispatchKeyEvent(player))
-		return false;
+	int button = dispatchEvents();
+
+	if (button >= 0 || showMenu) {
+		spdlog::debug(button);
+		renderer->drawMenu();
+		if (button < 1)
+			return true;
+		else if (button == 1)
+			return false;
+	}
 
 	room.render();
 
@@ -63,4 +72,45 @@ bool Game::renderGame() {
 	}
 
 	return true;
+}
+
+int Game::dispatchEvents() {
+	int keyCode = -1;
+
+	SDL_Event event;
+	while (SDL_PollEvent(&event)) {
+		switch (event.type) {
+
+		case SDL_KEYDOWN: {
+			auto key = event.key.keysym.sym;
+			if (player.keyDownEventMap.find(key) != player.keyDownEventMap.end()) {
+				player.keyDownEventMap.find(key)->second();
+			} else if (key == SDLK_q || key == SDLK_ESCAPE) {
+				showMenu = true;
+			}
+		} break;
+
+		case SDL_KEYUP: {
+			auto key = event.key.keysym.sym;
+			if (player.keyUpEventMap.find(key) != player.keyUpEventMap.end()) {
+				player.keyUpEventMap.find(key)->second();
+			}
+		} break;
+		case SDL_MOUSEBUTTONDOWN:
+			if (showMenu) {
+				std::vector<SDL_Rect> buttons = renderer->drawMenu();
+				SDL_Point mouse;
+				SDL_GetMouseState(&mouse.x, &mouse.y);
+				for (int i = 0; i < buttons.size(); i++) {
+					const SDL_Point constMouse = mouse;
+					if (SDL_PointInRect(&constMouse, &buttons[i])) {
+						keyCode = i;
+						showMenu = false;
+					}
+				}
+			}
+			break;
+		}
+	}
+	return keyCode;
 }

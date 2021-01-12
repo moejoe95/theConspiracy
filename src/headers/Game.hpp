@@ -25,6 +25,9 @@ class Game {
 	Room room;
 	Player player;
 	std::vector<Enemy> enemies;
+	bool showMenu = false;
+
+	int dispatchEvents();
 };
 
 #endif // GAME_HPP

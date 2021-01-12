@@ -23,8 +23,7 @@ set(SOURCE_FILES
     src/Utils.cpp 
     src/SDLException.cpp 
     src/Room.cpp 
-    src/Player.cpp 
-    src/EventDispatcher 
+    src/Player.cpp
     src/Entity.cpp
     src/Enemy.cpp
     src/Bullet.cpp

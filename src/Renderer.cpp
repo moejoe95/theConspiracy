@@ -4,7 +4,6 @@
 #include "headers/Utils.hpp"
 #include "spdlog/spdlog.h"
 #include <SDL_image.h>
-#include <SDL_ttf.h>
 
 Renderer::Renderer() {
 	window = SDL_CreateWindow("the conspiracy", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH,
@@ -15,6 +14,15 @@ Renderer::Renderer() {
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (!renderer)
 		throw SDLException("SDL_CreateRenderer failed.");
+
+	if (TTF_Init() < 0)
+		throw SDLException("TTF_Init failed");
+
+	std::string fontName = getResourcePath("") + "Hack-Regular.ttf";
+
+	font = TTF_OpenFont(fontName.c_str(), 20);
+	if (!font)
+		throw SDLException("Failed to load font " + fontName);
 }
 
 void Renderer::clear() {
@@ -25,31 +33,41 @@ void Renderer::update() {
 	SDL_RenderPresent(renderer);
 }
 
-void Renderer::drawText(const std::string &text, int x, int y) {
-	if (TTF_Init() < 0)
-		throw SDLException("TTF_Init failed");
-
-	std::string fontName = getResourcePath("") + "Hack-Regular.ttf";
-
-	TTF_Font *font = TTF_OpenFont(fontName.c_str(), 20);
-	if (!font)
-		throw SDLException("Failed to load font " + fontName);
-
+void Renderer::drawText(const std::string &text, SDL_Rect rect) {
 	SDL_Surface *surfaceMessage = TTF_RenderText_Solid(font, text.c_str(), {255, 255, 255});
 	SDL_Texture *Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-
-	int w, h;
-	TTF_SizeText(font, text.c_str(), &w, &h);
-	SDL_Rect Message_rect;
-	Message_rect.x = x;
-	Message_rect.y = y;
-	Message_rect.w = w;
-	Message_rect.h = h;
-
-	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+	SDL_RenderCopy(renderer, Message, NULL, &rect);
 
 	SDL_FreeSurface(surfaceMessage);
 	SDL_DestroyTexture(Message);
+}
+
+SDL_Rect Renderer::drawText(const std::string &text, int x, int y) {
+
+	int w, h;
+	TTF_SizeText(font, text.c_str(), &w, &h);
+	SDL_Rect rect;
+	rect.x = x;
+	rect.y = y;
+	rect.w = w;
+	rect.h = h;
+
+	drawText(text, rect);
+	return rect;
+}
+
+SDL_Rect Renderer::drawText(const std::string &text, int y) {
+
+	int w, h;
+	TTF_SizeText(font, text.c_str(), &w, &h);
+	SDL_Rect rect;
+	rect.x = SCREEN_WIDTH / 2 - w / 2;
+	rect.y = y;
+	rect.w = w;
+	rect.h = h;
+
+	drawText(text, rect);
+	return rect;
 }
 
 void Renderer::drawRect(SDL_Rect rect) {
@@ -93,6 +111,14 @@ SDL_Texture *Renderer::loadTexture(const std::string &file) {
 
 void Renderer::setXOffset(int offset) {
 	xOffset = offset;
+}
+
+std::vector<SDL_Rect> Renderer::drawMenu() {
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	std::vector<SDL_Rect> buttons;
+	buttons.push_back(drawText("continue", 200));
+	buttons.push_back(drawText("exit", 250));
+	return buttons;
 }
 
 Renderer::~Renderer() {

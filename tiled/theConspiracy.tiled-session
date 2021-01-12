@@ -11,6 +11,87 @@
         "": {
             "scaleInDock": 1
         },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx": {
+            "scale": 3.453125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2048,
+                "y": 347.3665158371041
+            }
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#background_descending": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#conveyor_belt0001": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#crate": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#door_opening0001": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#fence_box": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#ladder2": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#lava_fall0001": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#lava_orange0001": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#platform1": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#platform2": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#platform3_ls": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#platform4": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#platform_rail2": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#platform_rail_horizontal": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#platform_simple": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#resupply1": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#resupply2": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#spike1": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#spike2": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#spike3": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#switch_off": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#tile_window": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#uranium1": {
+            "scaleInDock": 1
+        },
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx#wall1_darker": {
+            "scaleInDock": 1
+        },
         "Laboratory.tsx": {
             "dynamicWrapping": true,
             "scaleInDock": 0.03,
@@ -18,9 +99,9 @@
         },
         "map1.tmx": {
             "scale": 0.75,
-            "selectedLayer": 2,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 761.3333333333333,
+                "x": 1424,
                 "y": 286
             }
         },
@@ -28,11 +109,11 @@
             "dynamicWrapping": true
         },
         "map2.tmx": {
-            "scale": 0.75,
+            "scale": 0.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 456.66666666666663,
-                "y": 296.66666666666663
+                "x": 1867,
+                "y": -970
             }
         },
         "t.tsx": {
@@ -42,20 +123,24 @@
         }
     },
     "lastUsedTilesetExportFilter": "JSON tileset files (*.json)",
-    "map.height": 24,
+    "map.height": 96,
     "map.lastUsedExportFilter": "All Files (*)",
     "map.lastUsedFormat": "tmx",
-    "map.width": 32,
+    "map.tileHeight": 8,
+    "map.tileWidth": 8,
+    "map.width": 128,
     "openFiles": [
         "Laboratory.tsx",
-        "map1.tmx"
+        "map1.tmx",
+        "map2.tmx"
     ],
     "project": "theConspiracy.tiled-project",
     "property.type": "int",
     "recentFiles": [
         "Laboratory.tsx",
-        "map1.tmx",
         "map2.tmx",
+        "map1.tmx",
+        "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx",
         "t.tsx"
     ],
     "resizeMap.removeObjects": false,
