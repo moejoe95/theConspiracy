@@ -144,3 +144,10 @@ void Entity::demage(int demage) {
 		currentHurtIdx = 0;
 	}
 }
+
+void Entity::reset(std::array<int, 2> position) {
+	life = 100;
+	ammo = 20;
+	boundingBox.x = position[0];
+	boundingBox.y = position[1];
+}

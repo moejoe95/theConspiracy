@@ -16,8 +16,9 @@ Room::Room(const std::string &roomFile, Renderer *renderer, CollisionManager *co
 	drawBoundingBox = getArg<bool>("drawBoundingBox");
 	drawMode = getArg<std::string>("drawMode");
 
-	roomMaps.push_back("map1.json");
-	roomMaps.push_back("map1.json");
+	roomMaps.push_back(roomFile);
+	// TODO second room
+	roomMaps.push_back(roomFile);
 
 	loadTextures(getMapsPath() + roomMaps[0]);
 

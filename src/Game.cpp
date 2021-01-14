@@ -14,10 +14,18 @@
 
 Game::Game(const std::string &roomName, Renderer *renderer)
     : renderer(renderer), collisionManager(), room(roomName, renderer, &collisionManager),
-      player(room.playerStart, renderer, &collisionManager) {
+      player(room.playerStart, renderer, &collisionManager), roomName(roomName) {
 
 	enemies.emplace_back(room.enemyStart, renderer, &collisionManager);
 	spdlog::info("new game initalized");
+}
+
+void Game::reset() {
+	player.reset(room.playerStart);
+
+	// TODO
+	// reset enemies
+	// reset room
 }
 
 bool Game::renderGame() {
@@ -25,11 +33,12 @@ bool Game::renderGame() {
 	int button = dispatchEvents();
 
 	if (button >= 0 || showMenu) {
-		spdlog::debug(button);
 		renderer->drawMenu();
-		if (button < 1)
+		if (button < 1) // continue
 			return true;
-		else if (button == 1)
+		if (button == 1) { // new game
+			reset();
+		} else // exit game
 			return false;
 	}
 

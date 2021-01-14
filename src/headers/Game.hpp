@@ -18,6 +18,7 @@ class Game {
 	Game(const std::string &roomName, Renderer *renderer);
 
 	bool renderGame();
+	void reset();
 
   private:
 	Renderer *renderer;
@@ -26,6 +27,7 @@ class Game {
 	Player player;
 	std::vector<Enemy> enemies;
 	bool showMenu = false;
+	const std::string roomName;
 
 	int dispatchEvents();
 };

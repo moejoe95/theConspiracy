@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 	Renderer renderer{};
 
 	// init game
-	Game game{"city.json", &renderer};
+	Game game{"map1.json", &renderer};
 
 	// game loop
 	bool render = true;
@@ -35,6 +35,7 @@ int main(int argc, char *argv[]) {
 
 		unsigned int renderStart = SDL_GetTicks();
 		render = game.renderGame();
+
 		unsigned int frameTime = SDL_GetTicks() - renderStart;
 		if (frameTime < 30) {
 			SDL_Delay(30 - frameTime);

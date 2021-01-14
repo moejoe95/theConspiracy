@@ -116,8 +116,10 @@ void Renderer::setXOffset(int offset) {
 std::vector<SDL_Rect> Renderer::drawMenu() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	std::vector<SDL_Rect> buttons;
+
 	buttons.push_back(drawText("continue", 200));
-	buttons.push_back(drawText("exit", 250));
+	buttons.push_back(drawText("new game", 250));
+	buttons.push_back(drawText("exit", 350));
 	return buttons;
 }
 
