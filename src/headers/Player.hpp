@@ -1,6 +1,7 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
+#include "../cereal/types/base_class.hpp"
 #include "CollisionManager.hpp"
 #include "Entity.hpp"
 #include "Renderer.hpp"
@@ -29,6 +30,11 @@ class Player : public Entity {
 	int getAmmo();
 	SDL_Rect getPosition();
 	void resetPosition(std::array<int, 2> position);
+
+	template <class Archive>
+	void serialize(Archive &archive) {
+		archive(life, ammo);
+	}
 
   private:
 	void jump();

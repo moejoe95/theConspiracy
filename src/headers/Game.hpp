@@ -26,7 +26,7 @@ class Game {
 	Room room;
 	Player player;
 	std::vector<Enemy> enemies;
-	bool showMenu = false;
+	bool showMenu = true;
 	const std::string roomName;
 
 	int dispatchEvents();

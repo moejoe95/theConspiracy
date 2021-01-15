@@ -44,6 +44,7 @@ void Room::loadTextures(std::string mapPath) {
 	playerStart[0] = map->get<int>("player.x");
 	playerStart[1] = map->get<int>("player.y");
 	goalX = map->get<int>("goal");
+	savePointX = map->get<int>("savepoint");
 
 	textureMapList.clear();
 	boundingBoxes.clear();
@@ -119,6 +120,18 @@ void Room::render() {
 
 bool Room::isOnGoal(int playerXPosition) {
 	return playerXPosition > goalX;
+}
+
+bool Room::checkSavePoint(int playerXPosition) {
+	if (savePointRenderTime > 0 && playerXPosition > savePointX) {
+		renderer->drawText("game saved...", SCREEN_WIDTH - 160, 15);
+		savePointRenderTime--;
+		if (savePointRenderTime == 49) {
+			spdlog::debug("player hit save point");
+			return true;
+		}
+	}
+	return false;
 }
 
 void Room::nextRoom() {

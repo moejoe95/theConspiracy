@@ -4664,7 +4664,7 @@
               {
                      "name": "goal",
                      "type": "int",
-                     "value": 2024
+                     "value": 2016
               },
               {
                      "name": "player.x",
@@ -4675,6 +4675,11 @@
                      "name": "player.y",
                      "type": "int",
                      "value": 300
+              },
+              {
+                     "name": "savepoint",
+                     "type": "int",
+                     "value": 500
               }
        ],
        "renderorder": "right-down",

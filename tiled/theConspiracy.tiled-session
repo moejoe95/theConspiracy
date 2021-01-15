@@ -99,9 +99,9 @@
         },
         "map1.tmx": {
             "scale": 0.75,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 1424,
+                "x": 1805.3333333333333,
                 "y": 286
             }
         },
@@ -135,7 +135,7 @@
         "map2.tmx"
     ],
     "project": "theConspiracy.tiled-project",
-    "property.type": "int",
+    "property.type": "bool",
     "recentFiles": [
         "Laboratory.tsx",
         "map2.tmx",

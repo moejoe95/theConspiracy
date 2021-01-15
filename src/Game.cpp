@@ -1,5 +1,6 @@
 
 #include "headers/Game.hpp"
+#include "cereal/archives/json.hpp"
 #include "headers/Bullet.hpp"
 #include "headers/Constants.hpp"
 #include "headers/Player.hpp"
@@ -10,6 +11,7 @@
 #include <SDL.h>
 #include <functional>
 #include <iostream>
+#include <sstream>
 #include <vector>
 
 Game::Game(const std::string &roomName, Renderer *renderer)
@@ -69,6 +71,14 @@ bool Game::renderGame() {
 	if (room.isOnGoal(player.getPosition().x)) {
 		room.nextRoom();
 		player.resetPosition(room.playerStart);
+		spdlog::debug("player on goal");
+	}
+
+	if (room.checkSavePoint(player.getPosition().x)) {
+		spdlog::debug("serialize player");
+		std::stringstream ss;
+		cereal::JSONOutputArchive oarchive(ss);
+		oarchive(player);
 	}
 
 	// draw life information

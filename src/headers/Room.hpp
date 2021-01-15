@@ -22,6 +22,7 @@ class Room : public RenderObject {
 
 	void render();
 	bool isOnGoal(int playerX);
+	bool checkSavePoint(int playerX);
 	void nextRoom();
 
 	void demage(int demage) override;
@@ -33,6 +34,8 @@ class Room : public RenderObject {
 	std::string drawMode;
 	bool drawBoundingBox;
 	int goalX;
+	int savePointX;
+	int savePointRenderTime = 50;
 
 	Renderer *renderer;
 	std::vector<std::map<SDL_Texture *, SDL_Rect>> textureMapList;
