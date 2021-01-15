@@ -23,6 +23,7 @@ class Room : public RenderObject {
 	void render();
 	bool isOnGoal(int playerX);
 	bool checkSavePoint(int playerX);
+	void resetSavePoint();
 	void nextRoom();
 
 	void demage(int demage) override;

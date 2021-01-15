@@ -33,7 +33,7 @@ class Player : public Entity {
 
 	template <class Archive>
 	void serialize(Archive &archive) {
-		archive(life, ammo);
+		archive(life, ammo, boundingBox.x, boundingBox.y);
 	}
 
   private:

@@ -57,6 +57,9 @@ bool Game::renderGame() {
 	if (button < 1 && gameStart) {
 		reload();
 		gameStart = false;
+	} else if (button == 1) {
+		gameStart = false;
+		room.resetSavePoint();
 	}
 
 	room.render();

@@ -134,6 +134,10 @@ bool Room::checkSavePoint(int playerXPosition) {
 	return false;
 }
 
+void Room::resetSavePoint() {
+	savePointRenderTime = 50;
+}
+
 void Room::nextRoom() {
 	// TODO counter
 	loadTextures(getMapsPath() + roomMaps[1]);
