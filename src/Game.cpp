@@ -9,9 +9,9 @@
 #include "headers/Utils.hpp"
 #include "spdlog/spdlog.h"
 #include <SDL.h>
+#include <filesystem>
 #include <functional>
 #include <iostream>
-#include <sstream>
 #include <vector>
 
 Game::Game(const std::string &roomName, Renderer *renderer)
@@ -30,18 +30,33 @@ void Game::reset() {
 	// reset room
 }
 
+void Game::reload() {
+	spdlog::debug("load player");
+	if (std::filesystem::exists("data/player.json")) {
+		std::ifstream is("data/player.json");
+		cereal::JSONInputArchive iarchive(is);
+		iarchive(player);
+	}
+}
+
 bool Game::renderGame() {
 
 	int button = dispatchEvents();
 
 	if (button >= 0 || showMenu) {
 		renderer->drawMenu();
-		if (button < 1) // continue
+		if (button < 1) { // continue
 			return true;
+		}
 		if (button == 1) { // new game
 			reset();
-		} else // exit game
+		} else if (button == 2) // exit game
 			return false;
+	}
+
+	if (button < 1 && gameStart) {
+		reload();
+		gameStart = false;
 	}
 
 	room.render();
@@ -76,8 +91,8 @@ bool Game::renderGame() {
 
 	if (room.checkSavePoint(player.getPosition().x)) {
 		spdlog::debug("serialize player");
-		std::stringstream ss;
-		cereal::JSONOutputArchive oarchive(ss);
+		std::ofstream os("data/player.json");
+		cereal::JSONOutputArchive oarchive(os);
 		oarchive(player);
 	}
 

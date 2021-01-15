@@ -18,7 +18,6 @@ class Game {
 	Game(const std::string &roomName, Renderer *renderer);
 
 	bool renderGame();
-	void reset();
 
   private:
 	Renderer *renderer;
@@ -27,9 +26,12 @@ class Game {
 	Player player;
 	std::vector<Enemy> enemies;
 	bool showMenu = true;
+	bool gameStart = true;
 	const std::string roomName;
 
 	int dispatchEvents();
+	void reload();
+	void reset();
 };
 
 #endif // GAME_HPP
