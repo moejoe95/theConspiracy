@@ -12,10 +12,10 @@ Player::Player(std::array<int, 2> position, Renderer *renderer_, CollisionManage
 
 	id = "player";
 
-	boundingBox.x = position[0];
-	boundingBox.y = position[1];
 	boundingBox.w = PLAYER_WIDTH;
 	boundingBox.h = PLAYER_HEIGTH;
+	boundingBox.x = position[0];
+	boundingBox.y = position[1];
 
 	collisionManager->registerObject(this);
 
@@ -126,7 +126,12 @@ void Player::render() {
 
 	collisionManager->registerObject(this);
 
-	renderer->drawTexture(currentTexture, boundingBox, flip);
+	SDL_Rect offset; // offset for rendering
+	offset.x = -30;
+	offset.y = -20;
+	offset.w = 60;
+	offset.h = 20;
+	renderer->drawTexture(currentTexture, boundingBox, offset, flip);
 
 	if (drawBoundingBox) {
 		const SDL_Rect playerBB = boundingBox;

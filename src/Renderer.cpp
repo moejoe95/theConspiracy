@@ -100,6 +100,15 @@ void Renderer::drawTexture(SDL_Texture *tex, SDL_Rect rect, SDL_RendererFlip fli
 	SDL_RenderCopyEx(renderer, tex, NULL, &rect, 0, NULL, flip);
 }
 
+void Renderer::drawTexture(SDL_Texture *tex, SDL_Rect rect, SDL_Rect offset, SDL_RendererFlip flip) {
+	rect.x += xOffset;
+	rect.w += offset.w;
+	rect.h += offset.h;
+	rect.x += offset.x;
+	rect.y += offset.y;
+	SDL_RenderCopyEx(renderer, tex, NULL, &rect, 0, NULL, flip);
+}
+
 SDL_Texture *Renderer::loadTexture(const std::string &file) {
 	SDL_Texture *texture = IMG_LoadTexture(renderer, file.c_str());
 	if (!texture) {

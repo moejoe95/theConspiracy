@@ -9,8 +9,8 @@
 #include <map>
 #include <string>
 
-const int PLAYER_WIDTH = 160;
-const int PLAYER_HEIGTH = 120;
+const int PLAYER_WIDTH = 100;
+const int PLAYER_HEIGTH = 100;
 const int PLAYER_JUMP_SIZE = 20;
 const int PLAYER_JUMP_HEIGHT = 120;
 

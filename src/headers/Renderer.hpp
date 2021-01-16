@@ -24,6 +24,7 @@ class Renderer {
 	void drawTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y);
 	void drawTexture(SDL_Texture *tex, SDL_Rect rect);
 	void drawTexture(SDL_Texture *tex, SDL_Rect rect, SDL_RendererFlip flip);
+	void drawTexture(SDL_Texture *tex, SDL_Rect rect, SDL_Rect add, SDL_RendererFlip flip);
 	void setXOffset(int offset);
 	std::vector<SDL_Rect> drawMenu();
 

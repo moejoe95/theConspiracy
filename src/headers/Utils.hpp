@@ -15,8 +15,6 @@ std::string getMapsPath(const std::string &subDir = "");
 
 std::string getBasePath(const std::string &subDir);
 
-int getRandom(int start, int end);
-
 template <typename T>
 T getArg(const std::string &name) {
 	namespace po = boost::program_options;
