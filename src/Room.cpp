@@ -29,8 +29,11 @@ void Room::loadTextures(std::string mapPath) {
 	tson::Tileson parser;
 	std::unique_ptr<tson::Map> map = parser.parse(fs::path(mapPath));
 
+	// read properties of map
 	playerStart[0] = map->get<int>("player.x");
 	playerStart[1] = map->get<int>("player.y");
+	enemyStart[0] = map->get<int>("enemy.x");
+	enemyStart[1] = map->get<int>("enemy.y");
 	goalX = map->get<int>("goal");
 	savePointX = map->get<int>("savepoint");
 

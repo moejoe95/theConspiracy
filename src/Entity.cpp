@@ -150,4 +150,5 @@ void Entity::reset(std::array<int, 2> position) {
 	ammo = 20;
 	boundingBox.x = position[0];
 	boundingBox.y = position[1];
+	isAlive = true;
 }

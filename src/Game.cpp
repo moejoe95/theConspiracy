@@ -62,23 +62,26 @@ bool Game::renderGame() {
 		room.resetSavePoint();
 	}
 
-	room.render();
-
-	player.render();
 	if (!player.isAlive) {
-		spdlog::info("game over - player died");
-		return false;
+		renderer->drawGameOverScreen();
+		gameOverSreenTime--;
+		if (gameOverSreenTime < 0) {
+			showMenu = true;
+			gameOverSreenTime = 50;
+		}
+		return true;
 	}
-	/*
-	    std::vector<Enemy> new_enemies;
-	    for (auto &enemy : enemies) {
-	        enemy.render();
-	        if (enemy.isAlive) {
-	            new_enemies.push_back(enemy);
-	        }
-	    }
-	    enemies = new_enemies;
-*/
+
+	// render
+	room.render();
+	player.render();
+	for (auto &enemy : enemies) {
+		enemy.render();
+	}
+
+	// remove dead enemies
+	auto new_end = remove_if(enemies.begin(), enemies.end(), [](const Enemy &enemy) { return !enemy.isAlive; });
+	enemies.erase(new_end, enemies.end());
 
 	if (player.getPosition().x > SCREEN_WIDTH) {
 		renderer->setXOffset(-SCREEN_WIDTH);

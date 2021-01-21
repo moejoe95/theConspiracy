@@ -4806,8 +4806,8 @@ void tson::Tile::performDataCalculations() {
 	if (m_tileset == nullptr || m_map == nullptr)
 		return;
 
-	int firstId = m_tileset->getFirstgid(); // First tile id of the tileset
-	int columns = m_tileset->getColumns();
+	int firstId = m_tileset->getFirstgid();    // First tile id of the tileset
+	int columns = m_tileset->getColumns() + 1; // fix for theConspiracy
 	int rows = m_tileset->getTileCount() / columns;
 	int lastId = (m_tileset->getFirstgid() + m_tileset->getTileCount()) - 1;
 

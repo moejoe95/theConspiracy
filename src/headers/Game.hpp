@@ -27,6 +27,7 @@ class Game {
 	std::vector<Enemy> enemies;
 	bool showMenu = true;
 	bool gameStart = true;
+	int gameOverSreenTime = 50;
 	const std::string roomName;
 
 	int dispatchEvents();

@@ -14,6 +14,7 @@ class SoundManager {
 	void playBackgroundSound();
 	void playGunSound();
 	void playHurtSound();
+	void playGameOverSound();
 
 	SoundManager(const SoundManager &) = delete;
 	SoundManager &operator=(const SoundManager &) = delete;
@@ -27,6 +28,7 @@ class SoundManager {
 	Mix_Chunk *gunSound;
 	Mix_Chunk *hurtSound;
 	Mix_Chunk *backgroundSound;
+	Mix_Chunk *gameOverSound;
 };
 
 #endif // SOUNG_MANAGER_HPP

@@ -14,8 +14,8 @@ Enemy::Enemy(std::array<int, 2> position, Renderer *renderer_, CollisionManager 
 
 	id = "enemy_" + std::to_string(count++);
 
-	boundingBox.x = position[0] * CELL_SIZE;
-	boundingBox.y = position[1] * CELL_SIZE - CELL_SIZE / 2;
+	boundingBox.x = position[0];
+	boundingBox.y = position[1];
 	boundingBox.w = ENEMY_WIDTH;
 	boundingBox.h = ENEMY_HEIGTH;
 
@@ -93,7 +93,8 @@ void Enemy::render() {
 		walk();
 	}
 	if (sleep == 25) {
-		startShoot = true;
+		// bullets of enemy needs to be destroyed if enemy died
+		// startShoot = true;
 	}
 	sleep--;
 
@@ -110,8 +111,6 @@ void Enemy::render() {
 	}
 
 	renderBullets();
-
-	collisionManager->registerObject(this);
 }
 
 int Enemy::demageValue() {

@@ -27,6 +27,7 @@ class Renderer {
 	void drawTexture(SDL_Texture *tex, SDL_Rect rect, SDL_Rect add, SDL_RendererFlip flip);
 	void setXOffset(int offset);
 	std::vector<SDL_Rect> drawMenu();
+	void drawGameOverScreen();
 
   private:
 	SDL_Window *window;

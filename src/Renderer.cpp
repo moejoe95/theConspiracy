@@ -132,6 +132,11 @@ std::vector<SDL_Rect> Renderer::drawMenu() {
 	return buttons;
 }
 
+void Renderer::drawGameOverScreen() {
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	drawText("game over...", 350);
+}
+
 Renderer::~Renderer() {
 	IMG_Quit();
 	spdlog::debug("destroy window");
