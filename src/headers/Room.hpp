@@ -4,6 +4,7 @@
 #include "CollisionManager.hpp"
 #include "RenderObject.hpp"
 #include "Renderer.hpp"
+#include "Tile.hpp"
 #include "tileson_min.hpp"
 #include <SDL.h>
 #include <array>
@@ -11,11 +12,10 @@
 #include <string>
 #include <vector>
 
-class Room : public RenderObject {
+class Room {
 
   public:
 	Room(const std::string &roomFile, Renderer *renderer, CollisionManager *collisionManager);
-	~Room();
 
 	std::array<int, 2> playerStart;
 	std::array<int, 2> enemyStart;
@@ -26,26 +26,19 @@ class Room : public RenderObject {
 	void resetSavePoint();
 	void nextRoom();
 
-	void demage(int demage) override;
-	int demageValue() override;
-	const std::vector<SDL_Rect> getBoundingBoxes() override;
-
   private:
 	CollisionManager *collisionManager;
-	std::string drawMode;
-	bool drawBoundingBox;
 	int goalX;
 	int savePointX;
 	int savePointRenderTime = 50;
 
 	Renderer *renderer;
-	std::vector<std::map<SDL_Texture *, SDL_Rect>> textureMapList;
-	std::vector<SDL_Rect> boundingBoxes;
+	std::vector<Tile> tiles;
 	std::vector<std::string> roomMaps;
 
 	SDL_Rect getSDLRect(tson::Vector2f position, tson::Vector2i imageSize, bool addBoundingBox);
 	void loadTextures(std::string path);
-	void drawBoundingBoxes();
+
 	void drawLayer(std::unique_ptr<tson::Map> &map, std::string name);
 };
 

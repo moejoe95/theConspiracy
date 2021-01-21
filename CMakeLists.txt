@@ -29,7 +29,8 @@ set(SOURCE_FILES
     src/Bullet.cpp
     src/CollisionManager.cpp
     src/SoundManager.cpp
-    src/Renderer.cpp)
+    src/Renderer.cpp
+    src/Tile.cpp)
 
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})

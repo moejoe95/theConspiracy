@@ -4679,7 +4679,12 @@
               {
                      "name": "savepoint",
                      "type": "int",
-                     "value": 500
+                     "value": 2016
+              },
+              {
+                     "name": "savepointvisited",
+                     "type": "bool",
+                     "value": false
               }
        ],
        "renderorder": "right-down",
@@ -4764,7 +4769,14 @@
                                    "id": 10,
                                    "image": "..\/data\/WorldWarMech_Lava_Station\/For_Fantastic_Worlds_Kit\/For_Tiled\/lava_orange0001.png",
                                    "imageheight": 55,
-                                   "imagewidth": 222
+                                   "imagewidth": 222,
+                                   "properties": [
+                                          {
+                                                 "name": "demage",
+                                                 "type": "bool",
+                                                 "value": true
+                                          }
+                                   ]
                             },
                             {
                                    "id": 11,

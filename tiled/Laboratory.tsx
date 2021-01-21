@@ -32,6 +32,9 @@
   <image width="50" height="394" source="../data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/For_Tiled/lava_fall0001.png"/>
  </tile>
  <tile id="10">
+  <properties>
+   <property name="demage" type="bool" value="true"/>
+  </properties>
   <image width="222" height="55" source="../data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/For_Tiled/lava_orange0001.png"/>
  </tile>
  <tile id="11">

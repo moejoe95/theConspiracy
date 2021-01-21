@@ -11,10 +11,6 @@ using nlohmann::json;
 
 Room::Room(const std::string &roomFile, Renderer *renderer, CollisionManager *collisionManager_) : renderer(renderer) {
 	collisionManager = collisionManager_;
-	id = "room1";
-
-	drawBoundingBox = getArg<bool>("drawBoundingBox");
-	drawMode = getArg<std::string>("drawMode");
 
 	roomMaps.push_back(roomFile);
 	// TODO second room
@@ -28,14 +24,6 @@ Room::Room(const std::string &roomFile, Renderer *renderer, CollisionManager *co
 	spdlog::info("room " + roomFile + " initalized");
 }
 
-Room::~Room() {
-	for (auto &textureMap : textureMapList) {
-		for (auto &[tex, rect] : textureMap) {
-			SDL_DestroyTexture(tex);
-		}
-	}
-}
-
 void Room::loadTextures(std::string mapPath) {
 
 	tson::Tileson parser;
@@ -46,76 +34,28 @@ void Room::loadTextures(std::string mapPath) {
 	goalX = map->get<int>("goal");
 	savePointX = map->get<int>("savepoint");
 
-	textureMapList.clear();
-	boundingBoxes.clear();
+	tiles.clear();
 
 	if (map->getStatus() == tson::ParseStatus::OK) {
-
 		drawLayer(map, "background");
 		drawLayer(map, "decorations");
 		drawLayer(map, "main");
 	} else {
 		spdlog::error("failed to parse map");
 	}
-
-	collisionManager->registerObject(this);
 }
 
 void Room::drawLayer(std::unique_ptr<tson::Map> &map, std::string name) {
-
-	std::map<SDL_Texture *, SDL_Rect> textureMap;
 	tson::Layer *layer = map->getLayer(name);
 	for (auto &[pos, tileObject] : layer->getTileObjects()) {
-		tson::Rect drawingRect = tileObject.getDrawingRect();
-
-		bool addBB = false;
-		if (name == "main")
-			addBB = true;
-		SDL_Rect rect = getSDLRect(tileObject.getPosition(), tileObject.getTile()->getImageSize(), addBB);
-
-		std::string relPath = tileObject.getTile()->getImage().u8string();
-		relPath.replace(0, 8, "");
-		if (relPath.empty())
-			continue;
-		std::string absPath = getPath("", "data") + relPath;
-
-		if (drawMode != "raw" || name == "main")
-			textureMap.insert({renderer->loadTexture(absPath), rect});
+		tiles.emplace_back(tileObject, renderer, collisionManager, name);
 	}
-	textureMapList.push_back(textureMap);
-}
-
-void Room::drawBoundingBoxes() {
-	if (drawBoundingBox) {
-		for (auto bb : boundingBoxes) {
-			renderer->drawRect(bb);
-		}
-	}
-}
-
-SDL_Rect Room::getSDLRect(tson::Vector2f position, tson::Vector2i imageSize, bool addBoundingBox) {
-	SDL_Rect sdlRect;
-	sdlRect.x = position.x;
-	sdlRect.y = position.y - imageSize.y + 32;
-	sdlRect.w = imageSize.x;
-	sdlRect.h = imageSize.y;
-	if (addBoundingBox)
-		boundingBoxes.push_back(sdlRect);
-	return sdlRect;
 }
 
 void Room::render() {
-
-	for (auto &textureMap : textureMapList) {
-		for (auto &[tex, rect] : textureMap) {
-			renderer->drawTexture(tex, rect);
-		}
+	for (auto &t : tiles) {
+		t.render();
 	}
-
-	drawBoundingBoxes();
-
-	for (auto bb : boundingBoxes)
-		collisionManager->checkCollision(this, bb);
 }
 
 bool Room::isOnGoal(int playerXPosition) {
@@ -142,13 +82,3 @@ void Room::nextRoom() {
 	// TODO counter
 	loadTextures(getMapsPath() + roomMaps[1]);
 }
-
-const std::vector<SDL_Rect> Room::getBoundingBoxes() {
-	return boundingBoxes;
-}
-
-int Room::demageValue() {
-	return 0;
-}
-
-void Room::demage(int demage) {}
