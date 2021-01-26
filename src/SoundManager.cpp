@@ -4,6 +4,8 @@
 #include <string>
 
 SoundManager::SoundManager() {
+
+	// TODO refactor
 	std::string wav = getResourcePath("sounds") + "gun_shot.wav";
 	gunSound = Mix_LoadWAV(wav.c_str());
 	if (!gunSound)
@@ -22,6 +24,16 @@ SoundManager::SoundManager() {
 	wav = getResourcePath("sounds") + "game_over.wav";
 	gameOverSound = Mix_LoadWAV(wav.c_str());
 	if (!gameOverSound)
+		throw SDLException("Mix_LoadWAV failed.");
+
+	wav = getResourcePath("sounds") + "collect_health.wav";
+	collect_health = Mix_LoadWAV(wav.c_str());
+	if (!collect_health)
+		throw SDLException("Mix_LoadWAV failed.");
+
+	wav = getResourcePath("sounds") + "reload_ammo.wav";
+	collect_ammo = Mix_LoadWAV(wav.c_str());
+	if (!collect_ammo)
 		throw SDLException("Mix_LoadWAV failed.");
 
 	soundOn = getArg<bool>("sound");
@@ -59,4 +71,12 @@ void SoundManager::playHurtSound() {
 
 void SoundManager::playGameOverSound() {
 	play(1, gameOverSound, 0);
+}
+
+void SoundManager::playCollectHealthSound() {
+	play(1, collect_health, 0);
+}
+
+void SoundManager::playReloadGun() {
+	play(1, collect_ammo, 0);
 }

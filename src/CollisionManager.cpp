@@ -1,6 +1,7 @@
 #include "headers/CollisionManager.hpp"
 #include "headers/Constants.hpp"
 #include "headers/Player.hpp"
+#include "headers/SoundManager.hpp"
 #include "headers/Utils.hpp"
 #include "spdlog/spdlog.h"
 #include <string>
@@ -47,11 +48,13 @@ SDL_Rect CollisionManager::checkCollision(RenderObject *currentObj, const SDL_Re
 					t->resetHealth();
 					t->boundingBox.w = 0;
 					t->boundingBox.h = 0;
+					SoundManager::getInstance().playCollectHealthSound();
 				} else if (p && t && t->ammo() > 0) { // refill ammo and remove box
 					p->addAmmo(t->ammo());
 					t->resetAmmo();
 					t->boundingBox.w = 0;
 					t->boundingBox.h = 0;
+					SoundManager::getInstance().playReloadGun();
 				}
 
 				if (int dem = entry.second->demageValue()) {

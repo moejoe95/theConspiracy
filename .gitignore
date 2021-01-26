@@ -2,7 +2,7 @@ build/*
 data/*
 res/*
 .clang-format
-ps_hints.md
+todo
 
 # temporary ignored files
 EntityStates.cpp
