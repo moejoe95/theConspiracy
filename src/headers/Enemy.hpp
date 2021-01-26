@@ -21,6 +21,8 @@ class Enemy : public Entity {
 
 	void render() override;
 	int demageValue() override;
+	void revive();
+
 	int steps = 0;
 	int sleep = 0;
 	static int count;

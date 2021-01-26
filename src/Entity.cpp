@@ -1,4 +1,5 @@
 #include "headers/Entity.hpp"
+#include "headers/Constants.hpp"
 #include "headers/SoundManager.hpp"
 #include "spdlog/spdlog.h"
 

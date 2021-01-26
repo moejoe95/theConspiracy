@@ -59,9 +59,15 @@
   <image width="262" height="291" source="../data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/For_Tiled/platform4.png"/>
  </tile>
  <tile id="18">
+  <properties>
+   <property name="health" type="int" value="25"/>
+  </properties>
   <image width="54" height="39" source="../data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/For_Tiled/resupply1.png"/>
  </tile>
  <tile id="19">
+  <properties>
+   <property name="ammo" type="int" value="10"/>
+  </properties>
   <image width="54" height="40" source="../data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/For_Tiled/resupply2.png"/>
  </tile>
  <tile id="20">
@@ -536,6 +542,9 @@
   <image width="725" height="167" source="../data/WorldWarMech_Lava_Station/PNG_Exports_1x_2x_3x/railing@3x.png"/>
  </tile>
  <tile id="174">
+  <properties>
+   <property name="health" type="int" value="25"/>
+  </properties>
   <image width="54" height="39" source="../data/WorldWarMech_Lava_Station/PNG_Exports_1x_2x_3x/resupply1.png"/>
  </tile>
  <tile id="175">
@@ -545,6 +554,9 @@
   <image width="215" height="156" source="../data/WorldWarMech_Lava_Station/PNG_Exports_1x_2x_3x/resupply1@3x.png"/>
  </tile>
  <tile id="177">
+  <properties>
+   <property name="ammo" type="int" value="10"/>
+  </properties>
   <image width="54" height="40" source="../data/WorldWarMech_Lava_Station/PNG_Exports_1x_2x_3x/resupply2.png"/>
  </tile>
  <tile id="178">

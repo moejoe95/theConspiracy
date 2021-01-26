@@ -28,6 +28,8 @@ class Player : public Entity {
 	void demage(int demage) override;
 	int getLife();
 	int getAmmo();
+	void addAmmo(int ammo);
+	void addLife(int life);
 	SDL_Rect getPosition();
 	void resetPosition(std::array<int, 2> position);
 

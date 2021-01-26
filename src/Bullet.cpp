@@ -32,7 +32,7 @@ void Bullet::render() {
 		else
 			boundingBox.x -= BULLET_VELOCITY;
 
-		if (boundingBox.x > SCREEN_WIDTH || boundingBox.x < 0) {
+		if (boundingBox.x > SCREEN_WIDTH * 2 || boundingBox.x < 0) {
 			outOfSight = true;
 			spdlog::debug(id + " of of sight");
 		}

@@ -1,5 +1,6 @@
 #include "headers/CollisionManager.hpp"
 #include "headers/Constants.hpp"
+#include "headers/Player.hpp"
 #include "headers/Utils.hpp"
 #include "spdlog/spdlog.h"
 #include <string>
@@ -37,11 +38,26 @@ SDL_Rect CollisionManager::checkCollision(RenderObject *currentObj, const SDL_Re
 		for (auto bb : entry.second->getBoundingBoxes()) {
 			if (SDL_IntersectRect(&currentBB, &bb, &intersection)) {
 
+				auto p = dynamic_cast<Player *>(currentObj);
+				auto t = dynamic_cast<Tile *>(entry.second);
+
+				// refill life and remove box
+				if (p && t && t->health() > 0) {
+					p->addLife(t->health());
+					t->resetHealth();
+					t->boundingBox.w = 0;
+					t->boundingBox.h = 0;
+				} else if (p && t && t->ammo() > 0) { // refill ammo and remove box
+					p->addAmmo(t->ammo());
+					t->resetAmmo();
+					t->boundingBox.w = 0;
+					t->boundingBox.h = 0;
+				}
+
 				if (int dem = entry.second->demageValue()) {
 					entry.second->demage(0);
 					currentObj->demage(dem);
 				}
-
 				return intersection;
 			}
 		}

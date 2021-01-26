@@ -24,10 +24,13 @@ Game::Game(const std::string &roomName, Renderer *renderer)
 
 void Game::reset() {
 	player.reset(room.playerStart);
-
-	// TODO
-	// reset enemies
-	// reset room
+	for (auto &enemy : enemies) {
+		enemy.revive();
+	}
+	// delete serialized objects if new game
+	if (std::filesystem::exists("data/player.json")) {
+		std::filesystem::remove("data/player.json");
+	}
 }
 
 void Game::reload() {
@@ -37,6 +40,8 @@ void Game::reload() {
 		cereal::JSONInputArchive iarchive(is);
 		iarchive(player);
 	}
+
+	// reload correct room
 }
 
 bool Game::renderGame() {
@@ -79,20 +84,10 @@ bool Game::renderGame() {
 		enemy.render();
 	}
 
-	// remove dead enemies
-	auto new_end = remove_if(enemies.begin(), enemies.end(), [](const Enemy &enemy) { return !enemy.isAlive; });
-	enemies.erase(new_end, enemies.end());
-
 	if (player.getPosition().x > SCREEN_WIDTH) {
 		renderer->setXOffset(-SCREEN_WIDTH);
 	} else if (player.getPosition().x < SCREEN_WIDTH) {
 		renderer->setXOffset(0);
-	}
-
-	if (room.isOnGoal(player.getPosition().x)) {
-		room.nextRoom();
-		player.resetPosition(room.playerStart);
-		spdlog::debug("player on goal");
 	}
 
 	if (room.checkSavePoint(player.getPosition().x)) {
@@ -100,6 +95,12 @@ bool Game::renderGame() {
 		std::ofstream os("data/player.json");
 		cereal::JSONOutputArchive oarchive(os);
 		oarchive(player);
+	}
+
+	if (room.isOnGoal(player.getPosition().x)) {
+		room.nextRoom();
+		player.resetPosition(room.playerStart);
+		spdlog::debug("player on goal");
 	}
 
 	// draw life information

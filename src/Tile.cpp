@@ -12,6 +12,9 @@ Tile::Tile(tson::TileObject tileObject, Renderer *renderer, CollisionManager *co
 	if (makesDemage)
 		demageIntValue = 1;
 
+	healthValue = tileObject.getTile()->get<int>("health");
+	ammoValue = tileObject.getTile()->get<int>("ammo");
+
 	boundingBox.w = tileObject.getTile()->getImageSize().x;
 	boundingBox.h = tileObject.getTile()->getImageSize().y;
 	boundingBox.x = tileObject.getPosition().x;
@@ -37,6 +40,7 @@ void Tile::render() {
 	if (drawBoundingBox) {
 		renderer->drawRect(boundingBox);
 	}
+
 	if (isCollisionable) {
 		// TODO dont register in every timestep
 		collisionManager->registerObject(this);
@@ -55,3 +59,19 @@ int Tile::demageValue() {
 }
 
 void Tile::demage(int demage) {}
+
+int Tile::ammo() {
+	return ammoValue;
+}
+
+int Tile::health() {
+	return healthValue;
+}
+
+void Tile::resetHealth() {
+	healthValue = 0;
+}
+
+void Tile::resetAmmo() {
+	ammoValue = 0;
+}

@@ -160,6 +160,14 @@ void Player::demage(int demage) {
 		Entity::demage(demage);
 }
 
+void Player::addAmmo(int newAmmo) {
+	ammo += newAmmo;
+}
+
+void Player::addLife(int newLife) {
+	life += newLife;
+}
+
 SDL_Rect Player::getPosition() {
 	return boundingBox;
 }

@@ -85,6 +85,9 @@ void Enemy::walk() {
 
 void Enemy::render() {
 
+	if (!isAlive)
+		return;
+
 	currentTexture = idleTexture;
 	collisionManager->registerObject(this);
 	intersection = collisionManager->checkCollision(this, boundingBox);
@@ -111,6 +114,11 @@ void Enemy::render() {
 	}
 
 	renderBullets();
+}
+
+void Enemy::revive() {
+	isAlive = true;
+	life = 100;
 }
 
 int Enemy::demageValue() {
