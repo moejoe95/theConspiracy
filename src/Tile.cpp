@@ -60,6 +60,14 @@ int Tile::demageValue() {
 
 void Tile::demage(int demage) {}
 
+bool Tile::visible() {
+	return isVisible;
+}
+
+void Tile::setInvisible() {
+	isVisible = true;
+}
+
 int Tile::ammo() {
 	return ammoValue;
 }

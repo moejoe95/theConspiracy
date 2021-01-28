@@ -85,8 +85,10 @@ void Enemy::walk() {
 
 void Enemy::render() {
 
-	if (!isAlive)
+	if (!isAlive) {
+		isVisible = false;
 		return;
+	}
 
 	currentTexture = idleTexture;
 	collisionManager->registerObject(this);
@@ -97,7 +99,7 @@ void Enemy::render() {
 	}
 	if (sleep == 25) {
 		// bullets of enemy needs to be destroyed if enemy died
-		// startShoot = true;
+		startShoot = true;
 	}
 	sleep--;
 
@@ -119,6 +121,11 @@ void Enemy::render() {
 void Enemy::revive() {
 	isAlive = true;
 	life = 100;
+	isVisible = true;
+}
+
+bool Enemy::visible() {
+	return isVisible;
 }
 
 int Enemy::demageValue() {

@@ -22,6 +22,7 @@ class Bullet : public RenderObject {
 	bool isOutOfSight();
 	void demage(int demage) override;
 	int demageValue() override;
+	bool visible();
 	const std::vector<SDL_Rect> getBoundingBoxes() override;
 	static int count;
 

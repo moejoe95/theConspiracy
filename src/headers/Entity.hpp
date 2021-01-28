@@ -24,6 +24,7 @@ class Entity : public RenderObject {
 	void stopMoveLeft();
 	void shoot();
 	void demage(int damage) override;
+	bool visible() override;
 	void reset(std::array<int, 2> position);
 	bool isAlive = true;
 

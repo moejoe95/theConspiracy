@@ -22,11 +22,13 @@ class Tile : public RenderObject {
 
 	void demage(int demage) override;
 	int demageValue() override;
+	bool visible() override;
 	const std::vector<SDL_Rect> getBoundingBoxes() override;
 	int ammo();
 	int health();
 	void resetHealth();
 	void resetAmmo();
+	void setInvisible();
 
   private:
 	Renderer *renderer;
@@ -34,6 +36,7 @@ class Tile : public RenderObject {
 	int demageIntValue = 0;
 	int ammoValue = 0;
 	int healthValue = 0;
+	bool isVisible = true;
 	bool drawBoundingBox;
 	bool isCollisionable;
 	static int count;

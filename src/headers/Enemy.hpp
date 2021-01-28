@@ -21,6 +21,7 @@ class Enemy : public Entity {
 
 	void render() override;
 	int demageValue() override;
+	bool visible() override;
 	void revive();
 
 	int steps = 0;
@@ -31,6 +32,8 @@ class Enemy : public Entity {
 	void jump();
 	void loadTextures();
 	void walk();
+
+	bool isVisible = true;
 };
 
 #endif // ENEMY_HPP

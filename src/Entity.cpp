@@ -135,6 +135,10 @@ void Entity::renderDie() {
 	}
 }
 
+bool Entity::visible() {
+	return true;
+}
+
 void Entity::demage(int demage) {
 	life -= demage;
 	if (life <= 0 && currentDieIdx < 0) {

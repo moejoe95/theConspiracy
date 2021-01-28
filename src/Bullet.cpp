@@ -64,6 +64,10 @@ void Bullet::demage(int demage) {
 		explodeIdx = 0;
 }
 
+bool Bullet::visible() {
+	return true;
+}
+
 int Bullet::demageValue() {
 	return 1;
 }
