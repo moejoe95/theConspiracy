@@ -26,18 +26,25 @@ class Room {
 	void resetSavePoint();
 	void nextRoom();
 
+	// serializing
+	template <class Archive>
+	void serialize(Archive &archive) {
+		archive(currentMapIdx);
+	}
+
   private:
 	CollisionManager *collisionManager;
 	int goalX;
 	int savePointX;
 	int savePointRenderTime = 50;
+	int currentMapIdx = 0;
 
 	Renderer *renderer;
 	std::vector<Tile> tiles;
-	std::vector<std::string> roomMaps;
+	std::vector<std::string> maps;
 
 	SDL_Rect getSDLRect(tson::Vector2f position, tson::Vector2i imageSize, bool addBoundingBox);
-	void loadTextures(std::string path);
+	void parseMap();
 
 	void drawLayer(std::unique_ptr<tson::Map> &map, std::string name);
 };

@@ -98,7 +98,6 @@ void Enemy::render() {
 		walk();
 	}
 	if (sleep == 25) {
-		// bullets of enemy needs to be destroyed if enemy died
 		startShoot = true;
 	}
 	sleep--;

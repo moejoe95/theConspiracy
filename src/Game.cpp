@@ -30,6 +30,7 @@ void Game::reset() {
 	// delete serialized objects if new game
 	if (std::filesystem::exists("data/player.json")) {
 		std::filesystem::remove("data/player.json");
+		std::filesystem::remove("data/room.json");
 	}
 }
 
@@ -41,7 +42,11 @@ void Game::reload() {
 		iarchive(player);
 	}
 
-	// reload correct room
+	if (std::filesystem::exists("data/room.json")) {
+		std::ifstream is("data/room.json");
+		cereal::JSONInputArchive iarchive(is);
+		iarchive(room);
+	}
 }
 
 bool Game::renderGame() {

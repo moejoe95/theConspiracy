@@ -33,6 +33,7 @@ class Player : public Entity {
 	SDL_Rect getPosition();
 	void resetPosition(std::array<int, 2> position);
 
+	// serializing
 	template <class Archive>
 	void serialize(Archive &archive) {
 		archive(life, ammo, boundingBox.x, boundingBox.y);

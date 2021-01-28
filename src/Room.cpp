@@ -12,19 +12,23 @@ using nlohmann::json;
 Room::Room(const std::string &roomFile, Renderer *renderer, CollisionManager *collisionManager_) : renderer(renderer) {
 	collisionManager = collisionManager_;
 
-	roomMaps.push_back(roomFile);
-	// TODO second room
-	roomMaps.push_back(roomFile);
-
-	loadTextures(getMapsPath() + roomMaps[0]);
+	// queue up roomes
+	maps.push_back(roomFile);
+	maps.push_back(roomFile);
 
 	// play backround
 	SoundManager::getInstance().playBackgroundSound();
 
 	spdlog::info("room " + roomFile + " initalized");
+
+	// parse first map
+	parseMap();
 }
 
-void Room::loadTextures(std::string mapPath) {
+void Room::parseMap() {
+
+	auto mapPath = getMapsPath() + maps[currentMapIdx];
+	currentMapIdx++;
 
 	tson::Tileson parser;
 	std::unique_ptr<tson::Map> map = parser.parse(fs::path(mapPath));
@@ -83,5 +87,5 @@ void Room::resetSavePoint() {
 
 void Room::nextRoom() {
 	// TODO counter
-	loadTextures(getMapsPath() + roomMaps[1]);
+	parseMap();
 }

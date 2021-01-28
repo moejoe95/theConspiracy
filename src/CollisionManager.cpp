@@ -39,7 +39,7 @@ SDL_Rect CollisionManager::checkCollision(RenderObject *currentObj, const SDL_Re
 		for (auto bb : entry.second->getBoundingBoxes()) {
 			if (SDL_IntersectRect(&currentBB, &bb, &intersection)) {
 
-				if (!entry.second->visible())
+				if (!entry.second->visible() || !currentObj->visible())
 					continue;
 
 				auto p = dynamic_cast<Player *>(currentObj);
