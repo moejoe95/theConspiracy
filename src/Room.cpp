@@ -9,17 +9,18 @@
 
 using nlohmann::json;
 
-Room::Room(const std::string &roomFile, Renderer *renderer, CollisionManager *collisionManager_) : renderer(renderer) {
+Room::Room(Renderer *renderer, CollisionManager *collisionManager_) : renderer(renderer) {
 	collisionManager = collisionManager_;
 
-	// queue up roomes
-	maps.push_back(roomFile);
-	maps.push_back(roomFile);
+	// queue up rooms
+	maps.push_back("map1.json");
+	maps.push_back("map2.json");
+	maps.push_back("map3.json");
 
 	// play backround
 	SoundManager::getInstance().playBackgroundSound();
 
-	spdlog::info("room " + roomFile + " initalized");
+	spdlog::info("room initalized");
 
 	// parse first map
 	parseMap();

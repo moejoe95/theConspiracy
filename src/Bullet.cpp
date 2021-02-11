@@ -65,7 +65,7 @@ void Bullet::demage(int demage) {
 }
 
 bool Bullet::visible() {
-	return true;
+	return !outOfSight;
 }
 
 int Bullet::demageValue() {

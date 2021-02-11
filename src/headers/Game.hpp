@@ -15,7 +15,7 @@
 class Game {
 
   public:
-	Game(const std::string &roomName, Renderer *renderer);
+	explicit Game(Renderer *renderer);
 
 	bool renderGame();
 
@@ -28,7 +28,6 @@ class Game {
 	bool showMenu = true;
 	bool gameStart = true;
 	int gameOverSreenTime = 50;
-	const std::string roomName;
 
 	int dispatchEvents();
 	void reload();

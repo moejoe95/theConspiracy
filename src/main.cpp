@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
 	Renderer renderer{};
 
 	// init game
-	Game game{"map1.json", &renderer};
+	Game game{&renderer};
 
 	// game loop
 	bool render = true;

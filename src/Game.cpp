@@ -14,9 +14,9 @@
 #include <iostream>
 #include <vector>
 
-Game::Game(const std::string &roomName, Renderer *renderer)
-    : renderer(renderer), collisionManager(), room(roomName, renderer, &collisionManager),
-      player(room.playerStart, renderer, &collisionManager), roomName(roomName) {
+Game::Game(Renderer *renderer)
+    : renderer(renderer), collisionManager(), room(renderer, &collisionManager),
+      player(room.playerStart, renderer, &collisionManager) {
 
 	enemies.emplace_back(room.enemyStart, renderer, &collisionManager);
 	spdlog::info("new game initalized");

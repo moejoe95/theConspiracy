@@ -15,7 +15,7 @@
 class Room {
 
   public:
-	Room(const std::string &roomFile, Renderer *renderer, CollisionManager *collisionManager);
+	Room(Renderer *renderer, CollisionManager *collisionManager);
 
 	std::array<int, 2> playerStart;
 	std::array<int, 2> enemyStart;

@@ -130,6 +130,10 @@ void Entity::renderDie() {
 		if (currentDieIdx >= dieAnimSize) {
 			currentDieIdx = -1;
 			isAlive = false;
+			for (auto &bullet : firedBullets)
+				collisionManager->deregisterObject(&bullet);
+			std::vector<Bullet> newBullets;
+			firedBullets = newBullets;
 			collisionManager->deregisterObject(this);
 		}
 	}

@@ -13,7 +13,6 @@ void CollisionManager::registerObject(RenderObject *obj) {
 }
 
 void CollisionManager::deregisterObject(RenderObject *obj) {
-	spdlog::debug("delete " + obj->getId());
 	objectMap.erase(obj->getId());
 }
 

@@ -6,7 +6,7 @@
     "activeFile": "map1.tmx",
     "expandedProjectPaths": [
     ],
-    "file.lastUsedOpenFilter": "Alle Dateien (*)",
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "": {
             "scaleInDock": 1
@@ -99,9 +99,9 @@
         },
         "map1.tmx": {
             "scale": 0.75,
-            "selectedLayer": 2,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 843.3333333333334,
+                "x": 2020,
                 "y": 286
             }
         },
@@ -109,11 +109,19 @@
             "dynamicWrapping": true
         },
         "map2.tmx": {
-            "scale": 0.5,
-            "selectedLayer": 0,
+            "scale": 0.75,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 1867,
-                "y": -970
+                "x": 1665.3333333333333,
+                "y": 387.3333333333333
+            }
+        },
+        "map3.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 938,
+                "y": 135
             }
         },
         "t.tsx": {
@@ -131,14 +139,17 @@
     "map.width": 128,
     "openFiles": [
         "Laboratory.tsx",
+        "map2.tmx",
+        "map3.tmx",
         "map1.tmx"
     ],
     "project": "theConspiracy.tiled-project",
     "property.type": "int",
     "recentFiles": [
         "Laboratory.tsx",
-        "map1.tmx",
         "map2.tmx",
+        "map3.tmx",
+        "map1.tmx",
         "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx",
         "t.tsx"
     ],
