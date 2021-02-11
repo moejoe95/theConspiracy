@@ -647,6 +647,9 @@
   <image width="386" height="170" source="../data/WorldWarMech_Lava_Station/PNG_Exports_1x_2x_3x/spike2@3x.png"/>
  </tile>
  <tile id="207">
+  <properties>
+   <property name="demage" type="bool" value="true"/>
+  </properties>
   <image width="70" height="62" source="../data/WorldWarMech_Lava_Station/PNG_Exports_1x_2x_3x/spike3.png"/>
  </tile>
  <tile id="208">

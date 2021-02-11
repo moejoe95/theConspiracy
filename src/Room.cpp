@@ -42,6 +42,9 @@ void Room::parseMap() {
 	goalX = map->get<int>("goal");
 	savePointX = map->get<int>("savepoint");
 
+	for (auto &t : tiles) {
+		collisionManager->deregisterObject(&t);
+	}
 	tiles.clear();
 
 	if (map->getStatus() == tson::ParseStatus::OK) {
