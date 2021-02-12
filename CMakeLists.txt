@@ -10,12 +10,12 @@ PKG_SEARCH_MODULE(SDL2MIXER REQUIRED SDL2_mixer>=2.0.0)
 
 find_package(nlohmann_json 3.2.0 REQUIRED)
 find_package(spdlog REQUIRED)
-FIND_PACKAGE( Boost COMPONENTS program_options REQUIRED )
-INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
+FIND_PACKAGE(Boost COMPONENTS program_options REQUIRED)
+INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE Debug) # change to release
 
 set(SOURCE_FILES 
     src/main.cpp 
@@ -32,6 +32,9 @@ set(SOURCE_FILES
     src/Renderer.cpp
     src/Tile.cpp)
 
+set_source_files_properties(${SOURCE_FILES}
+    PROPERTIES
+    COMPILE_FLAGS  "-Wall")
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
@@ -39,8 +42,7 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 target_include_directories(${PROJECT_NAME} PRIVATE
     include ${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS} ${SDL2TTF_INCLUDE_DIRS} ${SDL2MIXER_INCLUDE_DIRS} ${})
 
-
-target_compile_options(${PROJECT_NAME} PRIVATE )
+target_compile_options(${PROJECT_NAME} PRIVATE)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     ${SDL2_LIBRARIES} 

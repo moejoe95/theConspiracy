@@ -158,12 +158,14 @@ int Game::dispatchEvents() {
 				std::vector<SDL_Rect> buttons = renderer->drawMenu();
 				SDL_Point mouse;
 				SDL_GetMouseState(&mouse.x, &mouse.y);
-				for (int i = 0; i < buttons.size(); i++) {
+				int i = 0;
+				for (auto it = buttons.begin(); it != buttons.end(); ++it) {
 					const SDL_Point constMouse = mouse;
 					if (SDL_PointInRect(&constMouse, &buttons[i])) {
 						keyCode = i;
 						showMenu = false;
 					}
+					++i;
 				}
 			}
 			break;

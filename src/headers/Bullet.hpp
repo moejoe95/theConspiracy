@@ -22,13 +22,13 @@ class Bullet : public RenderObject {
 	bool isOutOfSight();
 	void demage(int demage) override;
 	int demageValue() override;
-	bool visible();
+	bool visible() override;
 	const std::vector<SDL_Rect> getBoundingBoxes() override;
 	static int count;
 
   private:
+	SDL_RendererFlip flip;
 	Renderer *renderer;
-	SDL_RendererFlip flip = SDL_FLIP_NONE;
 	SDL_Texture *texture;
 	SDL_Rect boundingBox;
 	std::vector<SDL_Texture *> explodeTextures;
