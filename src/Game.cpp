@@ -30,6 +30,10 @@ void Game::reset() {
 	for (auto &enemy : enemies) {
 		enemy.revive();
 	}
+	deleteState();
+}
+
+void Game::deleteState() {
 	// delete serialized objects if new game
 	if (std::filesystem::exists("data/player.json")) {
 		std::filesystem::remove("data/player.json");
@@ -106,7 +110,11 @@ bool Game::renderGame() {
 	}
 
 	if (room.isOnGoal(player.getPosition().x)) {
-		room.nextRoom();
+		bool gameOver = room.nextRoom();
+		if (gameOver) {
+			deleteState();
+			player.isAlive = false;
+		}
 		player.resetPosition(room.playerStart);
 		spdlog::debug("player on goal");
 	}

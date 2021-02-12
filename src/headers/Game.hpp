@@ -32,6 +32,7 @@ class Game {
 	int dispatchEvents();
 	void reload();
 	void reset();
+	void deleteState();
 };
 
 #endif // GAME_HPP

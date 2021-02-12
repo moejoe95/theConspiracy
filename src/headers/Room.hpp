@@ -23,7 +23,7 @@ class Room {
 	bool isOnGoal(int playerX);
 	bool checkSavePoint(int playerX);
 	void resetSavePoint();
-	void nextRoom();
+	bool nextRoom();
 	std::vector<std::array<int, 2>> getEnemyPositions();
 
 	// serializing

@@ -98,7 +98,10 @@ void Room::resetSavePoint() {
 	savePointRenderTime = 50;
 }
 
-void Room::nextRoom() {
-	// TODO counter
+bool Room::nextRoom() {
+	if (currentMapIdx > 2) {
+		return true;
+	}
 	parseMap();
+	return false;
 }

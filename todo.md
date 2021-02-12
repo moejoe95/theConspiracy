@@ -7,9 +7,9 @@
 [x] respawn enemies if new game
 [x] pick up items (health, ammo)
 [x] play sound on pickup
-[ ] serialize room (to reload correct map)
+[x] serialize room (to reload correct map)
 [ ] improve enemy AI
-[ ] place multiple enemies on map
+[x] place multiple enemies on map
 
 [ ] refactor manager acessing (renderer, soundmanager, collisionmanager), maybe service locator pattern
 [ ] refactor folder structure (external libs)
