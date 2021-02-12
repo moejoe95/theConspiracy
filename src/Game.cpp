@@ -18,7 +18,10 @@ Game::Game(Renderer *renderer)
     : renderer(renderer), collisionManager(), room(renderer, &collisionManager),
       player(room.playerStart, renderer, &collisionManager) {
 
-	enemies.emplace_back(room.enemyStart, renderer, &collisionManager);
+	enemies.reserve(room.getEnemyPositions().size());
+	for (auto enemyPos : room.getEnemyPositions()) {
+		enemies.emplace_back(enemyPos, renderer, &collisionManager);
+	}
 	spdlog::info("new game initalized");
 }
 

@@ -9,6 +9,7 @@
 [x] play sound on pickup
 [ ] serialize room (to reload correct map)
 [ ] improve enemy AI
+[ ] place multiple enemies on map
 
 [ ] refactor manager acessing (renderer, soundmanager, collisionmanager), maybe service locator pattern
 [ ] refactor folder structure (external libs)

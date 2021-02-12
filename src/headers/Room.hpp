@@ -18,13 +18,13 @@ class Room {
 	Room(Renderer *renderer, CollisionManager *collisionManager);
 
 	std::array<int, 2> playerStart;
-	std::array<int, 2> enemyStart;
 
 	void render();
 	bool isOnGoal(int playerX);
 	bool checkSavePoint(int playerX);
 	void resetSavePoint();
 	void nextRoom();
+	std::vector<std::array<int, 2>> getEnemyPositions();
 
 	// serializing
 	template <class Archive>
@@ -42,6 +42,7 @@ class Room {
 	Renderer *renderer;
 	std::vector<Tile> tiles;
 	std::vector<std::string> maps;
+	std::vector<std::array<int, 2>> enemyPositions;
 
 	SDL_Rect getSDLRect(tson::Vector2f position, tson::Vector2i imageSize, bool addBoundingBox);
 	void parseMap();

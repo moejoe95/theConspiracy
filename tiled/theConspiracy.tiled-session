@@ -99,9 +99,9 @@
         },
         "map1.tmx": {
             "scale": 0.75,
-            "selectedLayer": 0,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 746.6666666666666,
+                "x": 993.3333333333334,
                 "y": 286
             }
         },
@@ -110,17 +110,17 @@
         },
         "map2.tmx": {
             "scale": 0.75,
-            "selectedLayer": 0,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 562.6666666666666,
+                "x": 1674.6666666666665,
                 "y": 326
             }
         },
         "map3.tmx": {
             "scale": 0.5,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 1028,
+                "x": 1276,
                 "y": 165
             }
         },

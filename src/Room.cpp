@@ -37,8 +37,6 @@ void Room::parseMap() {
 	// read properties of map
 	playerStart[0] = map->get<int>("player.x");
 	playerStart[1] = map->get<int>("player.y");
-	enemyStart[0] = map->get<int>("enemy.x");
-	enemyStart[1] = map->get<int>("enemy.y");
 	goalX = map->get<int>("goal");
 	savePointX = map->get<int>("savepoint");
 
@@ -59,8 +57,19 @@ void Room::parseMap() {
 void Room::drawLayer(std::unique_ptr<tson::Map> &map, std::string name) {
 	tson::Layer *layer = map->getLayer(name);
 	for (auto &[pos, tileObject] : layer->getTileObjects()) {
-		tiles.emplace_back(tileObject, renderer, collisionManager, name);
+		if (tileObject.getTile()->get<bool>("enemy")) {
+			int x = tileObject.getPosition().x;
+			int y = tileObject.getPosition().y;
+			std::array<int, 2> p = {x, y};
+			enemyPositions.push_back(p);
+		} else {
+			tiles.emplace_back(tileObject, renderer, collisionManager, name);
+		}
 	}
+}
+
+std::vector<std::array<int, 2>> Room::getEnemyPositions() {
+	return enemyPositions;
 }
 
 void Room::render() {

@@ -860,6 +860,9 @@
   <image width="30" height="29" source="../data/WorldWarMech_Lava_Station/PNG_Exports_1x_2x_3x/uranium2.png"/>
  </tile>
  <tile id="277">
+  <properties>
+   <property name="enemy" type="bool" value="true"/>
+  </properties>
   <image width="60" height="58" source="../data/WorldWarMech_Lava_Station/PNG_Exports_1x_2x_3x/uranium2@2x.png"/>
  </tile>
  <tile id="278">
