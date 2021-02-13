@@ -55,8 +55,6 @@ class Entity : public RenderObject {
 
 	bool drawBoundingBox;
 
-	Renderer *renderer;
-
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 	SDL_Rect boundingBox;
 	SDL_Rect intersection;
@@ -70,8 +68,6 @@ class Entity : public RenderObject {
 	std::vector<SDL_Texture *> dieTextures;
 
 	std::vector<Bullet> firedBullets;
-
-	CollisionManager *collisionManager;
 
 	void gravity();
 	void renderMove();

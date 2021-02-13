@@ -1,13 +1,13 @@
 #include "headers/Bullet.hpp"
 #include "headers/Constants.hpp"
+#include "headers/Game.hpp"
 #include "headers/Utils.hpp"
 #include "spdlog/spdlog.h"
 #include <SDL.h>
 
 int Bullet::count = 0;
 
-Bullet::Bullet(int x, int y, SDL_RendererFlip flip, Renderer *renderer, SDL_Texture *texture)
-    : flip(flip), renderer(renderer), texture(texture) {
+Bullet::Bullet(int x, int y, SDL_RendererFlip flip, SDL_Texture *texture) : flip(flip), texture(texture) {
 
 	id = "bullet_" + std::to_string(count++);
 
@@ -18,7 +18,7 @@ Bullet::Bullet(int x, int y, SDL_RendererFlip flip, Renderer *renderer, SDL_Text
 
 	std::string explodePath = getResourcePath("bullet/blast");
 	for (int i = 0; i <= BULLET_BLAST_ANIM_SIZE; i++) {
-		explodeTextures.push_back(renderer->loadTexture(explodePath + std::to_string(i + 1) + PNG));
+		explodeTextures.push_back(game().getRenderer().loadTexture(explodePath + std::to_string(i + 1) + PNG));
 	}
 
 	spdlog::debug(id + " constructed");
@@ -37,14 +37,14 @@ void Bullet::render() {
 			spdlog::debug(id + " of of sight");
 		}
 
-		renderer->drawTexture(texture, boundingBox, flip);
+		game().getRenderer().drawTexture(texture, boundingBox, flip);
 	}
 
 	if (explodeIdx >= 0) {
 		explodeIdx++;
 		boundingBox.w = BULLET_BLAST_SIZE;
 		boundingBox.h = BULLET_BLAST_SIZE;
-		renderer->drawTexture(explodeTextures[explodeIdx], boundingBox);
+		game().getRenderer().drawTexture(explodeTextures[explodeIdx], boundingBox);
 		if (explodeIdx >= BULLET_BLAST_ANIM_SIZE) {
 			outOfSight = true;
 			spdlog::debug(id + " exploded");

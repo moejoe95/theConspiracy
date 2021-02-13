@@ -9,21 +9,31 @@
 #include "Room.hpp"
 #include <SDL.h>
 #include <functional>
+#include <memory>
 #include <string>
 #include <vector>
 
 class Game {
 
   public:
-	explicit Game(Renderer *renderer);
+	Game();
 
 	bool renderGame();
 
+	void renderClear();
+
+	void renderUpdate();
+
+	Renderer &getRenderer();
+
+	CollisionManager &getCollisionManager();
+
   private:
-	Renderer *renderer;
-	CollisionManager collisionManager;
-	Room room;
-	Player player;
+	std::unique_ptr<Renderer> renderer;
+	std::unique_ptr<CollisionManager> collisionManager;
+	std::unique_ptr<Room> room;
+	std::unique_ptr<Player> player;
+
 	std::vector<Enemy> enemies;
 	bool showMenu = true;
 	bool gameStart = true;
@@ -34,5 +44,7 @@ class Game {
 	void reset();
 	void deleteState();
 };
+
+Game &game();
 
 #endif // GAME_HPP

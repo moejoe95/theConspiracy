@@ -32,9 +32,9 @@ set(SOURCE_FILES
     src/Renderer.cpp
     src/Tile.cpp)
 
-set_source_files_properties(${SOURCE_FILES}
-    PROPERTIES
-    COMPILE_FLAGS  "-Wall")
+# set_source_files_properties(${SOURCE_FILES}
+#     PROPERTIES
+#     COMPILE_FLAGS  "-Wall")
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 

@@ -15,7 +15,7 @@
 class Room {
 
   public:
-	Room(Renderer *renderer, CollisionManager *collisionManager);
+	Room();
 
 	std::array<int, 2> playerStart;
 
@@ -33,13 +33,11 @@ class Room {
 	}
 
   private:
-	CollisionManager *collisionManager;
 	int goalX;
 	int savePointX;
 	int savePointRenderTime = 50;
 	int currentMapIdx = 0;
 
-	Renderer *renderer;
 	std::vector<Tile> tiles;
 	std::vector<std::string> maps;
 	std::vector<std::array<int, 2>> enemyPositions;

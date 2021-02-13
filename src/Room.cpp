@@ -9,9 +9,7 @@
 
 using nlohmann::json;
 
-Room::Room(Renderer *renderer, CollisionManager *collisionManager_) : renderer(renderer) {
-	collisionManager = collisionManager_;
-
+Room::Room() {
 	// queue up rooms
 	maps.push_back("map1.json");
 	maps.push_back("map2.json");
@@ -41,7 +39,7 @@ void Room::parseMap() {
 	savePointX = map->get<int>("savepoint");
 
 	for (auto &t : tiles) {
-		collisionManager->deregisterObject(&t);
+		game().getCollisionManager().deregisterObject(&t);
 	}
 	tiles.clear();
 
@@ -63,7 +61,7 @@ void Room::drawLayer(std::unique_ptr<tson::Map> &map, std::string name) {
 			std::array<int, 2> p = {x, y};
 			enemyPositions.push_back(p);
 		} else {
-			tiles.emplace_back(tileObject, renderer, collisionManager, name);
+			tiles.emplace_back(tileObject, name);
 		}
 	}
 }
@@ -84,7 +82,7 @@ bool Room::isOnGoal(int playerXPosition) {
 
 bool Room::checkSavePoint(int playerXPosition) {
 	if (savePointRenderTime > 0 && playerXPosition > savePointX) {
-		renderer->drawText("game saved...", SCREEN_WIDTH - 160, 15);
+		game().getRenderer().drawText("game saved...", SCREEN_WIDTH - 160, 15);
 		savePointRenderTime--;
 		if (savePointRenderTime == 49) {
 			spdlog::debug("player hit save point");

@@ -11,13 +11,14 @@
 [ ] improve enemy AI
 [x] place multiple enemies on map
 
-[ ] refactor manager acessing (renderer, soundmanager, collisionmanager), maybe service locator pattern
+[ ] refactor manager accessing (renderer, soundmanager, collisionmanager) -> use similar approach as in Raygun
 [ ] refactor folder structure (external libs)
 [ ] refactor naming of members, getters, setters
 [ ] rename root folder
 [ ] change build type to release
 [ ] check for memory leaks with valgrind
-[ ] check build with Werror and Wall
+[x] check build with Werror and Wall
+[ ] use namespaces to structure
 
 
 ## Goals

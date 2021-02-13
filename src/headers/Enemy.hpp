@@ -16,7 +16,7 @@ const int ENEMY_SHOOT_ANIM_SIZE = 5;
 class Enemy : public Entity {
 
   public:
-	Enemy(std::array<int, 2> position, Renderer *renderer, CollisionManager *collisionManager);
+	Enemy(std::array<int, 2> position);
 	~Enemy();
 
 	void render() override;

@@ -16,7 +16,7 @@ const int BULLET_VELOCITY = 10;
 class Bullet : public RenderObject {
 
   public:
-	Bullet(int x, int y, SDL_RendererFlip flip, Renderer *renderer, SDL_Texture *texture);
+	Bullet(int x, int y, SDL_RendererFlip flip, SDL_Texture *texture);
 
 	void render();
 	bool isOutOfSight();
@@ -28,7 +28,6 @@ class Bullet : public RenderObject {
 
   private:
 	SDL_RendererFlip flip;
-	Renderer *renderer;
 	SDL_Texture *texture;
 	SDL_Rect boundingBox;
 	std::vector<SDL_Texture *> explodeTextures;

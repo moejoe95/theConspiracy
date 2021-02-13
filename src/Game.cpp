@@ -14,19 +14,41 @@
 #include <iostream>
 #include <vector>
 
-Game::Game(Renderer *renderer)
-    : renderer(renderer), collisionManager(), room(renderer, &collisionManager),
-      player(room.playerStart, renderer, &collisionManager) {
+static Game *instance;
 
-	enemies.reserve(room.getEnemyPositions().size());
-	for (auto enemyPos : room.getEnemyPositions()) {
-		enemies.emplace_back(enemyPos, renderer, &collisionManager);
+Game &game() {
+	if (!instance) {
+		spdlog::error("game not initialized");
+	}
+	return *instance;
+}
+
+Game::Game() {
+
+	instance = this;
+
+	renderer = std::make_unique<Renderer>();
+	collisionManager = std::make_unique<CollisionManager>();
+	room = std::make_unique<Room>();
+	player = std::make_unique<Player>(room.get()->playerStart);
+
+	enemies.reserve(room.get()->getEnemyPositions().size());
+	for (auto enemyPos : room.get()->getEnemyPositions()) {
+		enemies.emplace_back(enemyPos);
 	}
 	spdlog::info("new game initalized");
 }
 
+Renderer &Game::getRenderer() {
+	return *renderer;
+}
+
+CollisionManager &Game::getCollisionManager() {
+	return *collisionManager;
+}
+
 void Game::reset() {
-	player.reset(room.playerStart);
+	player.get()->reset(room.get()->playerStart);
 	for (auto &enemy : enemies) {
 		enemy.revive();
 	}
@@ -46,14 +68,22 @@ void Game::reload() {
 	if (std::filesystem::exists("data/player.json")) {
 		std::ifstream is("data/player.json");
 		cereal::JSONInputArchive iarchive(is);
-		iarchive(player);
+		// iarchive(player);
 	}
 
 	if (std::filesystem::exists("data/room.json")) {
 		std::ifstream is("data/room.json");
 		cereal::JSONInputArchive iarchive(is);
-		iarchive(room);
+		// iarchive(room);
 	}
+}
+
+void Game::renderClear() {
+	renderer->clear();
+}
+
+void Game::renderUpdate() {
+	renderer->update();
 }
 
 bool Game::renderGame() {
@@ -76,10 +106,10 @@ bool Game::renderGame() {
 		gameStart = false;
 	} else if (button == 1) {
 		gameStart = false;
-		room.resetSavePoint();
+		room.get()->resetSavePoint();
 	}
 
-	if (!player.isAlive) {
+	if (!player.get()->isAlive) {
 		renderer->drawGameOverScreen();
 		gameOverSreenTime--;
 		if (gameOverSreenTime < 0) {
@@ -90,44 +120,43 @@ bool Game::renderGame() {
 	}
 
 	// render
-	room.render();
-	player.render();
+	room.get()->render();
+	player.get()->render();
 	for (auto &enemy : enemies) {
 		enemy.render();
 	}
 
-	if (player.getPosition().x > SCREEN_WIDTH) {
+	if (player.get()->getPosition().x > SCREEN_WIDTH) {
 		renderer->setXOffset(-SCREEN_WIDTH);
-	} else if (player.getPosition().x < SCREEN_WIDTH) {
+	} else if (player.get()->getPosition().x < SCREEN_WIDTH) {
 		renderer->setXOffset(0);
 	}
 
-	if (room.checkSavePoint(player.getPosition().x)) {
+	if (room.get()->checkSavePoint(player.get()->getPosition().x)) {
 		spdlog::debug("serialize player");
 		std::ofstream os("data/player.json");
 		cereal::JSONOutputArchive oarchive(os);
-		oarchive(player);
+		// oarchive(player);
 	}
 
-	if (room.isOnGoal(player.getPosition().x)) {
-		bool gameOver = room.nextRoom();
+	if (room.get()->isOnGoal(player.get()->getPosition().x)) {
+		bool gameOver = room.get()->nextRoom();
 		if (gameOver) {
 			deleteState();
-			player.isAlive = false;
+			player.get()->isAlive = false;
 		}
-		player.resetPosition(room.playerStart);
+		player.get()->resetPosition(room.get()->playerStart);
 		spdlog::debug("player on goal");
 	}
 
 	// draw life information
 	if (getArg<bool>("showStatus")) {
-		std::string text = "Life: " + std::to_string(player.getLife());
+		std::string text = "Life: " + std::to_string(player.get()->getLife());
 		renderer->drawText(text, 0, 0);
 
-		text = "Ammo: " + std::to_string(player.getAmmo());
+		text = "Ammo: " + std::to_string(player.get()->getAmmo());
 		renderer->drawText(text, 0, 20);
 	}
-
 	return true;
 }
 
@@ -140,8 +169,8 @@ int Game::dispatchEvents() {
 
 		case SDL_KEYDOWN: {
 			auto key = event.key.keysym.sym;
-			if (player.keyDownEventMap.find(key) != player.keyDownEventMap.end()) {
-				player.keyDownEventMap.find(key)->second();
+			if (player.get()->keyDownEventMap.find(key) != player.get()->keyDownEventMap.end()) {
+				player.get()->keyDownEventMap.find(key)->second();
 			} else if (key == SDLK_q || key == SDLK_ESCAPE) {
 				showMenu = true;
 			}
@@ -149,8 +178,8 @@ int Game::dispatchEvents() {
 
 		case SDL_KEYUP: {
 			auto key = event.key.keysym.sym;
-			if (player.keyUpEventMap.find(key) != player.keyUpEventMap.end()) {
-				player.keyUpEventMap.find(key)->second();
+			if (player.get()->keyUpEventMap.find(key) != player.get()->keyUpEventMap.end()) {
+				player.get()->keyUpEventMap.find(key)->second();
 			}
 		} break;
 		case SDL_MOUSEBUTTONDOWN:

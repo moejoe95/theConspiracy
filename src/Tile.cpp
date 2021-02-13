@@ -1,10 +1,10 @@
 #include "headers/Tile.hpp"
+#include "headers/Game.hpp"
 #include "headers/Utils.hpp"
 
 int Tile::count = 0;
 
-Tile::Tile(tson::TileObject tileObject, Renderer *renderer, CollisionManager *collisionManager, std::string layer)
-    : renderer(renderer), collisionManager(collisionManager) {
+Tile::Tile(tson::TileObject tileObject, std::string layer) {
 
 	id = std::to_string(count++);
 
@@ -24,7 +24,8 @@ Tile::Tile(tson::TileObject tileObject, Renderer *renderer, CollisionManager *co
 	relPath.replace(0, 8, "");
 	std::string absPath = getPath("", "data") + relPath;
 
-	texture = renderer->loadTexture(absPath);
+	Game &g = game();
+	texture = g.getRenderer().loadTexture(absPath);
 
 	isCollisionable = layer == "main" ? true : false;
 
@@ -36,15 +37,15 @@ Tile::~Tile() {
 }
 
 void Tile::render() {
-	renderer->drawTexture(texture, boundingBox);
+	game().getRenderer().drawTexture(texture, boundingBox);
 	if (drawBoundingBox) {
-		renderer->drawRect(boundingBox);
+		game().getRenderer().drawRect(boundingBox);
 	}
 
 	if (isCollisionable) {
 		// TODO dont register in every timestep
-		collisionManager->registerObject(this);
-		collisionManager->checkCollision(this, boundingBox);
+		game().getCollisionManager().registerObject(this);
+		game().getCollisionManager().checkCollision(this, boundingBox);
 	}
 }
 

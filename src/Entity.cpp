@@ -1,5 +1,6 @@
 #include "headers/Entity.hpp"
 #include "headers/Constants.hpp"
+#include "headers/Game.hpp"
 #include "headers/SoundManager.hpp"
 #include "spdlog/spdlog.h"
 
@@ -33,7 +34,7 @@ void Entity::gravity() {
 
 	int fallingSpeed = 5;
 	boundingBox.y += fallingSpeed;
-	intersection = collisionManager->checkCollision(this, boundingBox);
+	intersection = game().getCollisionManager().checkCollision(this, boundingBox);
 	if (intersection.h > 0) {
 		boundingBox.y -= fallingSpeed;
 		movement.down = false;
@@ -56,7 +57,7 @@ void Entity::renderMove() {
 	boundingBox.x += step;
 
 	// collision avoidance
-	SDL_Rect new_intersection = collisionManager->checkCollision(this, boundingBox);
+	SDL_Rect new_intersection = game().getCollisionManager().checkCollision(this, boundingBox);
 	if (new_intersection.w > intersection.w) {
 		boundingBox.x -= step;
 	}
@@ -83,7 +84,7 @@ void Entity::renderShoot() {
 		int y = boundingBox.y + boundingBox.h / 2;
 
 		if (ammo > 0) {
-			firedBullets.emplace_back(x, y, flip, renderer, bulletTexture);
+			firedBullets.emplace_back(x, y, flip, bulletTexture);
 			ammo--;
 		} else
 			ammo = 0;
@@ -98,7 +99,7 @@ void Entity::renderBullets() {
 
 	std::vector<Bullet> newBullets;
 	for (auto &bullet : firedBullets) {
-		collisionManager->deregisterObject(&bullet);
+		game().getCollisionManager().deregisterObject(&bullet);
 		bullet.render();
 		if (!bullet.isOutOfSight()) {
 			newBullets.push_back(bullet);
@@ -108,7 +109,7 @@ void Entity::renderBullets() {
 	firedBullets = newBullets;
 
 	for (auto &bullet : firedBullets) {
-		collisionManager->registerObject(&bullet);
+		game().getCollisionManager().registerObject(&bullet);
 	}
 }
 
@@ -131,10 +132,10 @@ void Entity::renderDie() {
 			currentDieIdx = -1;
 			isAlive = false;
 			for (auto &bullet : firedBullets)
-				collisionManager->deregisterObject(&bullet);
+				game().getCollisionManager().deregisterObject(&bullet);
 			std::vector<Bullet> newBullets;
 			firedBullets = newBullets;
-			collisionManager->deregisterObject(this);
+			game().getCollisionManager().deregisterObject(this);
 		}
 	}
 }

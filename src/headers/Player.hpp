@@ -17,7 +17,7 @@ const int PLAYER_JUMP_HEIGHT = 120;
 class Player : public Entity {
 
   public:
-	Player(std::array<int, 2> position, Renderer *renderer, CollisionManager *collisionManager);
+	Player(std::array<int, 2> position);
 	~Player();
 
 	std::map<SDL_Keycode, std::function<void()>> keyUpEventMap;

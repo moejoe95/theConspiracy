@@ -23,15 +23,13 @@ int main(int argc, char *argv[]) {
 	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
 		throw SDLException("Mix_OpenAudio failed.");
 
-	Renderer renderer{};
-
 	// init game
-	Game game{&renderer};
+	Game game{};
 
 	// game loop
 	bool render = true;
 	while (render) {
-		renderer.clear();
+		game.renderClear();
 
 		unsigned int renderStart = SDL_GetTicks();
 		render = game.renderGame();
@@ -41,7 +39,7 @@ int main(int argc, char *argv[]) {
 			SDL_Delay(30 - frameTime);
 		}
 
-		renderer.update();
+		game.renderUpdate();
 	}
 
 	// destroy SDL

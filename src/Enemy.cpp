@@ -1,5 +1,6 @@
 #include "headers/Enemy.hpp"
 #include "headers/Constants.hpp"
+#include "headers/Game.hpp"
 #include "headers/Utils.hpp"
 #include "spdlog/spdlog.h"
 #include <SDL.h>
@@ -8,9 +9,7 @@
 
 int Enemy::count = 0;
 
-Enemy::Enemy(std::array<int, 2> position, Renderer *renderer_, CollisionManager *collisionManger_) {
-	renderer = renderer_;
-	collisionManager = collisionManger_;
+Enemy::Enemy(std::array<int, 2> position) {
 
 	id = "enemy_" + std::to_string(count++);
 
@@ -19,7 +18,7 @@ Enemy::Enemy(std::array<int, 2> position, Renderer *renderer_, CollisionManager 
 	boundingBox.w = ENEMY_WIDTH;
 	boundingBox.h = ENEMY_HEIGTH;
 
-	collisionManager->registerObject(this);
+	game().getCollisionManager().registerObject(this);
 
 	stepSize = 4;
 	walkAnimSize = 9;
@@ -41,27 +40,27 @@ void Enemy::loadTextures() {
 
 	std::string walkPath = getResourcePath("enemy/walk");
 	for (int i = 0; i < ENEMY_WALK_ANIM_SIZE; i++) {
-		walkTextures.push_back(renderer->loadTexture(walkPath + std::to_string(i + 1) + PNG));
+		walkTextures.push_back(game().getRenderer().loadTexture(walkPath + std::to_string(i + 1) + PNG));
 	}
 
 	std::string shootPath = getResourcePath("enemy/shoot");
 	for (int i = 0; i < ENEMY_SHOOT_ANIM_SIZE; i++) {
-		shootTextures.push_back(renderer->loadTexture(shootPath + std::to_string(i + 1) + PNG));
+		shootTextures.push_back(game().getRenderer().loadTexture(shootPath + std::to_string(i + 1) + PNG));
 	}
 
 	std::string hurtPath = getResourcePath("enemy/hurt");
 	for (int i = 0; i < hurtAnimSize; i++) {
-		hurtTextures.push_back(renderer->loadTexture(hurtPath + std::to_string(i + 1) + PNG));
+		hurtTextures.push_back(game().getRenderer().loadTexture(hurtPath + std::to_string(i + 1) + PNG));
 	}
 
 	std::string diePath = getResourcePath("enemy/die");
 	for (int i = 0; i < dieAnimSize; i++) {
-		dieTextures.push_back(renderer->loadTexture(diePath + std::to_string(i + 1) + PNG));
+		dieTextures.push_back(game().getRenderer().loadTexture(diePath + std::to_string(i + 1) + PNG));
 	}
 
-	bulletTexture = renderer->loadTexture(getResourcePath("bullet") + "bullet.png");
+	bulletTexture = game().getRenderer().loadTexture(getResourcePath("bullet") + "bullet.png");
 
-	idleTexture = renderer->loadTexture(getResourcePath() + "enemy/idle.png");
+	idleTexture = game().getRenderer().loadTexture(getResourcePath() + "enemy/idle.png");
 	jumpTexture = idleTexture;
 
 	spdlog::info("enemy textures loaded");
@@ -91,8 +90,8 @@ void Enemy::render() {
 	}
 
 	currentTexture = idleTexture;
-	collisionManager->registerObject(this);
-	intersection = collisionManager->checkCollision(this, boundingBox);
+	game().getCollisionManager().registerObject(this);
+	intersection = game().getCollisionManager().checkCollision(this, boundingBox);
 
 	if (sleep <= 0) {
 		walk();
@@ -107,11 +106,11 @@ void Enemy::render() {
 	renderHurt();
 	renderDie();
 
-	renderer->drawTexture(currentTexture, boundingBox, flip);
+	game().getRenderer().drawTexture(currentTexture, boundingBox, flip);
 
 	if (drawBoundingBox) {
 		const SDL_Rect playerBB = boundingBox;
-		renderer->drawRect(playerBB);
+		game().getRenderer().drawRect(playerBB);
 	}
 
 	renderBullets();

@@ -12,7 +12,7 @@
 class Tile : public RenderObject {
 
   public:
-	Tile(tson::TileObject tileObject, Renderer *renderer, CollisionManager *collisionManager, std::string layer);
+	Tile(tson::TileObject tileObject, std::string layer);
 	~Tile();
 
 	SDL_Texture *texture;
@@ -31,8 +31,6 @@ class Tile : public RenderObject {
 	void setInvisible();
 
   private:
-	Renderer *renderer;
-	CollisionManager *collisionManager;
 	int demageIntValue = 0;
 	int ammoValue = 0;
 	int healthValue = 0;
