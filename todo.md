@@ -1,7 +1,7 @@
 # TODO's
 
 [x] bullet rendering second screen
-[x] delete serialized objects on new game
+[ ] delete serialized objects on new game
 [ ] end boss
 [ ] write specification of game
 [x] respawn enemies if new game
@@ -10,8 +10,9 @@
 [x] serialize room (to reload correct map)
 [ ] improve enemy AI
 [x] place multiple enemies on map
+[x] fix serialization
 
-[ ] refactor manager accessing (renderer, soundmanager, collisionmanager) -> use similar approach as in Raygun
+[x] refactor manager accessing (renderer, soundmanager, collisionmanager) -> use similar approach as in Raygun
 [ ] refactor folder structure (external libs)
 [ ] refactor naming of members, getters, setters
 [ ] rename root folder

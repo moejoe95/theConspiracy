@@ -1,6 +1,5 @@
 
 #include "headers/Game.hpp"
-#include "cereal/archives/json.hpp"
 #include "headers/Bullet.hpp"
 #include "headers/Constants.hpp"
 #include "headers/Player.hpp"
@@ -56,26 +55,13 @@ void Game::reset() {
 }
 
 void Game::deleteState() {
-	// delete serialized objects if new game
-	if (std::filesystem::exists("data/player.json")) {
-		std::filesystem::remove("data/player.json");
-		std::filesystem::remove("data/room.json");
-	}
+	player.get()->remove();
+	room.get()->remove();
 }
 
 void Game::reload() {
-	spdlog::debug("load player");
-	if (std::filesystem::exists("data/player.json")) {
-		std::ifstream is("data/player.json");
-		cereal::JSONInputArchive iarchive(is);
-		// iarchive(player);
-	}
-
-	if (std::filesystem::exists("data/room.json")) {
-		std::ifstream is("data/room.json");
-		cereal::JSONInputArchive iarchive(is);
-		// iarchive(room);
-	}
+	player.get()->load();
+	room.get()->load();
 }
 
 void Game::renderClear() {
@@ -133,10 +119,7 @@ bool Game::renderGame() {
 	}
 
 	if (room.get()->checkSavePoint(player.get()->getPosition().x)) {
-		spdlog::debug("serialize player");
-		std::ofstream os("data/player.json");
-		cereal::JSONOutputArchive oarchive(os);
-		// oarchive(player);
+		player.get()->save();
 	}
 
 	if (room.get()->isOnGoal(player.get()->getPosition().x)) {
@@ -157,6 +140,7 @@ bool Game::renderGame() {
 		text = "Ammo: " + std::to_string(player.get()->getAmmo());
 		renderer->drawText(text, 0, 20);
 	}
+
 	return true;
 }
 

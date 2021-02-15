@@ -39,6 +39,10 @@ class Player : public Entity {
 		archive(life, ammo, boundingBox.x, boundingBox.y);
 	}
 
+	void save();
+	void load();
+	void remove();
+
   private:
 	void jump();
 	void loadTextures();

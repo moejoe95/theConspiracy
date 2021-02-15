@@ -1,4 +1,5 @@
 #include "headers/Room.hpp"
+#include "cereal/archives/json.hpp"
 #include "headers/Constants.hpp"
 #include "headers/Game.hpp"
 #include "headers/SoundManager.hpp"
@@ -49,6 +50,29 @@ void Room::parseMap() {
 		drawLayer(map, "main");
 	} else {
 		spdlog::error("failed to parse map");
+	}
+}
+
+void Room::save() {
+	spdlog::debug("serialize room");
+	std::ofstream os("data/room.json");
+	cereal::JSONOutputArchive oarchive(os);
+	oarchive(*this);
+}
+
+void Room::load() {
+	spdlog::debug("load room");
+	if (std::filesystem::exists("data/room.json")) {
+		std::ifstream is("data/room.json");
+		cereal::JSONInputArchive iarchive(is);
+		iarchive(*this);
+	}
+}
+
+void Room::remove() {
+	spdlog::debug("remove room");
+	if (std::filesystem::exists("data/room.json")) {
+		std::filesystem::remove("data/room.json");
 	}
 }
 

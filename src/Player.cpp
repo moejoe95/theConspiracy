@@ -1,4 +1,5 @@
 #include "headers/Player.hpp"
+#include "cereal/archives/json.hpp"
 #include "headers/Constants.hpp"
 #include "headers/Game.hpp"
 #include "headers/Utils.hpp"
@@ -69,6 +70,28 @@ void Player::loadTextures() {
 	bulletTexture = game().getRenderer().loadTexture(getResourcePath("bullet") + "bullet.png");
 
 	spdlog::info("player textures loaded");
+}
+
+void Player::save() {
+	spdlog::debug("serialize player");
+	std::ofstream os("data/player.json");
+	cereal::JSONOutputArchive oarchive(os);
+	oarchive(*this);
+}
+
+void Player::load() {
+	spdlog::debug("load player");
+	if (std::filesystem::exists("data/player.json")) {
+		std::ifstream is("data/player.json");
+		cereal::JSONInputArchive iarchive(is);
+		iarchive(*this);
+	}
+}
+
+void Player::remove() {
+	if (std::filesystem::exists("data/player.json")) {
+		std::filesystem::remove("data/player.json");
+	}
 }
 
 void Player::jump() {

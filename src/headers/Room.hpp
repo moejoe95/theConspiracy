@@ -32,6 +32,10 @@ class Room {
 		archive(currentMapIdx);
 	}
 
+	void save();
+	void load();
+	void remove();
+
   private:
 	int goalX;
 	int savePointX;
