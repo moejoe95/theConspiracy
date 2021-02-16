@@ -18,6 +18,7 @@ const int STEP_SIZE = 4;
 class Entity : public RenderObject {
 
   public:
+	virtual ~Entity(){};
 	void moveRight();
 	void stopMoveRight();
 	void moveLeft();

@@ -138,8 +138,9 @@ void Renderer::drawGameOverScreen() {
 }
 
 Renderer::~Renderer() {
-	IMG_Quit();
+	TTF_CloseFont(font);
 	spdlog::debug("destroy window");
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+	IMG_Quit();
 }

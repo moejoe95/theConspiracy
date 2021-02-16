@@ -11,6 +11,7 @@ class RenderObject {
 
   public:
 	std::string getId() { return id; }
+	virtual ~RenderObject() {}
 	virtual const std::vector<SDL_Rect> getBoundingBoxes() = 0;
 	virtual void demage(int demage) = 0;
 	virtual int demageValue() = 0;
