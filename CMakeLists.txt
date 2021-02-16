@@ -20,17 +20,17 @@ set(CMAKE_BUILD_TYPE Debug) # change to release
 set(SOURCE_FILES 
     src/main.cpp 
     src/Game.cpp 
-    src/Utils.cpp 
-    src/SDLException.cpp 
     src/Room.cpp 
     src/Player.cpp
     src/Entity.cpp
     src/Enemy.cpp
     src/Bullet.cpp
-    src/CollisionManager.cpp
-    src/SoundManager.cpp
     src/Renderer.cpp
-    src/Tile.cpp)
+    src/Tile.cpp
+    src/utils/Utils.cpp 
+    src/utils/SDLException.cpp 
+    src/managers/CollisionManager.cpp
+    src/managers/SoundManager.cpp)
 
 # set_source_files_properties(${SOURCE_FILES}
 #     PROPERTIES

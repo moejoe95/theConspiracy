@@ -1,11 +1,11 @@
 
-#include "headers/Game.hpp"
-#include "headers/Bullet.hpp"
-#include "headers/Constants.hpp"
-#include "headers/Player.hpp"
-#include "headers/Room.hpp"
-#include "headers/SDLException.hpp"
-#include "headers/Utils.hpp"
+#include "Game.hpp"
+#include "Bullet.hpp"
+#include "utils/Constants.hpp"
+#include "Player.hpp"
+#include "Room.hpp"
+#include "utils/SDLException.hpp"
+#include "utils/Utils.hpp"
 #include "spdlog/spdlog.h"
 #include <SDL.h>
 #include <filesystem>

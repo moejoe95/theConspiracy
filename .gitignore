@@ -1,12 +1,5 @@
 build/*
 data/*
 res/*
+include/*
 .clang-format
-todo
-
-# temporary ignored files
-EntityStates.cpp
-PlayerFSM.cpp
-EntityState.hpp
-EntityStates.hpp
-PlayerFSM.hpp

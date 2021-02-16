@@ -1,7 +1,7 @@
-#include "headers/Entity.hpp"
-#include "headers/Constants.hpp"
-#include "headers/Game.hpp"
-#include "headers/SoundManager.hpp"
+#include "Entity.hpp"
+#include "utils/Constants.hpp"
+#include "Game.hpp"
+#include "managers/SoundManager.hpp"
 #include "spdlog/spdlog.h"
 
 void Entity::moveLeft() {

@@ -1,8 +1,8 @@
-#include "headers/Player.hpp"
-#include "cereal/archives/json.hpp"
-#include "headers/Constants.hpp"
-#include "headers/Game.hpp"
-#include "headers/Utils.hpp"
+#include "Player.hpp"
+#include "../include/cereal/archives/json.hpp"
+#include "utils/Constants.hpp"
+#include "Game.hpp"
+#include "utils/Utils.hpp"
 #include "spdlog/spdlog.h"
 #include <SDL.h>
 #include <iostream>

@@ -1,6 +1,6 @@
-#include "headers/Tile.hpp"
-#include "headers/Game.hpp"
-#include "headers/Utils.hpp"
+#include "Tile.hpp"
+#include "Game.hpp"
+#include "utils/Utils.hpp"
 
 int Tile::count = 0;
 

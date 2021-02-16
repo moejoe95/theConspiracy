@@ -1,9 +1,9 @@
-#include "headers/Room.hpp"
-#include "cereal/archives/json.hpp"
-#include "headers/Constants.hpp"
-#include "headers/Game.hpp"
-#include "headers/SoundManager.hpp"
-#include "headers/Utils.hpp"
+#include "Room.hpp"
+#include "../include/cereal/archives/json.hpp"
+#include "utils/Constants.hpp"
+#include "Game.hpp"
+#include "managers/SoundManager.hpp"
+#include "utils/Utils.hpp"
 #include "spdlog/spdlog.h"
 #include <filesystem>
 #include <nlohmann/json.hpp>

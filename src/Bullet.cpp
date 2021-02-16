@@ -1,7 +1,7 @@
-#include "headers/Bullet.hpp"
-#include "headers/Constants.hpp"
-#include "headers/Game.hpp"
-#include "headers/Utils.hpp"
+#include "Bullet.hpp"
+#include "utils/Constants.hpp"
+#include "Game.hpp"
+#include "utils/Utils.hpp"
 #include "spdlog/spdlog.h"
 #include <SDL.h>
 

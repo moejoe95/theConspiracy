@@ -1,7 +1,7 @@
-#include "headers/Renderer.hpp"
-#include "headers/Constants.hpp"
-#include "headers/SDLException.hpp"
-#include "headers/Utils.hpp"
+#include "Renderer.hpp"
+#include "utils/Constants.hpp"
+#include "utils/SDLException.hpp"
+#include "utils/Utils.hpp"
 #include "spdlog/spdlog.h"
 #include <SDL_image.h>
 
