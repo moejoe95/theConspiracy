@@ -37,4 +37,6 @@ T getArg(const std::string &name) {
 	return values[name].as<T>();
 }
 
+int randomInt(int lower, int upper);
+
 #endif

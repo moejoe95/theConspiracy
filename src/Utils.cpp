@@ -40,3 +40,8 @@ std::string getMapsPath(const std::string &subDir) {
 std::string getBasePath(const std::string &subDir) {
 	return getPath(subDir, "");
 }
+
+int randomInt(int lower, int upper) {
+	// TODO use c++ approach with uniform_int_distribution
+	return lower + (std::rand() % (upper - lower + 1));
+}

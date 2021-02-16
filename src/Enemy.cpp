@@ -71,8 +71,8 @@ void Enemy::renderHurt() {
 		currentTexture = hurtTextures[currentHurtIdx++];
 		if (currentHurtIdx >= hurtAnimSize) {
 			currentHurtIdx = -1;
-			startShoot = true;
 			flip = SDL_FLIP_HORIZONTAL;
+			sleep = 50;
 		}
 	}
 }
@@ -87,6 +87,12 @@ void Enemy::render() {
 	currentTexture = idleTexture;
 	game().getCollisionManager().registerObject(this);
 	intersection = game().getCollisionManager().checkCollision(this, boundingBox);
+
+	--sleep;
+	if (sleep == 0) {
+		startShoot = true;
+		sleep = randomInt(30, 70);
+	}
 
 	renderShoot();
 	gravity();

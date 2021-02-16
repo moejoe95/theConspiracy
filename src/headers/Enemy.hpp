@@ -5,6 +5,7 @@
 #include "Entity.hpp"
 #include "Renderer.hpp"
 #include <SDL.h>
+#include <random>
 
 const int ENEMY_WIDTH = 110;
 const int ENEMY_HEIGTH = 110;
