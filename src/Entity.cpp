@@ -120,9 +120,6 @@ void Entity::renderHurt() {
 			currentHurtIdx = -1;
 		}
 	}
-
-	if (currentHurtIdx == 1)
-		SoundManager::getInstance().playHurtSound();
 }
 
 void Entity::renderDie() {

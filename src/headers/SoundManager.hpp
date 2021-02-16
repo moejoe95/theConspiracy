@@ -13,7 +13,6 @@ class SoundManager {
 	static SoundManager &getInstance();
 	void playBackgroundSound();
 	void playGunSound();
-	void playHurtSound();
 	void playGameOverSound();
 	void playCollectHealthSound();
 	void playReloadGun();
@@ -28,7 +27,6 @@ class SoundManager {
 
 	bool soundOn;
 	Mix_Chunk *gunSound;
-	Mix_Chunk *hurtSound;
 	Mix_Chunk *backgroundSound;
 	Mix_Chunk *gameOverSound;
 	Mix_Chunk *collect_health;

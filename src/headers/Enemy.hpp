@@ -22,6 +22,7 @@ class Enemy : public Entity {
 	void render() override;
 	int demageValue() override;
 	bool visible() override;
+	void renderHurt();
 	void revive();
 
 	int steps = 0;

@@ -27,6 +27,7 @@
 [ ] change build type to release
 [ ] check for memory leaks with valgrind
 [ ] check build with Werror and Wall
+[ ] set default settings
 
 
 

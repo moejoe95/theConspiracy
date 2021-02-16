@@ -66,19 +66,14 @@ void Enemy::loadTextures() {
 	spdlog::info("enemy textures loaded");
 }
 
-void Enemy::walk() {
-
-	if (steps == 3) {
-		bool switchDir = movement.left;
-		movement.left = movement.right;
-		movement.right = switchDir;
-		steps = 0;
-		sleep = 50;
-	}
-
-	renderMove();
-	if (currentWalkIdx <= 0) {
-		steps++;
+void Enemy::renderHurt() {
+	if (currentHurtIdx >= 0) {
+		currentTexture = hurtTextures[currentHurtIdx++];
+		if (currentHurtIdx >= hurtAnimSize) {
+			currentHurtIdx = -1;
+			startShoot = true;
+			flip = SDL_FLIP_HORIZONTAL;
+		}
 	}
 }
 
@@ -92,14 +87,6 @@ void Enemy::render() {
 	currentTexture = idleTexture;
 	game().getCollisionManager().registerObject(this);
 	intersection = game().getCollisionManager().checkCollision(this, boundingBox);
-
-	if (sleep <= 0) {
-		walk();
-	}
-	if (sleep == 25) {
-		startShoot = true;
-	}
-	sleep--;
 
 	renderShoot();
 	gravity();
@@ -119,6 +106,7 @@ void Enemy::render() {
 void Enemy::revive() {
 	isAlive = true;
 	life = 100;
+	ammo = 20;
 	isVisible = true;
 }
 
@@ -131,16 +119,14 @@ int Enemy::demageValue() {
 }
 
 Enemy::~Enemy() {
-	/*
 	SDL_DestroyTexture(idleTexture);
 	SDL_DestroyTexture(bulletTexture);
 	for (auto tex : walkTextures)
-	    SDL_DestroyTexture(tex);
+		SDL_DestroyTexture(tex);
 	for (auto tex : shootTextures)
-	    SDL_DestroyTexture(tex);
+		SDL_DestroyTexture(tex);
 	for (auto tex : hurtTextures)
-	    SDL_DestroyTexture(tex);
+		SDL_DestroyTexture(tex);
 	for (auto tex : dieTextures)
-	    SDL_DestroyTexture(tex);
-	    */
+		SDL_DestroyTexture(tex);
 }

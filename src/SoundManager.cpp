@@ -11,11 +11,6 @@ SoundManager::SoundManager() {
 	if (!gunSound)
 		throw SDLException("Mix_LoadWAV failed.");
 
-	wav = getResourcePath("sounds") + "hurt.wav";
-	hurtSound = Mix_LoadWAV(wav.c_str());
-	if (!hurtSound)
-		throw SDLException("Mix_LoadWAV failed.");
-
 	wav = getResourcePath("sounds") + "background.wav";
 	backgroundSound = Mix_LoadWAV(wav.c_str());
 	if (!backgroundSound)
@@ -41,7 +36,6 @@ SoundManager::SoundManager() {
 
 SoundManager::~SoundManager() {
 	Mix_FreeChunk(gunSound);
-	Mix_FreeChunk(hurtSound);
 	Mix_FreeChunk(backgroundSound);
 	Mix_FreeChunk(gameOverSound);
 }
@@ -63,10 +57,6 @@ void SoundManager::playBackgroundSound() {
 
 void SoundManager::playGunSound() {
 	play(1, gunSound, 0);
-}
-
-void SoundManager::playHurtSound() {
-	play(1, hurtSound, 0);
 }
 
 void SoundManager::playGameOverSound() {
