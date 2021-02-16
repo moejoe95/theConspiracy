@@ -53,6 +53,11 @@ void Room::parseMap() {
 	}
 }
 
+void Room::reset() {
+	currentMapIdx = 0;
+	parseMap();
+}
+
 void Room::save() {
 	spdlog::debug("serialize room");
 	std::ofstream os("data/room.json");

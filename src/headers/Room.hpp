@@ -24,6 +24,7 @@ class Room {
 	bool checkSavePoint(int playerX);
 	void resetSavePoint();
 	bool nextRoom();
+	void reset();
 	std::vector<std::array<int, 2>> getEnemyPositions();
 
 	// serializing

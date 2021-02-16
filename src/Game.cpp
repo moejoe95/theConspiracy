@@ -48,6 +48,7 @@ CollisionManager &Game::getCollisionManager() {
 
 void Game::reset() {
 	player.get()->reset(room.get()->playerStart);
+	room.get()->reset();
 	for (auto &enemy : enemies) {
 		enemy.revive();
 	}
