@@ -6,6 +6,8 @@
 [x] delete serialized objects on new game
 [x] end boss (need special attack)
 [ ] write specification of game
+[ ] boss should guard item
+[ ] option for pausing/freezing the game
 [x] respawn enemies if new game
 [x] pick up items (health, ammo)
 [x] play sound on pickup
@@ -14,12 +16,19 @@
 [x] place multiple enemies on map
 [x] fix serialization
 
+## cosmetics
+
+[ ] bounding box of player
+[ ] increase font size in menu
+[ ] make menu keyboard-usable
+[ ] different screen/sound for successful/unsuccessful game over
+[ ] coharent use of logger/log levels
+
 ## non-functional
 
 [x] refactor manager accessing (renderer, soundmanager, collisionmanager) -> use similar approach as in Raygun
 [x] refactor folder structure (external libs)
 [ ] refactor naming of members, getters, setters
-[ ] use namespaces to structure
 
 ## before hand-in
 
@@ -28,6 +37,7 @@
 [ ] check for memory leaks with valgrind
 [ ] check build with Werror and Wall
 [ ] set default settings
+[ ] activate sound
 
 
 
@@ -69,3 +79,11 @@
     - game over
         - player dies
         - player defeats final boss
+
+
+## Proposed shortcuts
+
+
+- no advanced movement mechanics
+- no map
+- less rooms (maybe 5-6 in total)

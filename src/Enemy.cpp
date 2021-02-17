@@ -126,16 +126,14 @@ void Enemy::render() {
 	if (sleep == 0) {
 		if (randomInt(0, 100) > 25)
 			startShoot = true;
-		else
+		else if (isBoss)
 			currentGranadeIdx = 0;
 		sleep = randomInt(30, 70);
 	}
 
 	renderShoot();
-	if (isBoss) {
-		renderGranadeThrow();
-		renderGranade();
-	}
+	renderGranadeThrow();
+	renderGranade();
 	gravity();
 	renderHurt();
 	renderDie();
