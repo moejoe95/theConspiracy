@@ -1,23 +1,20 @@
 #ifndef ENEMY_HPP
 #define ENEMY_HPP
 
-#include "managers/CollisionManager.hpp"
 #include "Entity.hpp"
 #include "Renderer.hpp"
+#include "managers/CollisionManager.hpp"
 #include <SDL.h>
 #include <random>
+#include <vector>
 
 const int ENEMY_WIDTH = 110;
 const int ENEMY_HEIGTH = 110;
-const int ENEMY_WALK_ANIM_SIZE = 9;
-const int ENEMY_STEP_SIZE = 4;
-const int ENEMY_JUMP_ANIM_SIZE = 10;
-const int ENEMY_SHOOT_ANIM_SIZE = 5;
 
 class Enemy : public Entity {
 
   public:
-	Enemy(std::array<int, 2> position);
+	Enemy(std::array<int, 2> position, bool isBoss);
 	~Enemy();
 
 	void render() override;
@@ -34,8 +31,16 @@ class Enemy : public Entity {
 	void jump();
 	void loadTextures();
 	void walk();
+	void renderGranadeThrow();
+	void renderGranade();
 
 	bool isVisible = true;
+	bool isBoss = false;
+
+	int granadeAnimSize = 0;
+	int currentGranadeIdx = -1;
+	std::vector<SDL_Texture *> granadeThrowTextures;
+	SDL_Texture *granadeTexture;
 };
 
 #endif // ENEMY_HPP

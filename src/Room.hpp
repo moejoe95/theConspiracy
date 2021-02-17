@@ -2,10 +2,10 @@
 #define ROOM_HPP
 
 #include "../include/tileson/tileson_min.hpp"
-#include "managers/CollisionManager.hpp"
 #include "RenderObject.hpp"
 #include "Renderer.hpp"
 #include "Tile.hpp"
+#include "managers/CollisionManager.hpp"
 #include <SDL.h>
 #include <array>
 #include <map>
@@ -26,6 +26,8 @@ class Room {
 	bool nextRoom();
 	void reset();
 	std::vector<std::array<int, 2>> getEnemyPositions();
+	bool hasBoss();
+	std::array<int, 2> getBossPosition();
 
 	// serializing
 	template <class Archive>
@@ -46,6 +48,8 @@ class Room {
 	std::vector<Tile> tiles;
 	std::vector<std::string> maps;
 	std::vector<std::array<int, 2>> enemyPositions;
+	bool isBoss = false;
+	std::array<int, 2> bossPosition;
 
 	SDL_Rect getSDLRect(tson::Vector2f position, tson::Vector2i imageSize, bool addBoundingBox);
 	void parseMap();

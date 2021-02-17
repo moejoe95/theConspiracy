@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "map1.tmx",
+    "activeFile": "map3.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -120,8 +120,8 @@
             "scale": 0.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 2559,
-                "y": -1150
+                "x": 2096,
+                "y": 111
             }
         },
         "t.tsx": {
@@ -148,8 +148,8 @@
     "recentFiles": [
         "Laboratory.tsx",
         "map2.tmx",
-        "map3.tmx",
         "map1.tmx",
+        "map3.tmx",
         "/home/josef/projects/theConspiracy/data/WorldWarMech_Lava_Station/For_Fantastic_Worlds_Kit/Quest/Quest/Lava_Station.tmx",
         "t.tsx"
     ],

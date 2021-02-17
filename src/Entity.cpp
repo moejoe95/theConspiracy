@@ -1,8 +1,8 @@
 #include "Entity.hpp"
-#include "utils/Constants.hpp"
 #include "Game.hpp"
 #include "managers/SoundManager.hpp"
 #include "spdlog/spdlog.h"
+#include "utils/Constants.hpp"
 
 void Entity::moveLeft() {
 	movement.left = true;
@@ -84,7 +84,7 @@ void Entity::renderShoot() {
 		int y = boundingBox.y + boundingBox.h / 2;
 
 		if (ammo > 0) {
-			firedBullets.emplace_back(x, y, flip, bulletTexture);
+			firedBullets.emplace_back(x, y, flip, bulletTexture, false);
 			ammo--;
 		} else
 			ammo = 0;

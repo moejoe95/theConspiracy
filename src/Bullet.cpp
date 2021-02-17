@@ -1,13 +1,14 @@
 #include "Bullet.hpp"
-#include "utils/Constants.hpp"
 #include "Game.hpp"
-#include "utils/Utils.hpp"
 #include "spdlog/spdlog.h"
+#include "utils/Constants.hpp"
+#include "utils/Utils.hpp"
 #include <SDL.h>
 
 int Bullet::count = 0;
 
-Bullet::Bullet(int x, int y, SDL_RendererFlip flip, SDL_Texture *texture) : flip(flip), texture(texture) {
+Bullet::Bullet(int x, int y, SDL_RendererFlip flip, SDL_Texture *texture, bool granade)
+    : flip(flip), texture(texture), isGranade(granade) {
 
 	id = "bullet_" + std::to_string(count++);
 
@@ -15,6 +16,11 @@ Bullet::Bullet(int x, int y, SDL_RendererFlip flip, SDL_Texture *texture) : flip
 	boundingBox.y = y;
 	boundingBox.w = BULLET_WIDTH;
 	boundingBox.h = BULLET_HEIGHT;
+
+	if (granade) {
+		boundingBox.w = GRANADE_WIDTH;
+		boundingBox.h = GRANADE_HEIGHT;
+	}
 
 	std::string explodePath = getResourcePath("bullet/blast");
 	for (int i = 0; i <= BULLET_BLAST_ANIM_SIZE; i++) {
@@ -27,14 +33,23 @@ Bullet::Bullet(int x, int y, SDL_RendererFlip flip, SDL_Texture *texture) : flip
 void Bullet::render() {
 
 	if (explodeIdx < 0) {
-		if (flip == SDL_FLIP_NONE)
+		if (flip == SDL_FLIP_NONE && !onFloor)
 			boundingBox.x += BULLET_VELOCITY;
-		else
+		else if (!onFloor)
 			boundingBox.x -= BULLET_VELOCITY;
 
 		if (boundingBox.x > SCREEN_WIDTH * 2 || boundingBox.x < 0) {
 			outOfSight = true;
 			spdlog::debug(id + " of of sight");
+		}
+
+		if (isGranade) {
+			SDL_Rect intersection = game().getCollisionManager().checkCollision(this, boundingBox);
+			if (intersection.h > 0)
+				onFloor = true;
+
+			if (!onFloor)
+				boundingBox.y += 5;
 		}
 
 		game().getRenderer().drawTexture(texture, boundingBox, flip);

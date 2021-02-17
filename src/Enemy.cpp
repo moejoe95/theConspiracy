@@ -1,15 +1,15 @@
 #include "Enemy.hpp"
-#include "utils/Constants.hpp"
 #include "Game.hpp"
-#include "utils/Utils.hpp"
 #include "spdlog/spdlog.h"
+#include "utils/Constants.hpp"
+#include "utils/Utils.hpp"
 #include <SDL.h>
 #include <functional>
 #include <iostream>
 
 int Enemy::count = 0;
 
-Enemy::Enemy(std::array<int, 2> position) {
+Enemy::Enemy(std::array<int, 2> position, bool isBoss) : isBoss(isBoss) {
 
 	id = "enemy_" + std::to_string(count++);
 
@@ -25,6 +25,8 @@ Enemy::Enemy(std::array<int, 2> position) {
 	shootAnimSize = 5;
 	hurtAnimSize = 6;
 	dieAnimSize = 6;
+	granadeAnimSize = 16;
+	ammo = 100;
 
 	drawBoundingBox = getArg<bool>("drawBoundingBox");
 	spdlog::info(drawBoundingBox);
@@ -39,12 +41,12 @@ Enemy::Enemy(std::array<int, 2> position) {
 void Enemy::loadTextures() {
 
 	std::string walkPath = getResourcePath("enemy/walk");
-	for (int i = 0; i < ENEMY_WALK_ANIM_SIZE; i++) {
+	for (int i = 0; i < walkAnimSize; i++) {
 		walkTextures.push_back(game().getRenderer().loadTexture(walkPath + std::to_string(i + 1) + PNG));
 	}
 
 	std::string shootPath = getResourcePath("enemy/shoot");
-	for (int i = 0; i < ENEMY_SHOOT_ANIM_SIZE; i++) {
+	for (int i = 0; i < shootAnimSize; i++) {
 		shootTextures.push_back(game().getRenderer().loadTexture(shootPath + std::to_string(i + 1) + PNG));
 	}
 
@@ -58,7 +60,14 @@ void Enemy::loadTextures() {
 		dieTextures.push_back(game().getRenderer().loadTexture(diePath + std::to_string(i + 1) + PNG));
 	}
 
+	std::string granadePath = getResourcePath("enemy/granade");
+	for (int i = 0; i < granadeAnimSize; i++) {
+		granadeThrowTextures.push_back(game().getRenderer().loadTexture(granadePath + std::to_string(i + 1) + PNG));
+	}
+
 	bulletTexture = game().getRenderer().loadTexture(getResourcePath("bullet") + "bullet.png");
+
+	granadeTexture = game().getRenderer().loadTexture(getResourcePath("bullet") + "granade.png");
 
 	idleTexture = game().getRenderer().loadTexture(getResourcePath() + "enemy/idle.png");
 	jumpTexture = idleTexture;
@@ -77,6 +86,31 @@ void Enemy::renderHurt() {
 	}
 }
 
+void Enemy::renderGranadeThrow() {
+	if (currentGranadeIdx >= 0) {
+		currentTexture = granadeThrowTextures[currentGranadeIdx++];
+		if (currentGranadeIdx >= granadeAnimSize) {
+			currentGranadeIdx = -1;
+		}
+	}
+}
+
+void Enemy::renderGranade() {
+	if (currentGranadeIdx != granadeAnimSize - 1)
+		return;
+
+	currentGranadeIdx++;
+
+	// create bullet
+	int x = boundingBox.x - 15; // offset to not walk into own bullet
+	if (flip == SDL_FLIP_NONE)
+		x += boundingBox.w + 10;
+
+	int y = boundingBox.y - 10;
+
+	firedBullets.emplace_back(x, y, flip, granadeTexture, true);
+}
+
 void Enemy::render() {
 
 	if (!isAlive) {
@@ -90,11 +124,18 @@ void Enemy::render() {
 
 	--sleep;
 	if (sleep == 0) {
-		startShoot = true;
+		if (randomInt(0, 100) > 25)
+			startShoot = true;
+		else
+			currentGranadeIdx = 0;
 		sleep = randomInt(30, 70);
 	}
 
 	renderShoot();
+	if (isBoss) {
+		renderGranadeThrow();
+		renderGranade();
+	}
 	gravity();
 	renderHurt();
 	renderDie();
@@ -127,6 +168,11 @@ int Enemy::demageValue() {
 Enemy::~Enemy() {
 	SDL_DestroyTexture(idleTexture);
 	SDL_DestroyTexture(bulletTexture);
+	SDL_DestroyTexture(granadeTexture);
+	for (auto tex : granadeThrowTextures)
+		SDL_DestroyTexture(tex);
+	for (auto tex : walkTextures)
+		SDL_DestroyTexture(tex);
 	for (auto tex : walkTextures)
 		SDL_DestroyTexture(tex);
 	for (auto tex : shootTextures)

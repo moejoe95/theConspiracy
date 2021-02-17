@@ -1,10 +1,10 @@
 #include "Room.hpp"
 #include "../include/cereal/archives/json.hpp"
-#include "utils/Constants.hpp"
 #include "Game.hpp"
 #include "managers/SoundManager.hpp"
-#include "utils/Utils.hpp"
 #include "spdlog/spdlog.h"
+#include "utils/Constants.hpp"
+#include "utils/Utils.hpp"
 #include <filesystem>
 #include <nlohmann/json.hpp>
 
@@ -89,6 +89,11 @@ void Room::drawLayer(std::unique_ptr<tson::Map> &map, std::string name) {
 			int y = tileObject.getPosition().y;
 			std::array<int, 2> p = {x, y};
 			enemyPositions.push_back(p);
+		} else if (tileObject.getTile()->get<bool>("boss")) {
+			int x = tileObject.getPosition().x;
+			int y = tileObject.getPosition().y;
+			isBoss = true;
+			bossPosition = {x, y};
 		} else {
 			tiles.emplace_back(tileObject, name);
 		}
@@ -97,6 +102,14 @@ void Room::drawLayer(std::unique_ptr<tson::Map> &map, std::string name) {
 
 std::vector<std::array<int, 2>> Room::getEnemyPositions() {
 	return enemyPositions;
+}
+
+std::array<int, 2> Room::getBossPosition() {
+	return bossPosition;
+}
+
+bool Room::hasBoss() {
+	return isBoss;
 }
 
 void Room::render() {

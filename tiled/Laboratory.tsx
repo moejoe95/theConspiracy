@@ -881,6 +881,9 @@
   <image width="30" height="29" source="../data/WorldWarMech_Lava_Station/PNG_Exports_1x_2x_3x/uranium4.png"/>
  </tile>
  <tile id="283">
+  <properties>
+   <property name="boss" type="bool" value="true"/>
+  </properties>
   <image width="60" height="58" source="../data/WorldWarMech_Lava_Station/PNG_Exports_1x_2x_3x/uranium4@2x.png"/>
  </tile>
  <tile id="284">

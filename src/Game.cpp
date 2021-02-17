@@ -1,12 +1,12 @@
 
 #include "Game.hpp"
 #include "Bullet.hpp"
-#include "utils/Constants.hpp"
 #include "Player.hpp"
 #include "Room.hpp"
+#include "spdlog/spdlog.h"
+#include "utils/Constants.hpp"
 #include "utils/SDLException.hpp"
 #include "utils/Utils.hpp"
-#include "spdlog/spdlog.h"
 #include <SDL.h>
 #include <filesystem>
 #include <functional>
@@ -22,19 +22,20 @@ Game &game() {
 	return *instance;
 }
 
-Game::Game() {
+Game::Game() : renderer(std::make_unique<Renderer>()), collisionManager(std::make_unique<CollisionManager>()) {
 
 	instance = this;
 
-	renderer = std::make_unique<Renderer>();
-	collisionManager = std::make_unique<CollisionManager>();
 	room = std::make_unique<Room>();
 	player = std::make_unique<Player>(room.get()->playerStart);
 
 	enemies.reserve(room.get()->getEnemyPositions().size());
 	for (auto enemyPos : room.get()->getEnemyPositions()) {
-		enemies.emplace_back(enemyPos);
+		enemies.emplace_back(enemyPos, false);
 	}
+	if (room.get()->hasBoss())
+		enemies.emplace_back(room.get()->getBossPosition(), true);
+
 	spdlog::info("new game initalized");
 }
 

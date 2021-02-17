@@ -4,20 +4,20 @@
 
 [x] bullet rendering second screen
 [x] delete serialized objects on new game
-[ ] end boss
+[x] end boss (need special attack)
 [ ] write specification of game
 [x] respawn enemies if new game
 [x] pick up items (health, ammo)
 [x] play sound on pickup
 [x] serialize room (to reload correct map)
-[ ] improve enemy AI
+[x] improve enemy AI
 [x] place multiple enemies on map
 [x] fix serialization
 
 ## non-functional
 
 [x] refactor manager accessing (renderer, soundmanager, collisionmanager) -> use similar approach as in Raygun
-[ ] refactor folder structure (external libs)
+[x] refactor folder structure (external libs)
 [ ] refactor naming of members, getters, setters
 [ ] use namespaces to structure
 
