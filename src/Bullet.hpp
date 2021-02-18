@@ -2,8 +2,8 @@
 #define BULLET_HPP
 
 #include "RenderObject.hpp"
-#include "Renderer.hpp"
 #include "managers/CollisionManager.hpp"
+#include "managers/Renderer.hpp"
 #include <SDL.h>
 #include <vector>
 

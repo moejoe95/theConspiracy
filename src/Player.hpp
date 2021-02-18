@@ -2,9 +2,9 @@
 #define PLAYER_HPP
 
 #include "../include/cereal/types/base_class.hpp"
-#include "managers/CollisionManager.hpp"
 #include "Entity.hpp"
-#include "Renderer.hpp"
+#include "managers/CollisionManager.hpp"
+#include "managers/Renderer.hpp"
 #include <SDL.h>
 #include <map>
 #include <string>

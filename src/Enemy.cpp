@@ -166,6 +166,9 @@ int Enemy::demageValue() {
 
 Enemy::~Enemy() {
 	game().getCollisionManager().deregisterObject(this);
+	for (auto &bullet : firedBullets) {
+		game().getCollisionManager().deregisterObject(&bullet);
+	}
 	SDL_DestroyTexture(idleTexture);
 	SDL_DestroyTexture(bulletTexture);
 	SDL_DestroyTexture(granadeTexture);

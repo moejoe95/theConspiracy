@@ -2,10 +2,10 @@
 #define ENTITY_HPP
 
 #include "Bullet.hpp"
-#include "managers/CollisionManager.hpp"
 #include "RenderObject.hpp"
-#include "Renderer.hpp"
 #include "Room.hpp"
+#include "managers/CollisionManager.hpp"
+#include "managers/Renderer.hpp"
 #include <SDL.h>
 #include <array>
 #include <functional>

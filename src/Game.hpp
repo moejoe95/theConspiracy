@@ -4,9 +4,10 @@
 #include "Enemy.hpp"
 #include "Player.hpp"
 #include "RenderObject.hpp"
-#include "Renderer.hpp"
 #include "Room.hpp"
 #include "managers/CollisionManager.hpp"
+#include "managers/Renderer.hpp"
+#include "managers/SoundManager.hpp"
 #include <SDL.h>
 #include <functional>
 #include <memory>
@@ -28,15 +29,18 @@ class Game {
 
 	CollisionManager &getCollisionManager();
 
+	SoundManager &getSoundManager();
+
   private:
 	std::unique_ptr<Renderer> renderer;
 	std::unique_ptr<CollisionManager> collisionManager;
+	std::unique_ptr<SoundManager> soundManager;
 	std::unique_ptr<Room> room;
 	std::unique_ptr<Player> player;
 
 	std::vector<Enemy> enemies;
 	bool showMenu = true;
-	bool isFreeze = false;
+	bool success = false;
 	bool gameStart = true;
 	int gameOverSreenTime = 50;
 

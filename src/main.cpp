@@ -1,9 +1,9 @@
 #include "Game.hpp"
-#include "Renderer.hpp"
-#include "utils/SDLException.hpp"
 #include "SDL_mixer.h"
-#include "utils/Utils.hpp"
+#include "managers/Renderer.hpp"
 #include "spdlog/spdlog.h"
+#include "utils/SDLException.hpp"
+#include "utils/Utils.hpp"
 #include <SDL.h>
 #include <boost/program_options.hpp>
 

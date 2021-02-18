@@ -1,6 +1,5 @@
 #include "Entity.hpp"
 #include "Game.hpp"
-#include "managers/SoundManager.hpp"
 #include "spdlog/spdlog.h"
 #include "utils/Constants.hpp"
 
@@ -72,7 +71,7 @@ void Entity::renderShoot() {
 		return;
 
 	if (currentShootIdx == 0)
-		SoundManager::getInstance().playGunSound();
+		game().getSoundManager().playGunSound();
 
 	currentShootIdx++;
 	if (currentShootIdx >= shootAnimSize - 1) {

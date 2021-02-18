@@ -31,6 +31,11 @@ SoundManager::SoundManager() {
 	if (!collect_ammo)
 		throw SDLException("Mix_LoadWAV failed.");
 
+	wav = getResourcePath("sounds") + "success.wav";
+	success = Mix_LoadWAV(wav.c_str());
+	if (!success)
+		throw SDLException("Mix_LoadWAV failed.");
+
 	soundOn = getArg<bool>("sound");
 }
 
@@ -38,11 +43,9 @@ SoundManager::~SoundManager() {
 	Mix_FreeChunk(gunSound);
 	Mix_FreeChunk(backgroundSound);
 	Mix_FreeChunk(gameOverSound);
-}
-
-SoundManager &SoundManager::getInstance() {
-	static SoundManager sm{};
-	return sm;
+	Mix_FreeChunk(success);
+	Mix_FreeChunk(collect_ammo);
+	Mix_FreeChunk(collect_health);
 }
 
 void SoundManager::play(int channel, Mix_Chunk *sound, int times) {
@@ -69,4 +72,8 @@ void SoundManager::playCollectHealthSound() {
 
 void SoundManager::playReloadGun() {
 	play(1, collect_ammo, 0);
+}
+
+void SoundManager::playSuccessSound() {
+	play(1, success, 0);
 }

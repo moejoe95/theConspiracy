@@ -3,26 +3,19 @@
 
 #include "SDL_mixer.h"
 
-/*
-this is a Meyers Singleton implementation, see:
-https://laristra.github.io/flecsi/src/developer-guide/patterns/meyers_singleton.html
-*/
 class SoundManager {
 
   public:
-	static SoundManager &getInstance();
+	SoundManager();
+	~SoundManager();
 	void playBackgroundSound();
 	void playGunSound();
 	void playGameOverSound();
 	void playCollectHealthSound();
 	void playReloadGun();
-
-	SoundManager(const SoundManager &) = delete;
-	SoundManager &operator=(const SoundManager &) = delete;
+	void playSuccessSound();
 
   private:
-	SoundManager();
-	~SoundManager();
 	void play(int channel, Mix_Chunk *sound, int times);
 
 	bool soundOn;
@@ -31,6 +24,7 @@ class SoundManager {
 	Mix_Chunk *gameOverSound;
 	Mix_Chunk *collect_health;
 	Mix_Chunk *collect_ammo;
+	Mix_Chunk *success;
 };
 
 #endif // SOUNG_MANAGER_HPP

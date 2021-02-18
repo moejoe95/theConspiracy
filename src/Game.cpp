@@ -3,6 +3,7 @@
 #include "Bullet.hpp"
 #include "Player.hpp"
 #include "Room.hpp"
+#include "managers/SoundManager.hpp"
 #include "spdlog/spdlog.h"
 #include "utils/Constants.hpp"
 #include "utils/SDLException.hpp"
@@ -22,7 +23,9 @@ Game &game() {
 	return *instance;
 }
 
-Game::Game() : renderer(std::make_unique<Renderer>()), collisionManager(std::make_unique<CollisionManager>()) {
+Game::Game()
+    : renderer(std::make_unique<Renderer>()), collisionManager(std::make_unique<CollisionManager>()),
+      soundManager(std::make_unique<SoundManager>()) {
 
 	instance = this;
 
@@ -30,6 +33,9 @@ Game::Game() : renderer(std::make_unique<Renderer>()), collisionManager(std::mak
 	player = std::make_unique<Player>(room.get()->playerStart);
 
 	initEnemies();
+
+	// play backround
+	soundManager.get()->playBackgroundSound();
 
 	spdlog::info("new game initalized");
 }
@@ -50,6 +56,10 @@ Renderer &Game::getRenderer() {
 
 CollisionManager &Game::getCollisionManager() {
 	return *collisionManager;
+}
+
+SoundManager &Game::getSoundManager() {
+	return *soundManager;
 }
 
 void Game::reset() {
@@ -108,6 +118,8 @@ bool Game::renderGame() {
 		if (gameOverSreenTime < 0) {
 			showMenu = true;
 			gameOverSreenTime = 50;
+			if (!success)
+				soundManager.get()->playGameOverSound();
 		}
 		return true;
 	}
@@ -132,6 +144,8 @@ bool Game::renderGame() {
 	if (room.get()->isOnGoal(player.get()->getPosition().x)) {
 		bool gameOver = room.get()->nextRoom();
 		if (gameOver) {
+			soundManager.get()->playSuccessSound();
+			success = true;
 			deleteState();
 			player.get()->isAlive = false;
 		}
@@ -165,8 +179,6 @@ int Game::dispatchEvents() {
 				player.get()->keyDownEventMap.find(key)->second();
 			} else if (key == SDLK_q || key == SDLK_ESCAPE) {
 				showMenu = true;
-			} else if (key == SDLK_p) {
-				isFreeze = true;
 			}
 		} break;
 

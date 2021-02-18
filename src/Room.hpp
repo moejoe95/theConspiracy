@@ -3,9 +3,9 @@
 
 #include "../include/tileson/tileson_min.hpp"
 #include "RenderObject.hpp"
-#include "Renderer.hpp"
 #include "Tile.hpp"
 #include "managers/CollisionManager.hpp"
+#include "managers/Renderer.hpp"
 #include <SDL.h>
 #include <array>
 #include <map>

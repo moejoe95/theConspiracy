@@ -7,7 +7,6 @@
 [x] end boss (need special attack)
 [ ] write specification of game
 [ ] boss should guard item
-[ ] option for pausing/freezing the game
 [x] make sure enemies are on their place
 [x] respawn enemies if new game
 [x] pick up items (health, ammo)
@@ -16,13 +15,15 @@
 [x] improve enemy AI
 [x] place multiple enemies on map
 [x] fix serialization
+[ ] save game at new room
+[ ] add another backround sound for last room
 
 ## cosmetics
 
 [ ] bounding box of player
 [ ] increase font size in menu
 [ ] make menu keyboard-usable
-[ ] different screen/sound for successful/unsuccessful game over
+[x] different screen/sound for successful/unsuccessful game over
 [ ] coharent use of logger/log levels
 [ ] dead enemies should be visible longer
 [ ] make player immune a short time after he lost some life
@@ -33,6 +34,7 @@
 [x] refactor manager accessing (renderer, soundmanager, collisionmanager) -> use similar approach as in Raygun
 [x] refactor folder structure (external libs)
 [ ] refactor naming of members, getters, setters
+[x] add soundmanager to game
 
 ## before hand-in
 

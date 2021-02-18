@@ -25,10 +25,10 @@ set(SOURCE_FILES
     src/Entity.cpp
     src/Enemy.cpp
     src/Bullet.cpp
-    src/Renderer.cpp
     src/Tile.cpp
     src/utils/Utils.cpp 
     src/utils/SDLException.cpp 
+    src/managers/Renderer.cpp
     src/managers/CollisionManager.cpp
     src/managers/SoundManager.cpp)
 

@@ -2,9 +2,9 @@
 #define TILE_HPP
 
 #include "../include/tileson/tileson_min.hpp"
-#include "managers/CollisionManager.hpp"
 #include "RenderObject.hpp"
-#include "Renderer.hpp"
+#include "managers/CollisionManager.hpp"
+#include "managers/Renderer.hpp"
 #include <SDL.h>
 #include <string>
 #include <vector>

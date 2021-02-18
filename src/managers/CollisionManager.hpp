@@ -2,7 +2,7 @@
 #define COLLISION_MANAGER_HPP
 
 #include "../RenderObject.hpp"
-#include "../Renderer.hpp"
+#include "Renderer.hpp"
 #include <SDL.h>
 #include <map>
 #include <string>

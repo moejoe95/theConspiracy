@@ -2,8 +2,8 @@
 #define ENEMY_HPP
 
 #include "Entity.hpp"
-#include "Renderer.hpp"
 #include "managers/CollisionManager.hpp"
+#include "managers/Renderer.hpp"
 #include <SDL.h>
 #include <random>
 #include <vector>

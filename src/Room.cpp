@@ -1,7 +1,6 @@
 #include "Room.hpp"
 #include "../include/cereal/archives/json.hpp"
 #include "Game.hpp"
-#include "managers/SoundManager.hpp"
 #include "spdlog/spdlog.h"
 #include "utils/Constants.hpp"
 #include "utils/Utils.hpp"
@@ -20,9 +19,6 @@ Room::Room() {
 	maps.push_back("map1.json");
 	maps.push_back("map2.json");
 	maps.push_back("map3.json");
-
-	// play backround
-	SoundManager::getInstance().playBackgroundSound();
 
 	spdlog::info("room initalized");
 
