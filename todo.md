@@ -16,25 +16,26 @@
 [x] save game at new room
 [x] add another backround sound for last room
 [x] avoid player running off screen
+[x] write specification of game
 [ ] improve demage value calculation (using stats)
 
-## non-functional
-
-[ ] bounding box of player
-[ ] increase font size in menu
-[ ] make menu keyboard-usable
-[ ] dead enemies should be visible longer
-[ ] make player immune a short time after he lost some life
-[ ] limit hit-rate of player
-[ ] refactor naming of members, getters, setters
 
 ## before hand-in
 
+[x] increase font size in menu
+[x] check build with Wall
+[x] set default settings
+[ ] check for memory leaks with valgrind
+[ ] refactor naming of members, getters, setters
+[ ] coharent use of logger/log levels
 [ ] rename root folder
 [ ] change build type to release
-[ ] check for memory leaks with valgrind
-[ ] check build with Wall
-[ ] set default settings
-[ ] write specification of game
-[ ] known issues in readme
-[ ] coharent use of logger/log levels
+[ ] update known issues section in readme  
+
+
+## future work
+
+[ ] make menu keyboard-usable
+[ ] dead enemies should be visible longer
+[ ] make player immune a short time after demaged
+[ ] limit hit-rate of player

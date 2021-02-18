@@ -32,6 +32,7 @@ set(SOURCE_FILES
     src/managers/CollisionManager.cpp
     src/managers/SoundManager.cpp)
 
+# shows errors of tileson header-only lib
 # set_source_files_properties(${SOURCE_FILES}
 #     PROPERTIES
 #     COMPILE_FLAGS  "-Wall")

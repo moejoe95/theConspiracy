@@ -20,7 +20,7 @@ Renderer::Renderer() {
 
 	std::string fontName = getResourcePath("") + "Hack-Regular.ttf";
 
-	font = TTF_OpenFont(fontName.c_str(), 20);
+	font = TTF_OpenFont(fontName.c_str(), 40);
 	if (!font)
 		throw SDLException("Failed to load font " + fontName);
 }
@@ -135,8 +135,8 @@ std::vector<SDL_Rect> Renderer::drawMenu() {
 	std::vector<SDL_Rect> buttons;
 
 	buttons.push_back(drawText("continue", 200));
-	buttons.push_back(drawText("new game", 250));
-	buttons.push_back(drawText("exit", 350));
+	buttons.push_back(drawText("new game", 275));
+	buttons.push_back(drawText("exit", 400));
 	return buttons;
 }
 

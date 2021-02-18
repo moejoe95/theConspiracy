@@ -32,7 +32,7 @@ Some settings can be configured in 'settings.ini'.
 
 ## Known Issues
 
-
+- bounding box of character is to large
 
 ## Acknowledgements
 
