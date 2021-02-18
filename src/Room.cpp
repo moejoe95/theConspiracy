@@ -11,6 +11,11 @@
 using nlohmann::json;
 
 Room::Room() {
+
+	int initMap = getArg<int>("loadMap");
+	if (initMap != 1)
+		maps.push_back("map" + std::to_string(initMap) + ".json");
+
 	// queue up rooms
 	maps.push_back("map1.json");
 	maps.push_back("map2.json");
@@ -43,6 +48,7 @@ void Room::parseMap() {
 		game().getCollisionManager().deregisterObject(&t);
 	}
 	tiles.clear();
+	enemyPositions.clear();
 
 	if (map->getStatus() == tson::ParseStatus::OK) {
 		drawLayer(map, "background");

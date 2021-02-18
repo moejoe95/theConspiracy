@@ -151,8 +151,9 @@ void Enemy::render() {
 void Enemy::revive() {
 	isAlive = true;
 	life = 100;
-	ammo = 20;
+	ammo = 100;
 	isVisible = true;
+	startShoot = false;
 }
 
 bool Enemy::visible() {
@@ -164,6 +165,7 @@ int Enemy::demageValue() {
 }
 
 Enemy::~Enemy() {
+	game().getCollisionManager().deregisterObject(this);
 	SDL_DestroyTexture(idleTexture);
 	SDL_DestroyTexture(bulletTexture);
 	SDL_DestroyTexture(granadeTexture);

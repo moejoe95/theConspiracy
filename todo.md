@@ -8,6 +8,7 @@
 [ ] write specification of game
 [ ] boss should guard item
 [ ] option for pausing/freezing the game
+[x] make sure enemies are on their place
 [x] respawn enemies if new game
 [x] pick up items (health, ammo)
 [x] play sound on pickup
@@ -23,6 +24,9 @@
 [ ] make menu keyboard-usable
 [ ] different screen/sound for successful/unsuccessful game over
 [ ] coharent use of logger/log levels
+[ ] dead enemies should be visible longer
+[ ] make player immune a short time after he lost some life
+[ ] limit hit-rate of player
 
 ## non-functional
 

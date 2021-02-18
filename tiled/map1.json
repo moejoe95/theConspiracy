@@ -51,16 +51,6 @@
  "orientation":"orthogonal",
  "properties":[
         {
-         "name":"enemy.x",
-         "type":"int",
-         "value":500
-        }, 
-        {
-         "name":"enemy.y",
-         "type":"int",
-         "value":300
-        }, 
-        {
          "name":"goal",
          "type":"int",
          "value":2016
@@ -1866,7 +1856,13 @@
                  "id":283,
                  "image":"..\/data\/WorldWarMech_Lava_Station\/PNG_Exports_1x_2x_3x\/uranium4@2x.png",
                  "imageheight":58,
-                 "imagewidth":60
+                 "imagewidth":60,
+                 "properties":[
+                        {
+                         "name":"boss",
+                         "type":"bool",
+                         "value":true
+                        }]
                 }, 
                 {
                  "id":284,

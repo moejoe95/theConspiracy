@@ -1,12 +1,12 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include "managers/CollisionManager.hpp"
 #include "Enemy.hpp"
 #include "Player.hpp"
 #include "RenderObject.hpp"
 #include "Renderer.hpp"
 #include "Room.hpp"
+#include "managers/CollisionManager.hpp"
 #include <SDL.h>
 #include <functional>
 #include <memory>
@@ -36,6 +36,7 @@ class Game {
 
 	std::vector<Enemy> enemies;
 	bool showMenu = true;
+	bool isFreeze = false;
 	bool gameStart = true;
 	int gameOverSreenTime = 50;
 
@@ -43,6 +44,7 @@ class Game {
 	void reload();
 	void reset();
 	void deleteState();
+	void initEnemies();
 };
 
 Game &game();

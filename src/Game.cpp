@@ -29,14 +29,19 @@ Game::Game() : renderer(std::make_unique<Renderer>()), collisionManager(std::mak
 	room = std::make_unique<Room>();
 	player = std::make_unique<Player>(room.get()->playerStart);
 
-	enemies.reserve(room.get()->getEnemyPositions().size());
+	initEnemies();
+
+	spdlog::info("new game initalized");
+}
+
+void Game::initEnemies() {
+	enemies.clear();
+	enemies.reserve(room.get()->getEnemyPositions().size() + 1);
 	for (auto enemyPos : room.get()->getEnemyPositions()) {
 		enemies.emplace_back(enemyPos, false);
 	}
 	if (room.get()->hasBoss())
 		enemies.emplace_back(room.get()->getBossPosition(), true);
-
-	spdlog::info("new game initalized");
 }
 
 Renderer &Game::getRenderer() {
@@ -131,6 +136,7 @@ bool Game::renderGame() {
 			player.get()->isAlive = false;
 		}
 		player.get()->resetPosition(room.get()->playerStart);
+		initEnemies();
 		spdlog::debug("player on goal");
 	}
 
@@ -159,6 +165,8 @@ int Game::dispatchEvents() {
 				player.get()->keyDownEventMap.find(key)->second();
 			} else if (key == SDLK_q || key == SDLK_ESCAPE) {
 				showMenu = true;
+			} else if (key == SDLK_p) {
+				isFreeze = true;
 			}
 		} break;
 
