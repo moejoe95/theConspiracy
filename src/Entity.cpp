@@ -48,7 +48,10 @@ void Entity::renderMove() {
 		step = stepSize;
 		flip = SDL_FLIP_NONE;
 	} else if (movement.left) {
-		step = -stepSize;
+		if (boundingBox.x - stepSize > 0)
+			step = -stepSize;
+		else
+			return;
 		flip = SDL_FLIP_HORIZONTAL;
 	} else
 		return;

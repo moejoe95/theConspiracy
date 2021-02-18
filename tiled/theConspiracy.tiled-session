@@ -112,16 +112,16 @@
             "scale": 0.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 568,
-                "y": 211
+                "x": 2559,
+                "y": -1150
             }
         },
         "map3.tmx": {
             "scale": 0.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 1130,
-                "y": 363
+                "x": 2559,
+                "y": -1150
             }
         },
         "t.tsx": {
