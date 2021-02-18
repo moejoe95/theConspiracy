@@ -4,14 +4,12 @@
 #include "Player.hpp"
 #include "Room.hpp"
 #include "managers/SoundManager.hpp"
-#include "spdlog/spdlog.h"
 #include "utils/Constants.hpp"
 #include "utils/SDLException.hpp"
 #include "utils/Utils.hpp"
 #include <SDL.h>
 #include <filesystem>
-#include <functional>
-#include <iostream>
+#include <spdlog/spdlog.h>
 #include <vector>
 
 static Game *instance;
@@ -147,7 +145,8 @@ bool Game::renderGame() {
 	if (room.get()->isOnGoal(player.get()->getPosition().x)) {
 		bool gameOver = room.get()->nextRoom();
 		if (gameOver) {
-			soundManager.get()->playSuccessSound();
+			soundManager.get()->playWinSound();
+			soundManager.get()->playBackgroundSound();
 			success = true;
 			deleteState();
 			player.get()->isAlive = false;

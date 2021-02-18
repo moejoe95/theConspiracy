@@ -1,12 +1,10 @@
 #include "Player.hpp"
 #include "../include/cereal/archives/json.hpp"
-#include "utils/Constants.hpp"
 #include "Game.hpp"
+#include "utils/Constants.hpp"
 #include "utils/Utils.hpp"
-#include "spdlog/spdlog.h"
 #include <SDL.h>
-#include <iostream>
-#include <limits>
+#include <spdlog/spdlog.h>
 
 Player::Player(std::array<int, 2> position) {
 	id = "player";

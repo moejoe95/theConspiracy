@@ -15,11 +15,11 @@
 [x] improve enemy AI
 [x] place multiple enemies on map
 [x] fix serialization
-[ ] save game at new room
-[ ] add another backround sound for last room
+[x] save game at new room
+[x] add another backround sound for last room
 [x] avoid player running off screen
 
-## cosmetics
+## non-functional
 
 [ ] bounding box of player
 [ ] increase font size in menu
@@ -29,13 +29,11 @@
 [ ] dead enemies should be visible longer
 [ ] make player immune a short time after he lost some life
 [ ] limit hit-rate of player
-
-## non-functional
-
 [x] refactor manager accessing (renderer, soundmanager, collisionmanager) -> use similar approach as in Raygun
 [x] refactor folder structure (external libs)
 [ ] refactor naming of members, getters, setters
 [x] add soundmanager to game
+[x] use <> for external includes
 
 ## before hand-in
 

@@ -1,7 +1,7 @@
 #include "Entity.hpp"
 #include "Game.hpp"
-#include "spdlog/spdlog.h"
 #include "utils/Constants.hpp"
+#include <spdlog/spdlog.h>
 
 void Entity::moveLeft() {
 	movement.left = true;

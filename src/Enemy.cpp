@@ -1,11 +1,9 @@
 #include "Enemy.hpp"
 #include "Game.hpp"
-#include "spdlog/spdlog.h"
 #include "utils/Constants.hpp"
 #include "utils/Utils.hpp"
 #include <SDL.h>
-#include <functional>
-#include <iostream>
+#include <spdlog/spdlog.h>
 
 int Enemy::count = 0;
 

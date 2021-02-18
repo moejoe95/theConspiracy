@@ -1,9 +1,9 @@
 #include "Bullet.hpp"
 #include "Game.hpp"
-#include "spdlog/spdlog.h"
 #include "utils/Constants.hpp"
 #include "utils/Utils.hpp"
 #include <SDL.h>
+#include <spdlog/spdlog.h>
 
 int Bullet::count = 0;
 

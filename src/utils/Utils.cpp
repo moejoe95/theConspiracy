@@ -1,10 +1,10 @@
 #include "Utils.hpp"
 #include "SDLException.hpp"
-#include "spdlog/spdlog.h"
 #include <SDL.h>
 #include <array>
 #include <iostream>
 #include <random>
+#include <spdlog/spdlog.h>
 #include <string>
 
 std::string getPath(const std::string &subDir, const std::string &dir) {

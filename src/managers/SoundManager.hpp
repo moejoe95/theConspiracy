@@ -1,7 +1,8 @@
 #ifndef SOUNG_MANAGER_HPP
 #define SOUNG_MANAGER_HPP
 
-#include "SDL_mixer.h"
+#include <SDL_mixer.h>
+#include <string>
 
 class SoundManager {
 
@@ -9,22 +10,27 @@ class SoundManager {
 	SoundManager();
 	~SoundManager();
 	void playBackgroundSound();
+	void playBackground2Sound();
 	void playGunSound();
 	void playGameOverSound();
 	void playCollectHealthSound();
 	void playReloadGun();
 	void playSuccessSound();
+	void playWinSound();
 
   private:
 	void play(int channel, Mix_Chunk *sound, int times);
+	Mix_Chunk *initialize(const std::string &wav);
 
 	bool soundOn;
-	Mix_Chunk *gunSound;
-	Mix_Chunk *backgroundSound;
-	Mix_Chunk *gameOverSound;
-	Mix_Chunk *collect_health;
-	Mix_Chunk *collect_ammo;
+	Mix_Chunk *gunShot;
+	Mix_Chunk *background;
+	Mix_Chunk *background2;
+	Mix_Chunk *gameOver;
+	Mix_Chunk *collectHealth;
+	Mix_Chunk *collectAmmo;
 	Mix_Chunk *success;
+	Mix_Chunk *win;
 };
 
 #endif // SOUNG_MANAGER_HPP

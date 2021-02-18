@@ -1,11 +1,11 @@
 #include "Game.hpp"
-#include "SDL_mixer.h"
 #include "managers/Renderer.hpp"
-#include "spdlog/spdlog.h"
 #include "utils/SDLException.hpp"
 #include "utils/Utils.hpp"
 #include <SDL.h>
+#include <SDL_mixer.h>
 #include <boost/program_options.hpp>
+#include <spdlog/spdlog.h>
 
 namespace po = boost::program_options;
 

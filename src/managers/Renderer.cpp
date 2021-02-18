@@ -2,8 +2,8 @@
 #include "../utils/Constants.hpp"
 #include "../utils/SDLException.hpp"
 #include "../utils/Utils.hpp"
-#include "spdlog/spdlog.h"
 #include <SDL_image.h>
+#include <spdlog/spdlog.h>
 
 Renderer::Renderer() {
 	window = SDL_CreateWindow("the conspiracy", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH,

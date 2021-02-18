@@ -1,9 +1,7 @@
 #include "CollisionManager.hpp"
 #include "../Game.hpp"
 #include "../Player.hpp"
-#include "../utils/Constants.hpp"
-#include "../utils/Utils.hpp"
-#include "spdlog/spdlog.h"
+#include <spdlog/spdlog.h>
 #include <string>
 
 CollisionManager::CollisionManager() {}

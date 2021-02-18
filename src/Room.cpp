@@ -1,11 +1,11 @@
 #include "Room.hpp"
 #include "../include/cereal/archives/json.hpp"
 #include "Game.hpp"
-#include "spdlog/spdlog.h"
 #include "utils/Constants.hpp"
 #include "utils/Utils.hpp"
 #include <filesystem>
 #include <nlohmann/json.hpp>
+#include <spdlog/spdlog.h>
 
 using nlohmann::json;
 
@@ -131,6 +131,7 @@ bool Room::checkSavePoint(int playerXPosition) {
 		game().getRenderer().drawText("game saved...", SCREEN_WIDTH - 160, 15);
 		savePointRenderTime--;
 		if (savePointRenderTime == 49) {
+			game().getSoundManager().playSuccessSound();
 			spdlog::debug("player hit save point");
 			return true;
 		}
@@ -145,6 +146,9 @@ void Room::resetSavePoint() {
 bool Room::nextRoom() {
 	if (currentMapIdx > 2) {
 		return true;
+	}
+	if (currentMapIdx == 2) {
+		game().getSoundManager().playBackground2Sound();
 	}
 	parseMap();
 	return false;
