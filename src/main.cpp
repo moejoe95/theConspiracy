@@ -43,9 +43,8 @@ int main(int argc, char *argv[]) {
 	}
 
 	// destroy SDL
-
-	SDL_Quit();
 	Mix_CloseAudio();
+	SDL_Quit();
 
 	spdlog::info("quit game");
 

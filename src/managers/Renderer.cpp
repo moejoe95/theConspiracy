@@ -25,6 +25,14 @@ Renderer::Renderer() {
 		throw SDLException("Failed to load font " + fontName);
 }
 
+Renderer::~Renderer() {
+	TTF_CloseFont(font);
+	spdlog::debug("destroy window");
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	IMG_Quit();
+}
+
 void Renderer::clear() {
 	SDL_RenderClear(renderer);
 }
@@ -38,8 +46,8 @@ void Renderer::drawText(const std::string &text, SDL_Rect rect) {
 	SDL_Texture *Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
 	SDL_RenderCopy(renderer, Message, NULL, &rect);
 
-	SDL_FreeSurface(surfaceMessage);
 	SDL_DestroyTexture(Message);
+	SDL_FreeSurface(surfaceMessage);
 }
 
 SDL_Rect Renderer::drawText(const std::string &text, int x, int y) {
@@ -135,12 +143,4 @@ std::vector<SDL_Rect> Renderer::drawMenu() {
 void Renderer::drawGameOverScreen() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	drawText("game over...", 350);
-}
-
-Renderer::~Renderer() {
-	TTF_CloseFont(font);
-	spdlog::debug("destroy window");
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-	IMG_Quit();
 }

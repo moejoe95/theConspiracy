@@ -29,4 +29,4 @@ class CollisionManager {
 	std::map<std::string, RenderObject *> objectMap;
 };
 
-#endif // ENEMY_HPP
+#endif // COLLISION_MANAGER_HPP

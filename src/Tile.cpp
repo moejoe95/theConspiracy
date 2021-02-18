@@ -34,6 +34,7 @@ Tile::Tile(tson::TileObject tileObject, std::string layer) {
 
 Tile::~Tile() {
 	// TODO free textures
+	// SDL_DestroyTexture(texture);
 }
 
 void Tile::render() {

@@ -26,14 +26,14 @@ Mix_Chunk *SoundManager::initialize(const std::string &wav) {
 }
 
 SoundManager::~SoundManager() {
-	Mix_FreeChunk(gunShot);
-	Mix_FreeChunk(background);
-	Mix_FreeChunk(background);
-	Mix_FreeChunk(gameOver);
-	Mix_FreeChunk(success);
-	Mix_FreeChunk(collectAmmo);
-	Mix_FreeChunk(collectHealth);
 	Mix_FreeChunk(win);
+	Mix_FreeChunk(success);
+	Mix_FreeChunk(collectHealth);
+	Mix_FreeChunk(collectAmmo);
+	Mix_FreeChunk(gameOver);
+	Mix_FreeChunk(gunShot);
+	Mix_FreeChunk(background2);
+	Mix_FreeChunk(background);
 }
 
 void SoundManager::play(int channel, Mix_Chunk *sound, int times) {

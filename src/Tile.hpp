@@ -15,11 +15,9 @@ class Tile : public RenderObject {
 	Tile(tson::TileObject tileObject, std::string layer);
 	~Tile();
 
-	SDL_Texture *texture;
 	SDL_Rect boundingBox;
 
 	void render();
-
 	void demage(int demage) override;
 	int demageValue() override;
 	bool visible() override;
@@ -38,6 +36,8 @@ class Tile : public RenderObject {
 	bool drawBoundingBox;
 	bool isCollisionable;
 	static int count;
+
+	SDL_Texture *texture;
 };
 
 #endif // TILE_HPP

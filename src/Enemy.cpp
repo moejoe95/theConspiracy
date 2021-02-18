@@ -73,6 +73,26 @@ void Enemy::loadTextures() {
 	spdlog::info("enemy textures loaded");
 }
 
+Enemy::~Enemy() {
+	game().getCollisionManager().deregisterObject(this);
+	for (auto &bullet : firedBullets) {
+		game().getCollisionManager().deregisterObject(&bullet);
+	}
+	SDL_DestroyTexture(idleTexture);
+	SDL_DestroyTexture(bulletTexture);
+	SDL_DestroyTexture(granadeTexture);
+	for (auto tex : granadeThrowTextures)
+		SDL_DestroyTexture(tex);
+	for (auto tex : walkTextures)
+		SDL_DestroyTexture(tex);
+	for (auto tex : shootTextures)
+		SDL_DestroyTexture(tex);
+	for (auto tex : hurtTextures)
+		SDL_DestroyTexture(tex);
+	for (auto tex : dieTextures)
+		SDL_DestroyTexture(tex);
+}
+
 void Enemy::renderHurt() {
 	if (currentHurtIdx >= 0) {
 		currentTexture = hurtTextures[currentHurtIdx++];
@@ -160,26 +180,4 @@ bool Enemy::visible() {
 
 int Enemy::demageValue() {
 	return 5;
-}
-
-Enemy::~Enemy() {
-	game().getCollisionManager().deregisterObject(this);
-	for (auto &bullet : firedBullets) {
-		game().getCollisionManager().deregisterObject(&bullet);
-	}
-	SDL_DestroyTexture(idleTexture);
-	SDL_DestroyTexture(bulletTexture);
-	SDL_DestroyTexture(granadeTexture);
-	for (auto tex : granadeThrowTextures)
-		SDL_DestroyTexture(tex);
-	for (auto tex : walkTextures)
-		SDL_DestroyTexture(tex);
-	for (auto tex : walkTextures)
-		SDL_DestroyTexture(tex);
-	for (auto tex : shootTextures)
-		SDL_DestroyTexture(tex);
-	for (auto tex : hurtTextures)
-		SDL_DestroyTexture(tex);
-	for (auto tex : dieTextures)
-		SDL_DestroyTexture(tex);
 }

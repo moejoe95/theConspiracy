@@ -87,7 +87,7 @@ void Room::remove() {
 
 void Room::drawLayer(std::unique_ptr<tson::Map> &map, std::string name) {
 	tson::Layer *layer = map->getLayer(name);
-	for (auto &[pos, tileObject] : layer->getTileObjects()) {
+	for (auto [pos, tileObject] : layer->getTileObjects()) {
 		if (tileObject.getTile()->get<bool>("enemy")) {
 			int x = tileObject.getPosition().x;
 			int y = tileObject.getPosition().y;
