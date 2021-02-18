@@ -39,5 +39,5 @@ Some settings can be configured in 'settings.ini'.
 This project was created with the help of:
 
 - [Tiled](https://www.mapeditor.org/): design of rooms
-- [Freesound.org](freesound.org): sound effects
+- [Freesound.org](https://www.freesound.org): sound effects
 - [gameartpartners.com](https://gameartpartners.com/): characters, weapons, etc.
