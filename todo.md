@@ -17,6 +17,7 @@
 [x] fix serialization
 [ ] save game at new room
 [ ] add another backround sound for last room
+[ ] avoid player running off screen
 
 ## cosmetics
 

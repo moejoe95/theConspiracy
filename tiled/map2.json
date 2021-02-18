@@ -68,12 +68,7 @@
         {
          "name":"savepoint",
          "type":"int",
-         "value":2016
-        }, 
-        {
-         "name":"savepointvisited",
-         "type":"bool",
-         "value":false
+         "value":200
         }],
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

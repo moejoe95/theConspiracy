@@ -28,6 +28,7 @@ class Room {
 	std::vector<std::array<int, 2>> getEnemyPositions();
 	bool hasBoss();
 	std::array<int, 2> getBossPosition();
+	void parseMap();
 
 	// serializing
 	template <class Archive>
@@ -52,7 +53,6 @@ class Room {
 	std::array<int, 2> bossPosition;
 
 	SDL_Rect getSDLRect(tson::Vector2f position, tson::Vector2i imageSize, bool addBoundingBox);
-	void parseMap();
 
 	void drawLayer(std::unique_ptr<tson::Map> &map, std::string name);
 };

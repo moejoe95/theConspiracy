@@ -64,7 +64,9 @@ void Room::save() {
 	spdlog::debug("serialize room");
 	std::ofstream os("data/room.json");
 	cereal::JSONOutputArchive oarchive(os);
+	currentMapIdx--;
 	oarchive(*this);
+	currentMapIdx++;
 }
 
 void Room::load() {

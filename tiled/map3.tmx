@@ -7,8 +7,7 @@
   <property name="goal" type="int" value="2016"/>
   <property name="player.x" type="int" value="50"/>
   <property name="player.y" type="int" value="300"/>
-  <property name="savepoint" type="int" value="2016"/>
-  <property name="savepointvisited" type="bool" value="false"/>
+  <property name="savepoint" type="int" value="200"/>
  </properties>
  <tileset firstgid="1" source="Laboratory.tsx"/>
  <layer id="3" name="background" width="64" height="24">

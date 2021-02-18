@@ -79,6 +79,8 @@ void Game::deleteState() {
 void Game::reload() {
 	player.get()->load();
 	room.get()->load();
+	room.get()->parseMap();
+	initEnemies();
 }
 
 void Game::renderClear() {
@@ -139,6 +141,7 @@ bool Game::renderGame() {
 
 	if (room.get()->checkSavePoint(player.get()->getPosition().x)) {
 		player.get()->save();
+		room.get()->save();
 	}
 
 	if (room.get()->isOnGoal(player.get()->getPosition().x)) {
