@@ -17,6 +17,9 @@ SoundManager::SoundManager() {
 	success = initialize("success.wav");
 	win = initialize("win.wav");
 
+	Mix_Volume(1, 25);
+	Mix_Volume(0, 100);
+
 	spdlog::info("sound manager initialized");
 }
 

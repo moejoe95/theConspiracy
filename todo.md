@@ -17,6 +17,7 @@
 [x] add another backround sound for last room
 [x] avoid player running off screen
 [x] write specification of game
+[x] adjust audio levels
 [ ] improve demage value calculation (using stats)
 
 
