@@ -41,7 +41,7 @@ Some proposals for future work:
 
 - improve enemy AI
 - add more rooms (a second area)
-- improve demage value calculation (using stats)
+- improve damage value calculation (using stats)
 - use different enemy character for boss
 
 ## Acknowledgements

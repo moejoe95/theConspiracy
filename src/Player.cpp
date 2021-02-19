@@ -156,7 +156,7 @@ void Player::render() {
 
 	// reset ammo if god
 	if (godMode)
-		ammo = 20;
+		ammo = 25;
 }
 
 int Player::demageValue() {

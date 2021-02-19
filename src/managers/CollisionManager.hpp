@@ -13,7 +13,6 @@ class CollisionManager {
 
   public:
 	CollisionManager();
-	~CollisionManager();
 
 	void registerObject(RenderObject *obj);
 	void deregisterObject(RenderObject *obj);
@@ -24,6 +23,7 @@ class CollisionManager {
 	void resetSDLRect(SDL_Rect &rect);
 	void pickUpLife(RenderObject *player, RenderObject *tile);
 	void pickUpAmmo(RenderObject *player, RenderObject *tile);
+	void setDamage(RenderObject *player, RenderObject *bullet);
 
 	std::map<std::string, RenderObject *> objectMap;
 };

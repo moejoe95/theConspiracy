@@ -29,6 +29,8 @@ class Bullet : public RenderObject {
 
 	bool isOutOfSight();
 
+	bool hasHit = false;
+
 	static int count;
 
   private:

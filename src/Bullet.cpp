@@ -84,7 +84,9 @@ bool Bullet::visible() {
 }
 
 int Bullet::demageValue() {
-	return 1;
+	if (isGranade)
+		return randomInt(10, 20);
+	return randomInt(5, 15);
 }
 
 bool Bullet::isOutOfSight() {

@@ -53,6 +53,17 @@ void CollisionManager::pickUpAmmo(RenderObject *player, RenderObject *tile) {
 	}
 }
 
+void CollisionManager::setDamage(RenderObject *player, RenderObject *bullet) {
+	auto b = dynamic_cast<Bullet *>(bullet);
+	if (int dem = bullet->demageValue()) {
+		bullet->demage(0);
+		if (b && !b->hasHit)
+			player->demage(dem);
+	}
+	if (b)
+		b->hasHit = true;
+}
+
 SDL_Rect CollisionManager::checkCollision(RenderObject *currentObj, const SDL_Rect currentBB) {
 	SDL_Rect intersection;
 
@@ -67,11 +78,8 @@ SDL_Rect CollisionManager::checkCollision(RenderObject *currentObj, const SDL_Re
 
 				pickUpLife(currentObj, entry.second);
 				pickUpAmmo(currentObj, entry.second);
+				setDamage(currentObj, entry.second);
 
-				if (int dem = entry.second->demageValue()) {
-					entry.second->demage(0);
-					currentObj->demage(dem);
-				}
 				return intersection;
 			}
 		}
@@ -79,5 +87,3 @@ SDL_Rect CollisionManager::checkCollision(RenderObject *currentObj, const SDL_Re
 	resetSDLRect(intersection);
 	return intersection;
 }
-
-CollisionManager::~CollisionManager() {}
