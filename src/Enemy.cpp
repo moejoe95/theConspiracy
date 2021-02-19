@@ -27,7 +27,7 @@ Enemy::Enemy(std::array<int, 2> position, bool isBoss) : isBoss(isBoss) {
 	ammo = 100;
 
 	if (isBoss)
-		life = 200;
+		life = 150;
 
 	drawBoundingBox = getArg<bool>("drawBoundingBox");
 	spdlog::info(drawBoundingBox);

@@ -57,11 +57,15 @@ void CollisionManager::setDamage(RenderObject *player, RenderObject *bullet) {
 	auto b = dynamic_cast<Bullet *>(bullet);
 	if (int dem = bullet->demageValue()) {
 		bullet->demage(0);
-		if (b && !b->hasHit)
+		if (b && !b->hasHit) {
 			player->demage(dem);
+			b->hasHit = true;
+		}
+		if (!b) {
+			bullet->demage(0);
+			player->demage(dem);
+		}
 	}
-	if (b)
-		b->hasHit = true;
 }
 
 SDL_Rect CollisionManager::checkCollision(RenderObject *currentObj, const SDL_Rect currentBB) {

@@ -11,7 +11,7 @@ The game launches in the main menu. The menu includes 3 options: *continue*, *ne
 
 At the beginning of each room the state of the game is saved. If the save point is passed, a message is displayed in the top right corner. If the state was saved, the player can escape the game and continue with the previous state by pressing *continue* in the main menu. The previous saved state is discarded once a new game is started.
 
-The player moves around with the keys `wasd`, and is able to fire his gun with `space`. Once a enemy gets hit, it starts to fire back. The time between its attack is randomized. If it is capable of more than one attack (only the boss), the action selection is also done randomly. Enemies do also harm when they are in direct contact to the player.
+The player moves around with the keys `wasd`, and is able to fire his gun with `space`. Once a enemy gets hit, it starts to fire back. The time between its attack is randomized. If it is capable of more than one attack (only the boss), the action selection is also done randomly. Enemies do also harm when they are in direct contact to the player. A gun shot causes damage of 5 to 15 points, and a grenade from (special attack from boss) causes 15 to 20 points of damage. The exact value is randomly determined. The character has 100 life points initially, which is the same as a normal enemy has. The boss has 150 life points.
 
 Not only enemies can do damage, also special objects in the environment: the lava floor and spikes. Additionally, there are two special objects that can be picked up from the environment: health and ammo boxes to refill life and ammo.
 
