@@ -61,7 +61,7 @@ void Room::reset() {
 }
 
 void Room::save() {
-	spdlog::debug("serialize room");
+	spdlog::info("save room state");
 	std::ofstream os("data/room.json");
 	cereal::JSONOutputArchive oarchive(os);
 	currentMapIdx--;
@@ -70,7 +70,7 @@ void Room::save() {
 }
 
 void Room::load() {
-	spdlog::debug("load room");
+	spdlog::info("load room state");
 	if (std::filesystem::exists("data/room.json")) {
 		std::ifstream is("data/room.json");
 		cereal::JSONInputArchive iarchive(is);
@@ -79,7 +79,7 @@ void Room::load() {
 }
 
 void Room::remove() {
-	spdlog::debug("remove room");
+	spdlog::info("delete room state");
 	if (std::filesystem::exists("data/room.json")) {
 		std::filesystem::remove("data/room.json");
 	}

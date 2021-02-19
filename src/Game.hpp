@@ -35,6 +35,10 @@ class Game {
 	void deleteState();
 	void initEnemies();
 	void menu(int button);
+	void renderStatus();
+	void renderGameOver();
+	void checkOnSavePoint();
+	void checkOnGoal();
 
 	std::unique_ptr<Renderer> renderer;
 	std::unique_ptr<CollisionManager> collisionManager;

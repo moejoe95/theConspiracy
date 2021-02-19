@@ -27,6 +27,30 @@ void CollisionManager::resetSDLRect(SDL_Rect &rect) {
 	rect.h = 0;
 }
 
+void CollisionManager::pickUpLife(RenderObject *player, RenderObject *tile) {
+	auto p = dynamic_cast<Player *>(player);
+	auto t = dynamic_cast<Tile *>(tile);
+
+	if (p && t && t->health() > 0) {
+		p->addLife(t->health());
+		t->resetHealth();
+		t->resetBoundingBox();
+		game().getSoundManager().playCollectHealthSound();
+	}
+}
+
+void CollisionManager::pickUpAmmo(RenderObject *player, RenderObject *tile) {
+	auto p = dynamic_cast<Player *>(player);
+	auto t = dynamic_cast<Tile *>(tile);
+
+	if (p && t && t->ammo() > 0) {
+		p->addAmmo(t->ammo());
+		t->resetAmmo();
+		t->resetBoundingBox();
+		game().getSoundManager().playReloadGun();
+	}
+}
+
 SDL_Rect CollisionManager::checkCollision(RenderObject *currentObj, const SDL_Rect currentBB) {
 	SDL_Rect intersection;
 
@@ -39,21 +63,8 @@ SDL_Rect CollisionManager::checkCollision(RenderObject *currentObj, const SDL_Re
 				if (!entry.second->visible() || !currentObj->visible())
 					continue;
 
-				auto p = dynamic_cast<Player *>(currentObj);
-				auto t = dynamic_cast<Tile *>(entry.second);
-
-				// refill life and remove box
-				if (p && t && t->health() > 0) {
-					p->addLife(t->health());
-					t->resetHealth();
-					t->resetBoundingBox();
-					game().getSoundManager().playCollectHealthSound();
-				} else if (p && t && t->ammo() > 0) { // refill ammo and remove box
-					p->addAmmo(t->ammo());
-					t->resetAmmo();
-					t->resetBoundingBox();
-					game().getSoundManager().playReloadGun();
-				}
+				pickUpLife(currentObj, entry.second);
+				pickUpAmmo(currentObj, entry.second);
 
 				if (int dem = entry.second->demageValue()) {
 					entry.second->demage(0);

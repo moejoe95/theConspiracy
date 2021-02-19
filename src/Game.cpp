@@ -59,14 +59,7 @@ void Game::renderGame() {
 	}
 
 	if (!player.get()->isAlive) {
-		renderer->drawGameOverScreen();
-		gameOverSreenTime--;
-		if (gameOverSreenTime < 0) {
-			showMenu = true;
-			gameOverSreenTime = 50;
-			if (!success)
-				soundManager.get()->playGameOverSound();
-		}
+		renderGameOver();
 		return;
 	}
 
@@ -76,6 +69,7 @@ void Game::renderGame() {
 	for (auto &enemy : enemies) {
 		enemy.render();
 	}
+	renderStatus();
 
 	if (player.get()->getPosition().x > SCREEN_WIDTH) {
 		renderer->setXOffset(-SCREEN_WIDTH);
@@ -83,33 +77,8 @@ void Game::renderGame() {
 		renderer->setXOffset(0);
 	}
 
-	if (room.get()->checkSavePoint(player.get()->getPosition().x)) {
-		player.get()->save();
-		room.get()->save();
-	}
-
-	if (room.get()->isOnGoal(player.get()->getPosition().x)) {
-		bool gameOver = room.get()->nextRoom();
-		if (gameOver) {
-			soundManager.get()->playWinSound();
-			soundManager.get()->playBackgroundSound();
-			success = true;
-			deleteState();
-			player.get()->isAlive = false;
-		}
-		player.get()->resetPosition(room.get()->playerStart);
-		initEnemies();
-		spdlog::debug("player on goal");
-	}
-
-	// draw life information
-	if (getArg<bool>("showStatus")) {
-		std::string text = "Life: " + std::to_string(player.get()->getLife());
-		renderer->drawText(text, 0, 0);
-
-		text = "Ammo: " + std::to_string(player.get()->getAmmo());
-		renderer->drawText(text, 0, 20);
-	}
+	checkOnSavePoint();
+	checkOnGoal();
 }
 
 void Game::menu(int button) {
@@ -133,6 +102,50 @@ void Game::menu(int button) {
 	} else if (button == 1) {
 		gameStart = false;
 		room.get()->resetSavePoint();
+	}
+}
+
+void Game::renderStatus() {
+	// draw status info on screen
+	if (getArg<bool>("showStatus")) {
+		std::string text = "Life: " + std::to_string(player.get()->getLife());
+		renderer->drawText(text, 0, 0);
+
+		text = "Ammo: " + std::to_string(player.get()->getAmmo());
+		renderer->drawText(text, 0, 20);
+	}
+}
+
+void Game::renderGameOver() {
+	renderer->drawGameOverScreen();
+	gameOverSreenTime--;
+	if (gameOverSreenTime < 0) {
+		showMenu = true;
+		gameOverSreenTime = 50;
+		if (!success)
+			soundManager.get()->playGameOverSound();
+	}
+}
+
+void Game::checkOnSavePoint() {
+	if (room.get()->checkSavePoint(player.get()->getPosition().x)) {
+		player.get()->save();
+		room.get()->save();
+	}
+}
+
+void Game::checkOnGoal() {
+	if (room.get()->isOnGoal(player.get()->getPosition().x)) {
+		bool gameOver = room.get()->nextRoom();
+		if (gameOver) {
+			soundManager.get()->playWinSound();
+			soundManager.get()->playBackgroundSound();
+			success = true;
+			deleteState();
+			player.get()->isAlive = false;
+		}
+		player.get()->resetPosition(room.get()->playerStart);
+		initEnemies();
 	}
 }
 

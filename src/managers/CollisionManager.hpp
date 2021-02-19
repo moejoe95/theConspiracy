@@ -22,6 +22,8 @@ class CollisionManager {
 
   private:
 	void resetSDLRect(SDL_Rect &rect);
+	void pickUpLife(RenderObject *player, RenderObject *tile);
+	void pickUpAmmo(RenderObject *player, RenderObject *tile);
 
 	std::map<std::string, RenderObject *> objectMap;
 };

@@ -30,9 +30,6 @@ Enemy::Enemy(std::array<int, 2> position, bool isBoss) : isBoss(isBoss) {
 	spdlog::info(drawBoundingBox);
 
 	loadTextures();
-
-	spdlog::info(id + " initalized");
-
 	movement.left = true;
 }
 
@@ -70,7 +67,7 @@ void Enemy::loadTextures() {
 	idleTexture = game().getRenderer().loadTexture(getResourcePath() + "enemy/idle.png");
 	jumpTexture = idleTexture;
 
-	spdlog::info("enemy textures loaded");
+	spdlog::info("enemy loaded");
 }
 
 Enemy::~Enemy() {

@@ -34,8 +34,6 @@ Player::Player(std::array<int, 2> position) {
 	godMode = getArg<bool>("godMode");
 
 	loadTextures();
-
-	spdlog::info("player initalized");
 }
 
 void Player::loadTextures() {
@@ -67,18 +65,18 @@ void Player::loadTextures() {
 
 	bulletTexture = game().getRenderer().loadTexture(getResourcePath("bullet") + "bullet.png");
 
-	spdlog::info("player textures loaded");
+	spdlog::info("player initalized");
 }
 
 void Player::save() {
-	spdlog::debug("serialize player");
+	spdlog::info("save player state");
 	std::ofstream os("data/player.json");
 	cereal::JSONOutputArchive oarchive(os);
 	oarchive(*this);
 }
 
 void Player::load() {
-	spdlog::debug("load player");
+	spdlog::info("load player state");
 	if (std::filesystem::exists("data/player.json")) {
 		std::ifstream is("data/player.json");
 		cereal::JSONInputArchive iarchive(is);
@@ -96,7 +94,6 @@ void Player::jump() {
 	if (!movement.up && !movement.down) {
 		movement.up = true;
 		startHeight = boundingBox.y;
-		spdlog::debug("player jump");
 	}
 }
 
