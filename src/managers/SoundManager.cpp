@@ -6,6 +6,10 @@
 
 SoundManager::SoundManager() {
 
+	// init soud
+	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+		throw SDLException("Mix_OpenAudio failed.");
+
 	soundOn = getArg<bool>("sound");
 
 	background = initialize("background.wav");
@@ -40,6 +44,7 @@ SoundManager::~SoundManager() {
 	Mix_FreeChunk(gunShot);
 	Mix_FreeChunk(background2);
 	Mix_FreeChunk(background);
+	Mix_CloseAudio();
 }
 
 void SoundManager::play(int channel, Mix_Chunk *sound, int times) {

@@ -25,8 +25,7 @@ Tile::Tile(tson::TileObject tileObject, std::string layer) {
 	relPath.replace(0, 8, "");
 	std::string absPath = getPath("", "data") + relPath;
 
-	Game &g = game();
-	texture = g.getRenderer().loadTexture(absPath);
+	texture = game().getRenderer().loadTexture(absPath);
 
 	isCollisionable = layer == "main" ? true : false;
 
@@ -36,8 +35,8 @@ Tile::Tile(tson::TileObject tileObject, std::string layer) {
 }
 
 Tile::~Tile() {
-	// TODO free textures
-	// SDL_DestroyTexture(texture);
+	game().getCollisionManager().deregisterObject(this);
+	SDL_DestroyTexture(texture);
 }
 
 void Tile::render() {

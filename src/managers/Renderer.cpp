@@ -20,6 +20,8 @@ Renderer::Renderer() {
 
 	std::string fontName = getResourcePath("") + "Hack-Regular.ttf";
 
+	TTF_Init();
+
 	fontMenu = TTF_OpenFont(fontName.c_str(), 38);
 	if (!fontMenu)
 		throw SDLException("Failed to load font " + fontName);
@@ -32,6 +34,7 @@ Renderer::Renderer() {
 Renderer::~Renderer() {
 	TTF_CloseFont(font);
 	TTF_CloseFont(fontMenu);
+	TTF_Quit();
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	IMG_Quit();
@@ -47,10 +50,10 @@ void Renderer::update() {
 
 void Renderer::drawText(TTF_Font *font, const std::string &text, SDL_Rect rect) {
 	SDL_Surface *surfaceMessage = TTF_RenderText_Solid(font, text.c_str(), {255, 255, 255});
-	SDL_Texture *Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-	SDL_RenderCopy(renderer, Message, NULL, &rect);
+	SDL_Texture *message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+	SDL_RenderCopy(renderer, message, NULL, &rect);
 
-	SDL_DestroyTexture(Message);
+	SDL_DestroyTexture(message);
 	SDL_FreeSurface(surfaceMessage);
 }
 

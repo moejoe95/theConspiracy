@@ -19,10 +19,6 @@ int main(int argc, char *argv[]) {
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
 		throw SDLException("SDL_Init failed.");
 
-	// init sound
-	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
-		throw SDLException("Mix_OpenAudio failed.");
-
 	// init game
 	Game game{};
 
@@ -43,7 +39,6 @@ int main(int argc, char *argv[]) {
 	}
 
 	// destroy SDL
-	Mix_CloseAudio();
 	SDL_Quit();
 
 	spdlog::info("quit game");

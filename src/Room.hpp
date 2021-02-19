@@ -16,6 +16,7 @@ class Room {
 
   public:
 	Room();
+	~Room();
 
 	std::array<int, 2> playerStart;
 
@@ -47,7 +48,7 @@ class Room {
   private:
 	SDL_Rect getSDLRect(tson::Vector2f position, tson::Vector2i imageSize, bool addBoundingBox);
 
-	void drawLayer(std::unique_ptr<tson::Map> &map, std::string name);
+	void drawLayer(tson::Layer *layer, std::string name);
 
 	std::vector<Tile> tiles;
 	std::vector<std::string> maps;
