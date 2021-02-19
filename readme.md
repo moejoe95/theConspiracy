@@ -43,6 +43,7 @@ Some proposals for future work:
 - add more rooms (a second area)
 - improve damage value calculation (using stats)
 - use different enemy character for boss
+- improve trajectory of grenade
 
 ## Acknowledgements
 

@@ -107,14 +107,14 @@ void Enemy::renderHurt() {
 void Enemy::renderGranadeThrow() {
 	if (currentGranadeIdx >= 0) {
 		currentTexture = granadeThrowTextures[currentGranadeIdx++];
-		if (currentGranadeIdx >= granadeAnimSize) {
+		if (currentGranadeIdx >= granadeAnimSize - 1) {
 			currentGranadeIdx = -1;
 		}
 	}
 }
 
 void Enemy::renderGranade() {
-	if (currentGranadeIdx != granadeAnimSize - 1)
+	if (currentGranadeIdx != granadeAnimSize - 2)
 		return;
 
 	currentGranadeIdx++;
@@ -142,7 +142,7 @@ void Enemy::render() {
 
 	--sleep;
 	if (sleep == 0) {
-		if (randomInt(0, 100) > 25)
+		if (randomInt(0, 100) > 99)
 			startShoot = true;
 		else if (isBoss)
 			currentGranadeIdx = 0;
