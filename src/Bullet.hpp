@@ -20,12 +20,15 @@ class Bullet : public RenderObject {
   public:
 	Bullet(int x, int y, SDL_RendererFlip flip, SDL_Texture *texture, bool granade);
 
-	void render();
-	bool isOutOfSight();
 	void demage(int demage) override;
 	int demageValue() override;
 	bool visible() override;
 	const std::vector<SDL_Rect> getBoundingBoxes() override;
+
+	void render();
+
+	bool isOutOfSight();
+
 	static int count;
 
   private:

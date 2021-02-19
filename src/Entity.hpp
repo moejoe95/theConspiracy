@@ -19,17 +19,43 @@ class Entity : public RenderObject {
 
   public:
 	virtual ~Entity(){};
+
+	void demage(int damage) override;
+	bool visible() override;
+
 	void moveRight();
 	void stopMoveRight();
 	void moveLeft();
 	void stopMoveLeft();
 	void shoot();
-	void demage(int damage) override;
-	bool visible() override;
 	void reset(std::array<int, 2> position);
+
 	bool isAlive = true;
 
   protected:
+	const std::vector<SDL_Rect> getBoundingBoxes() override;
+	virtual void render() = 0;
+
+	void gravity();
+	void renderMove();
+	void renderShoot();
+	void renderBullets();
+	void renderHurt();
+	void renderDie();
+
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
+	SDL_Rect boundingBox;
+	SDL_Rect intersection;
+	SDL_Texture *currentTexture;
+	SDL_Texture *idleTexture;
+	SDL_Texture *bulletTexture;
+	SDL_Texture *jumpTexture;
+	std::vector<SDL_Texture *> walkTextures;
+	std::vector<SDL_Texture *> shootTextures;
+	std::vector<SDL_Texture *> hurtTextures;
+	std::vector<SDL_Texture *> dieTextures;
+	std::vector<Bullet> firedBullets;
+
 	struct Movement {
 		bool right = false;
 		bool left = false;
@@ -37,9 +63,6 @@ class Entity : public RenderObject {
 		bool down = false;
 	} movement;
 
-	bool startShoot = false;
-
-	// TODO make "actions" class
 	int currentWalkIdx = 0;
 	int currentShootIdx = 0;
 	int currentHurtIdx = -1;
@@ -54,33 +77,8 @@ class Entity : public RenderObject {
 	int life = 100;
 	int ammo = 20;
 
+	bool startShoot = false;
 	bool drawBoundingBox;
-
-	SDL_RendererFlip flip = SDL_FLIP_NONE;
-	SDL_Rect boundingBox;
-	SDL_Rect intersection;
-	SDL_Texture *currentTexture;
-	SDL_Texture *idleTexture;
-	SDL_Texture *bulletTexture;
-	SDL_Texture *jumpTexture;
-	std::vector<SDL_Texture *> walkTextures;
-	std::vector<SDL_Texture *> shootTextures;
-	std::vector<SDL_Texture *> hurtTextures;
-	std::vector<SDL_Texture *> dieTextures;
-
-	std::vector<Bullet> firedBullets;
-
-	void gravity();
-	void renderMove();
-
-	const std::vector<SDL_Rect> getBoundingBoxes() override;
-	void renderShoot();
-	void renderBullets();
-
-	void renderHurt();
-	void renderDie();
-
-	virtual void render() = 0;
 };
 
 #endif // ENTITY_HPP

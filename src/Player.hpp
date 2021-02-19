@@ -17,7 +17,7 @@ const int PLAYER_JUMP_HEIGHT = 120;
 class Player : public Entity {
 
   public:
-	Player(std::array<int, 2> position);
+	explicit Player(std::array<int, 2> position);
 	~Player();
 
 	std::map<SDL_Keycode, std::function<void()>> keyUpEventMap;
@@ -26,6 +26,7 @@ class Player : public Entity {
 	void render() override;
 	int demageValue() override;
 	void demage(int demage) override;
+
 	int getLife();
 	int getAmmo();
 	void addAmmo(int ammo);

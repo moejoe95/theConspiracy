@@ -20,13 +20,18 @@ Renderer::Renderer() {
 
 	std::string fontName = getResourcePath("") + "Hack-Regular.ttf";
 
-	font = TTF_OpenFont(fontName.c_str(), 40);
+	fontMenu = TTF_OpenFont(fontName.c_str(), 38);
+	if (!fontMenu)
+		throw SDLException("Failed to load font " + fontName);
+
+	font = TTF_OpenFont(fontName.c_str(), 20);
 	if (!font)
 		throw SDLException("Failed to load font " + fontName);
 }
 
 Renderer::~Renderer() {
 	TTF_CloseFont(font);
+	TTF_CloseFont(fontMenu);
 	spdlog::debug("destroy window");
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
@@ -41,7 +46,7 @@ void Renderer::update() {
 	SDL_RenderPresent(renderer);
 }
 
-void Renderer::drawText(const std::string &text, SDL_Rect rect) {
+void Renderer::drawText(TTF_Font *font, const std::string &text, SDL_Rect rect) {
 	SDL_Surface *surfaceMessage = TTF_RenderText_Solid(font, text.c_str(), {255, 255, 255});
 	SDL_Texture *Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
 	SDL_RenderCopy(renderer, Message, NULL, &rect);
@@ -50,7 +55,7 @@ void Renderer::drawText(const std::string &text, SDL_Rect rect) {
 	SDL_FreeSurface(surfaceMessage);
 }
 
-SDL_Rect Renderer::drawText(const std::string &text, int x, int y) {
+SDL_Rect Renderer::drawText(TTF_Font *font, const std::string &text, int x, int y) {
 
 	int w, h;
 	TTF_SizeText(font, text.c_str(), &w, &h);
@@ -60,11 +65,15 @@ SDL_Rect Renderer::drawText(const std::string &text, int x, int y) {
 	rect.w = w;
 	rect.h = h;
 
-	drawText(text, rect);
+	drawText(font, text, rect);
 	return rect;
 }
 
-SDL_Rect Renderer::drawText(const std::string &text, int y) {
+SDL_Rect Renderer::drawText(const std::string &text, int x, int y) {
+	return drawText(font, text, x, y);
+}
+
+SDL_Rect Renderer::drawText(TTF_Font *font, const std::string &text, int y) {
 
 	int w, h;
 	TTF_SizeText(font, text.c_str(), &w, &h);
@@ -74,7 +83,7 @@ SDL_Rect Renderer::drawText(const std::string &text, int y) {
 	rect.w = w;
 	rect.h = h;
 
-	drawText(text, rect);
+	drawText(font, text, rect);
 	return rect;
 }
 
@@ -134,13 +143,13 @@ std::vector<SDL_Rect> Renderer::drawMenu() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	std::vector<SDL_Rect> buttons;
 
-	buttons.push_back(drawText("continue", 200));
-	buttons.push_back(drawText("new game", 275));
-	buttons.push_back(drawText("exit", 400));
+	buttons.push_back(drawText(fontMenu, "continue", 200));
+	buttons.push_back(drawText(fontMenu, "new game", 275));
+	buttons.push_back(drawText(fontMenu, "exit", 400));
 	return buttons;
 }
 
 void Renderer::drawGameOverScreen() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	drawText("game over...", 350);
+	drawText(fontMenu, "game over", 350);
 }

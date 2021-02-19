@@ -20,14 +20,17 @@ class Room {
 	std::array<int, 2> playerStart;
 
 	void render();
+
 	bool isOnGoal(int playerX);
 	bool checkSavePoint(int playerX);
 	void resetSavePoint();
+
 	bool nextRoom();
 	void reset();
+
 	std::vector<std::array<int, 2>> getEnemyPositions();
-	bool hasBoss();
 	std::array<int, 2> getBossPosition();
+	bool hasBoss();
 	void parseMap();
 
 	// serializing
@@ -41,20 +44,20 @@ class Room {
 	void remove();
 
   private:
-	int goalX;
-	int savePointX;
-	int savePointRenderTime = 50;
-	int currentMapIdx = 0;
+	SDL_Rect getSDLRect(tson::Vector2f position, tson::Vector2i imageSize, bool addBoundingBox);
+
+	void drawLayer(std::unique_ptr<tson::Map> &map, std::string name);
 
 	std::vector<Tile> tiles;
 	std::vector<std::string> maps;
 	std::vector<std::array<int, 2>> enemyPositions;
-	bool isBoss = false;
 	std::array<int, 2> bossPosition;
 
-	SDL_Rect getSDLRect(tson::Vector2f position, tson::Vector2i imageSize, bool addBoundingBox);
-
-	void drawLayer(std::unique_ptr<tson::Map> &map, std::string name);
+	bool isBoss = false;
+	int goalX;
+	int savePointX;
+	int savePointRenderTime = 50;
+	int currentMapIdx = 0;
 };
 
 #endif // ROOM_HPP

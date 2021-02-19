@@ -14,25 +14,31 @@ class Renderer {
 
 	void clear();
 	void update();
+
 	SDL_Texture *loadTexture(const std::string &file);
 
-	void drawText(const std::string &text, SDL_Rect rect);
+	void drawText(TTF_Font *font, const std::string &text, SDL_Rect rect);
+	SDL_Rect drawText(TTF_Font *font, const std::string &text, int x, int y);
 	SDL_Rect drawText(const std::string &text, int x, int y);
-	SDL_Rect drawText(const std::string &text, int y);
+	SDL_Rect drawText(TTF_Font *font, const std::string &text, int y);
+
 	void drawRect(SDL_Rect rect);
 	void drawTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, int w, int h);
 	void drawTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y);
 	void drawTexture(SDL_Texture *tex, SDL_Rect rect);
 	void drawTexture(SDL_Texture *tex, SDL_Rect rect, SDL_RendererFlip flip);
 	void drawTexture(SDL_Texture *tex, SDL_Rect rect, SDL_Rect add, SDL_RendererFlip flip);
-	void setXOffset(int offset);
-	std::vector<SDL_Rect> drawMenu();
 	void drawGameOverScreen();
+
+	std::vector<SDL_Rect> drawMenu();
+
+	void setXOffset(int offset);
 
   private:
 	SDL_Window *window;
 	SDL_Renderer *renderer;
 	TTF_Font *font;
+	TTF_Font *fontMenu;
 	int xOffset = 0;
 };
 

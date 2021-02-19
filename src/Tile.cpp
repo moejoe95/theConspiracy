@@ -56,6 +56,11 @@ const std::vector<SDL_Rect> Tile::getBoundingBoxes() {
 	return boundingBoxes;
 }
 
+void Tile::resetBoundingBox() {
+	boundingBox.w = 0;
+	boundingBox.h = 0;
+}
+
 int Tile::demageValue() {
 	return demageIntValue;
 }

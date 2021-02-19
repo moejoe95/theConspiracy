@@ -20,18 +20,20 @@ class Game {
 	Game();
 
 	bool renderGame();
-
 	void renderClear();
-
 	void renderUpdate();
 
 	Renderer &getRenderer();
-
 	CollisionManager &getCollisionManager();
-
 	SoundManager &getSoundManager();
 
   private:
+	int dispatchEvents();
+	void reload();
+	void reset();
+	void deleteState();
+	void initEnemies();
+
 	std::unique_ptr<Renderer> renderer;
 	std::unique_ptr<CollisionManager> collisionManager;
 	std::unique_ptr<SoundManager> soundManager;
@@ -39,16 +41,11 @@ class Game {
 	std::unique_ptr<Player> player;
 
 	std::vector<Enemy> enemies;
+
 	bool showMenu = true;
 	bool success = false;
 	bool gameStart = true;
 	int gameOverSreenTime = 50;
-
-	int dispatchEvents();
-	void reload();
-	void reset();
-	void deleteState();
-	void initEnemies();
 };
 
 Game &game();

@@ -46,14 +46,12 @@ SDL_Rect CollisionManager::checkCollision(RenderObject *currentObj, const SDL_Re
 				if (p && t && t->health() > 0) {
 					p->addLife(t->health());
 					t->resetHealth();
-					t->boundingBox.w = 0;
-					t->boundingBox.h = 0;
+					t->resetBoundingBox();
 					game().getSoundManager().playCollectHealthSound();
 				} else if (p && t && t->ammo() > 0) { // refill ammo and remove box
 					p->addAmmo(t->ammo());
 					t->resetAmmo();
-					t->boundingBox.w = 0;
-					t->boundingBox.h = 0;
+					t->resetBoundingBox();
 					game().getSoundManager().playReloadGun();
 				}
 

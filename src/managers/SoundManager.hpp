@@ -9,6 +9,7 @@ class SoundManager {
   public:
 	SoundManager();
 	~SoundManager();
+
 	void playBackgroundSound();
 	void playBackground2Sound();
 	void playGunSound();
@@ -22,7 +23,6 @@ class SoundManager {
 	void play(int channel, Mix_Chunk *sound, int times);
 	Mix_Chunk *initialize(const std::string &wav);
 
-	bool soundOn;
 	Mix_Chunk *gunShot;
 	Mix_Chunk *background;
 	Mix_Chunk *background2;
@@ -31,6 +31,8 @@ class SoundManager {
 	Mix_Chunk *collectAmmo;
 	Mix_Chunk *success;
 	Mix_Chunk *win;
+
+	bool soundOn;
 };
 
 #endif // SOUNG_MANAGER_HPP

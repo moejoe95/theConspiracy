@@ -20,11 +20,10 @@ class Enemy : public Entity {
 	void render() override;
 	int demageValue() override;
 	bool visible() override;
+
 	void renderHurt();
 	void revive();
 
-	int steps = 0;
-	int sleep = 0;
 	static int count;
 
   private:
@@ -34,13 +33,17 @@ class Enemy : public Entity {
 	void renderGranadeThrow();
 	void renderGranade();
 
+	std::vector<SDL_Texture *> granadeThrowTextures;
+	SDL_Texture *granadeTexture;
+
+	int steps = 0;
+	int sleep = 0;
+
 	bool isVisible = true;
 	bool isBoss = false;
 
 	int granadeAnimSize = 0;
 	int currentGranadeIdx = -1;
-	std::vector<SDL_Texture *> granadeThrowTextures;
-	SDL_Texture *granadeTexture;
 };
 
 #endif // ENEMY_HPP
