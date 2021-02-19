@@ -118,9 +118,9 @@
         },
         "map3.tmx": {
             "scale": 0.5,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 1378,
+                "x": 440,
                 "y": 111
             }
         },

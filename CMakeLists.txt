@@ -15,7 +15,7 @@ INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_BUILD_TYPE Debug) # change to release
+set(CMAKE_BUILD_TYPE Release) 
 
 set(SOURCE_FILES 
     src/main.cpp 
@@ -33,9 +33,9 @@ set(SOURCE_FILES
     src/managers/SoundManager.cpp)
 
 # shows errors of tileson header-only lib
-# set_source_files_properties(${SOURCE_FILES}
-#     PROPERTIES
-#     COMPILE_FLAGS  "-Wall")
+set_source_files_properties(${SOURCE_FILES}
+    PROPERTIES
+    COMPILE_FLAGS  "-Wall")
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 

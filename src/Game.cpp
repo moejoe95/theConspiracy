@@ -160,8 +160,8 @@ void Game::initEnemies() {
 }
 
 void Game::reset() {
-	player.get()->reset(room.get()->playerStart);
 	room.get()->reset();
+	player.get()->reset(room.get()->playerStart);
 	initEnemies();
 	deleteState();
 }

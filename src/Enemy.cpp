@@ -26,6 +26,9 @@ Enemy::Enemy(std::array<int, 2> position, bool isBoss) : isBoss(isBoss) {
 	granadeAnimSize = 16;
 	ammo = 100;
 
+	if (isBoss)
+		life = 200;
+
 	drawBoundingBox = getArg<bool>("drawBoundingBox");
 	spdlog::info(drawBoundingBox);
 
@@ -166,6 +169,8 @@ void Enemy::render() {
 void Enemy::revive() {
 	isAlive = true;
 	life = 100;
+	if (isBoss)
+		life = 200;
 	ammo = 100;
 	isVisible = true;
 	startShoot = false;

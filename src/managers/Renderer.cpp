@@ -6,6 +6,8 @@
 #include <spdlog/spdlog.h>
 
 Renderer::Renderer() {
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
+		throw SDLException("SDL_Init failed.");
 	window = SDL_CreateWindow("the conspiracy", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH,
 	                          SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (!window)
@@ -38,6 +40,7 @@ Renderer::~Renderer() {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	IMG_Quit();
+	SDL_Quit();
 }
 
 void Renderer::clear() {

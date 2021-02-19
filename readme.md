@@ -1,6 +1,6 @@
 # theConspiracy
 
-theConspiracy is a simple 2D metroidvania-style game written in C++.
+This is a simple 2D metroidvania-style game written in C++.
 
 This project is done as the second assignment for the course *703807 Advanced C++ programming* at UIBK. 
 The project follows loosely the specification given [here](https://git.uibk.ac.at/c7031162/703807-advanced-cxx/blob/master/assignment2/metroidvania_specification.md). A customized specification is given in the [specifications](specification.md) file.
@@ -33,17 +33,16 @@ Some settings can be configured in 'settings.ini'.
 ## Known Issues
 
 - bounding box of character is to large
-- valgrind shows *possible losts*
+- enemy AI is very naive, and does not make decision based on the player movement
 
 ## Future work
 
 Some proposals for future work:
 
-[ ] make menu keyboard-usable
-[ ] dead enemies should be visible longer
-[ ] make player immune a short time after demaged
-[ ] limit hit-rate of player
-[ ] improve demage value calculation (using stats)
+- improve enemy AI
+- add more rooms (a second area)
+- improve demage value calculation (using stats)
+- use different enemy character for boss
 
 ## Acknowledgements
 

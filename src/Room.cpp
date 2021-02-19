@@ -21,9 +21,6 @@ Room::Room() {
 	maps.push_back("map3.json");
 
 	spdlog::info("room initalized");
-
-	// parse first map
-	parseMap();
 }
 
 void Room::parseMap() {
@@ -40,9 +37,6 @@ void Room::parseMap() {
 	goalX = map->get<int>("goal");
 	savePointX = map->get<int>("savepoint");
 
-	for (auto &t : tiles) {
-		game().getCollisionManager().deregisterObject(&t);
-	}
 	tiles.clear();
 	enemyPositions.clear();
 

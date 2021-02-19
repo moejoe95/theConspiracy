@@ -4,16 +4,16 @@ The project follows loosely the specification given [here](https://git.uibk.ac.a
 
 ## Description
 
-Aim of this project is a simple 2D metroidvania-like game. It takes place in an post-apocalyptic world. The character makes progress by moving to the right and defeating enemies through his way. In the final room a boss-enemy, capable of a special attack, waits. 
+Aim of this project is a simple 2D metroidvania-like game. It takes place in an post-apocalyptic world. The character makes progress by moving to the right and defeating enemies throughout his way. In the final room a boss-enemy, capable of a special attack, waits. 
 
 
 The game launches in the main menu. The menu includes 3 options: *continue*, *new game*, and *exit*. While inside the game, the player can get to the main menu by pressing `ESC` or `Q`. Note that the menu is only usable with the mouse.
 
-At the beginning of each room the state of the game is saved. If the save point is passed, a message is displayed at the top right corner. If the state was saved, the player can escape the game and continue with the previous state by pressing *continue* in the main menu. The previous saved state is discarded once a new game is started.
+At the beginning of each room the state of the game is saved. If the save point is passed, a message is displayed in the top right corner. If the state was saved, the player can escape the game and continue with the previous state by pressing *continue* in the main menu. The previous saved state is discarded once a new game is started.
 
 The player moves around with the keys `wasd`, and is able to fire his gun with `space`. Once a enemy gets hit, it starts to fire back. The time between its attack is randomized. If it is capable of more than one attack (only the boss), the action selection is also done randomly. Enemies do also harm when they are in direct contact to the player.
 
-Not only enemies can do demage, also special objects in the environment: the lava floor and spikes. Additionally there are two special objects that can be picked up from the environment: health and ammo boxes to refill the life and ammo score.
+Not only enemies can do damage, also special objects in the environment: the lava floor and spikes. Additionally, there are two special objects that can be picked up from the environment: health and ammo boxes to refill life and ammo.
 
 Inside the game a very simple HUD menu in the top left corner displays life and ammo stats.
 
@@ -24,7 +24,7 @@ The game ends if either: the player dies, or the player is able to beat the fina
 
 ## Goals
 
-The proposed shortcuts for the goals defined in the specification are: no advanced movement mechanics, no maps, and less rooms. Other goals are adjusted and re-weighted as follows:
+The proposed shortcuts for the goals defined in the specification are: no advanced movement mechanics, no maps, and fewer rooms. Other goals are adjusted and re-weighted as follows:
 
 - (2) 3 consecutive rooms with:
     - each with its own design
@@ -37,7 +37,7 @@ The proposed shortcuts for the goals defined in the specification are: no advanc
     
 - (1) interactions with environment
     - collecting game entities (health/ammo boxes)
-    - static obstacles that cause demage (lava, spikes)
+    - static obstacles that cause damage (lava, spikes)
   
 - (1) dedicated save points
     - state is saved at the beginning of each room (except first room)
@@ -51,10 +51,10 @@ The proposed shortcuts for the goals defined in the specification are: no advanc
 - (1) enemies
     - attack the player character as it gets in range
     - range based attacks
-    - direct contact causes demage
+    - direct contact causes damage
 
 - (1) boss
-    - capable of special attack (throw granade)
+    - capable of special attack (throw grenade)
 
 - (1) sound effects
     - default background sound

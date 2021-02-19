@@ -15,10 +15,6 @@ int main(int argc, char *argv[]) {
 
 	setLogLevel();
 
-	// init SDL
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0)
-		throw SDLException("SDL_Init failed.");
-
 	// init game
 	Game game{};
 
@@ -37,9 +33,6 @@ int main(int argc, char *argv[]) {
 
 		game.renderUpdate();
 	}
-
-	// destroy SDL
-	SDL_Quit();
 
 	spdlog::info("quit game");
 
