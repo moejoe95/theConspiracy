@@ -36,6 +36,7 @@ void CollisionManager::pickUpLife(RenderObject *player, RenderObject *tile) {
 		t->resetHealth();
 		t->resetBoundingBox();
 		game().getSoundManager().playCollectHealthSound();
+		spdlog::info("pick up life box");
 	}
 }
 
@@ -48,6 +49,7 @@ void CollisionManager::pickUpAmmo(RenderObject *player, RenderObject *tile) {
 		t->resetAmmo();
 		t->resetBoundingBox();
 		game().getSoundManager().playReloadGun();
+		spdlog::info("pick up life ammo box");
 	}
 }
 

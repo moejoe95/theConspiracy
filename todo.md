@@ -25,12 +25,12 @@
 [x] increase font size in menu
 [x] check build with Wall
 [x] set default settings
-[ ] check for memory leaks with valgrind
 [x] refactor naming of members, getters, setters
-[ ] coharent use of logger/log levels
+[x] coharent use of logger/log levels
 [ ] rename root folder
 [ ] change build type to release
 [ ] update known issues section in readme  
+[ ] check for memory leaks with valgrind
 
 
 ## future work

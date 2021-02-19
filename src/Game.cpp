@@ -176,7 +176,8 @@ void Game::deleteState() {
 void Game::reload() {
 	player.get()->load();
 	room.get()->load();
-	room.get()->parseMap();
+	if (room.get()->getCurrentMapIdx() > 1)
+		room.get()->parseMap();
 	initEnemies();
 }
 

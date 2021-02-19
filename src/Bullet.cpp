@@ -27,7 +27,7 @@ Bullet::Bullet(int x, int y, SDL_RendererFlip flip, SDL_Texture *texture, bool g
 		explodeTextures.push_back(game().getRenderer().loadTexture(explodePath + std::to_string(i + 1) + PNG));
 	}
 
-	spdlog::debug(id + " constructed");
+	spdlog::debug("initialize bullet " + id);
 }
 
 void Bullet::render() {

@@ -153,3 +153,7 @@ bool Room::nextRoom() {
 	parseMap();
 	return false;
 }
+
+int Room::getCurrentMapIdx() {
+	return currentMapIdx;
+}

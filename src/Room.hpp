@@ -27,6 +27,7 @@ class Room {
 
 	bool nextRoom();
 	void reset();
+	int getCurrentMapIdx();
 
 	std::vector<std::array<int, 2>> getEnemyPositions();
 	std::array<int, 2> getBossPosition();

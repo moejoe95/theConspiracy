@@ -1,6 +1,7 @@
 #include "SoundManager.hpp"
 #include "../utils/SDLException.hpp"
 #include "../utils/Utils.hpp"
+#include <spdlog/spdlog.h>
 #include <string>
 
 SoundManager::SoundManager() {
@@ -15,6 +16,8 @@ SoundManager::SoundManager() {
 	collectHealth = initialize("collect_health.wav");
 	success = initialize("success.wav");
 	win = initialize("win.wav");
+
+	spdlog::info("sound manager initialized");
 }
 
 Mix_Chunk *SoundManager::initialize(const std::string &wav) {

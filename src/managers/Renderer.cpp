@@ -32,7 +32,6 @@ Renderer::Renderer() {
 Renderer::~Renderer() {
 	TTF_CloseFont(font);
 	TTF_CloseFont(fontMenu);
-	spdlog::debug("destroy window");
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	IMG_Quit();

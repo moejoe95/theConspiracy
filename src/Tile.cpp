@@ -1,6 +1,7 @@
 #include "Tile.hpp"
 #include "Game.hpp"
 #include "utils/Utils.hpp"
+#include <spdlog/spdlog.h>
 
 int Tile::count = 0;
 
@@ -30,6 +31,8 @@ Tile::Tile(tson::TileObject tileObject, std::string layer) {
 	isCollisionable = layer == "main" ? true : false;
 
 	drawBoundingBox = getArg<bool>("drawBoundingBox");
+
+	spdlog::debug("initialize tile " + id);
 }
 
 Tile::~Tile() {
