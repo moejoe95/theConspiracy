@@ -26,13 +26,13 @@ int main(int argc, char *argv[]) {
 	// init game
 	Game game{};
 
+	spdlog::info("start game");
 	// game loop
-	bool render = true;
-	while (render) {
+	while (!game.isExit()) {
 		game.renderClear();
 
 		unsigned int renderStart = SDL_GetTicks();
-		render = game.renderGame();
+		game.renderGame();
 
 		unsigned int frameTime = SDL_GetTicks() - renderStart;
 		if (frameTime < 30) {

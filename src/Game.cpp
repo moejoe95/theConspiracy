@@ -38,16 +38,6 @@ Game::Game()
 	spdlog::info("new game initalized");
 }
 
-void Game::initEnemies() {
-	enemies.clear();
-	enemies.reserve(room.get()->getEnemyPositions().size() + 1);
-	for (auto enemyPos : room.get()->getEnemyPositions()) {
-		enemies.emplace_back(enemyPos, false);
-	}
-	if (room.get()->hasBoss())
-		enemies.emplace_back(room.get()->getBossPosition(), true);
-}
-
 Renderer &Game::getRenderer() {
 	return *renderer;
 }
@@ -60,56 +50,12 @@ SoundManager &Game::getSoundManager() {
 	return *soundManager;
 }
 
-void Game::reset() {
-	player.get()->reset(room.get()->playerStart);
-	room.get()->reset();
-	for (auto &enemy : enemies) {
-		enemy.revive();
-	}
-	deleteState();
-}
-
-void Game::deleteState() {
-	player.get()->remove();
-	room.get()->remove();
-}
-
-void Game::reload() {
-	player.get()->load();
-	room.get()->load();
-	room.get()->parseMap();
-	initEnemies();
-}
-
-void Game::renderClear() {
-	renderer->clear();
-}
-
-void Game::renderUpdate() {
-	renderer->update();
-}
-
-bool Game::renderGame() {
+void Game::renderGame() {
 
 	int button = dispatchEvents();
-
-	if (button >= 0 || showMenu) {
-		renderer->drawMenu();
-		if (button < 1) { // continue
-			return true;
-		}
-		if (button == 1) { // new game
-			reset();
-		} else if (button == 2) // exit game
-			return false;
-	}
-
-	if (button < 1 && gameStart) {
-		reload();
-		gameStart = false;
-	} else if (button == 1) {
-		gameStart = false;
-		room.get()->resetSavePoint();
+	if (showMenu) {
+		menu(button);
+		return;
 	}
 
 	if (!player.get()->isAlive) {
@@ -121,7 +67,7 @@ bool Game::renderGame() {
 			if (!success)
 				soundManager.get()->playGameOverSound();
 		}
-		return true;
+		return;
 	}
 
 	// render
@@ -164,8 +110,73 @@ bool Game::renderGame() {
 		text = "Ammo: " + std::to_string(player.get()->getAmmo());
 		renderer->drawText(text, 0, 20);
 	}
+}
 
-	return true;
+void Game::menu(int button) {
+
+	renderer->drawMenu();
+
+	if (button == -1) {
+		return;
+	} else if (button == 1) { // new game
+		reset();
+	} else if (button == 2) { // exit game
+		exit = true;
+		return;
+	}
+
+	showMenu = false;
+
+	if (button < 1 && gameStart) {
+		reload();
+		gameStart = false;
+	} else if (button == 1) {
+		gameStart = false;
+		room.get()->resetSavePoint();
+	}
+}
+
+void Game::initEnemies() {
+	enemies.clear();
+	enemies.reserve(room.get()->getEnemyPositions().size() + 1);
+	for (auto enemyPos : room.get()->getEnemyPositions()) {
+		enemies.emplace_back(enemyPos, false);
+	}
+	if (room.get()->hasBoss())
+		enemies.emplace_back(room.get()->getBossPosition(), true);
+}
+
+void Game::reset() {
+	player.get()->reset(room.get()->playerStart);
+	room.get()->reset();
+	for (auto &enemy : enemies) {
+		enemy.revive();
+	}
+	deleteState();
+}
+
+void Game::deleteState() {
+	player.get()->remove();
+	room.get()->remove();
+}
+
+void Game::reload() {
+	player.get()->load();
+	room.get()->load();
+	room.get()->parseMap();
+	initEnemies();
+}
+
+void Game::renderClear() {
+	renderer->clear();
+}
+
+void Game::renderUpdate() {
+	renderer->update();
+}
+
+bool Game::isExit() {
+	return exit;
 }
 
 int Game::dispatchEvents() {
@@ -200,7 +211,6 @@ int Game::dispatchEvents() {
 					const SDL_Point constMouse = mouse;
 					if (SDL_PointInRect(&constMouse, &buttons[i])) {
 						keyCode = i;
-						showMenu = false;
 					}
 					++i;
 				}

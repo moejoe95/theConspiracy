@@ -19,7 +19,8 @@ class Game {
   public:
 	Game();
 
-	bool renderGame();
+	void renderGame();
+	bool isExit();
 	void renderClear();
 	void renderUpdate();
 
@@ -33,6 +34,7 @@ class Game {
 	void reset();
 	void deleteState();
 	void initEnemies();
+	void menu(int button);
 
 	std::unique_ptr<Renderer> renderer;
 	std::unique_ptr<CollisionManager> collisionManager;
@@ -43,8 +45,9 @@ class Game {
 	std::vector<Enemy> enemies;
 
 	bool showMenu = true;
-	bool success = false;
 	bool gameStart = true;
+	bool exit = false;
+	bool success = false;
 	int gameOverSreenTime = 50;
 };
 
