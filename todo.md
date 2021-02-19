@@ -18,7 +18,6 @@
 [x] avoid player running off screen
 [x] write specification of game
 [x] adjust audio levels
-[ ] improve demage value calculation (using stats)
 
 
 ## before hand-in
@@ -32,11 +31,3 @@
 [ ] change build type to release
 [ ] update known issues section in readme  
 [ ] check for memory leaks with valgrind
-
-
-## future work
-
-[ ] make menu keyboard-usable
-[ ] dead enemies should be visible longer
-[ ] make player immune a short time after demaged
-[ ] limit hit-rate of player

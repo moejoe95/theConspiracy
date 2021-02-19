@@ -162,9 +162,7 @@ void Game::initEnemies() {
 void Game::reset() {
 	player.get()->reset(room.get()->playerStart);
 	room.get()->reset();
-	for (auto &enemy : enemies) {
-		enemy.revive();
-	}
+	initEnemies();
 	deleteState();
 }
 

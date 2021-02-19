@@ -33,6 +33,17 @@ Some settings can be configured in 'settings.ini'.
 ## Known Issues
 
 - bounding box of character is to large
+- valgrind shows *possible losts*
+
+## Future work
+
+Some proposals for future work:
+
+[ ] make menu keyboard-usable
+[ ] dead enemies should be visible longer
+[ ] make player immune a short time after demaged
+[ ] limit hit-rate of player
+[ ] improve demage value calculation (using stats)
 
 ## Acknowledgements
 
